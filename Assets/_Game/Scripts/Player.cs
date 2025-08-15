@@ -4,8 +4,8 @@ namespace BlockoutRoguelike
 {
     public class Player
     {
-        private static int _hp = 20;
-        private static int _maxHp = 20;
+        private static int _hp = 30;
+        private static int _maxHp = 30;
         private static int _attack = 3;
         private static int _bottle = 0;
         public static int HP => _hp;
