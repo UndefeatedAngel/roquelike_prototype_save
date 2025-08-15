@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1996149402408313811
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4549158366620320770}
+  - component: {fileID: 3100914665029884765}
+  m_Layer: 0
+  m_Name: GenerateMainObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4549158366620320770
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1996149402408313811}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.9659258, z: -0, w: 0.2588191}
+  m_LocalPosition: {x: -21.61, y: 0, z: 5.34}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 150, z: 0}
+--- !u!114 &3100914665029884765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1996149402408313811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83544387538e40108f51ae484e4aa8cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _parent: {fileID: 4549158366620320770}
+  _objects:
+  - Prefab: {fileID: 8724091423219708583, guid: 35ef7368959510f45bf8e6078fb98b42, type: 3}
+    Weight: 1
+  - Prefab: {fileID: 3346718334041047434, guid: e0c99175752e7764cacca1a8eda79fb1, type: 3}
+    Weight: 1
+  - Prefab: {fileID: 6274054720170289849, guid: 06c92c00b62a9144b81285dfae991123, type: 3}
+    Weight: 1
+  - Prefab: {fileID: 6566346764832116435, guid: ee52efc4d2dc3ba41ab34e9a702a6292, type: 3}
+    Weight: 1
+  - Prefab: {fileID: 3339903845503804445, guid: 3207827f5b50d9d418d62dfe57928923, type: 3}
+    Weight: 1
+  - Prefab: {fileID: 7900197552386236531, guid: bebd13be291b498419b5fa629aac2e21, type: 3}
+    Weight: 1
