@@ -46,8 +46,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _parent: {fileID: 4549158366620320770}
   _objects:
-  - Prefab: {fileID: 8724091423219708583, guid: 35ef7368959510f45bf8e6078fb98b42, type: 3}
-    Weight: 1
   - Prefab: {fileID: 3346718334041047434, guid: e0c99175752e7764cacca1a8eda79fb1, type: 3}
     Weight: 1
   - Prefab: {fileID: 6274054720170289849, guid: 06c92c00b62a9144b81285dfae991123, type: 3}
