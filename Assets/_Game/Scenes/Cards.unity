@@ -2078,7 +2078,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cardDatabase:
   - CardPrefab: {fileID: 5028741940603929030, guid: ca033b233597d664a84a6cbf7008970a, type: 3}
-    Weight: 2
+    Weight: 1
   - CardPrefab: {fileID: 4199526814039429372, guid: a9962f9173e437241862decb3c07c354, type: 3}
     Weight: 1
   - CardPrefab: {fileID: 4974370435998545004, guid: 86936294df2a7c04393efb6cdceab51a, type: 3}
@@ -2086,7 +2086,7 @@ MonoBehaviour:
   - CardPrefab: {fileID: 2664814345202285784, guid: 649c49fcba31a3e478ea0df99375fa21, type: 3}
     Weight: 1
   _parentCards: {fileID: 167291520}
-  _countCreate: 10
+  _countCreate: 6
   _horizontalLayoutGroup: {fileID: 167291524}
 --- !u!1 &615747718
 GameObject:
