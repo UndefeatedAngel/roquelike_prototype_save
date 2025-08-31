@@ -1,3 +1,4 @@
 *.fbx[[:space:]]*.psd[[:space:]]*.mp4[[:space:]]*.zip[[:space:]]bin/*.dll filter=lfs diff=lfs merge=lfs -text
 *.tif[[:space:]]*.fbx[[:space:]]*.psd[[:space:]]*.mp4[[:space:]]*.zip[[:space:]]bin/*.dll filter=lfs diff=lfs merge=lfs -text
 *.tif filter=lfs diff=lfs merge=lfs -text
+*.fbx filter=lfs diff=lfs merge=lfs -text

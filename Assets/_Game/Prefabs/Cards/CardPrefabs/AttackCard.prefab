@@ -357,6 +357,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6861383605427269339, guid: 3664cc678041aa94c91e834feb963009, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6861383605427269339, guid: 3664cc678041aa94c91e834feb963009, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -395,6 +399,22 @@ PrefabInstance:
     - target: {fileID: 7148124633636425141, guid: 3664cc678041aa94c91e834feb963009, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7829916538466743065, guid: 3664cc678041aa94c91e834feb963009, type: 3}
+      propertyPath: _cardName
+      value: Attacker
+      objectReference: {fileID: 0}
+    - target: {fileID: 7829916538466743065, guid: 3664cc678041aa94c91e834feb963009, type: 3}
+      propertyPath: _colorBackground.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7829916538466743065, guid: 3664cc678041aa94c91e834feb963009, type: 3}
+      propertyPath: _colorBackground.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7829916538466743065, guid: 3664cc678041aa94c91e834feb963009, type: 3}
+      propertyPath: _colorBackground.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7919691581547730225, guid: 3664cc678041aa94c91e834feb963009, type: 3}
       propertyPath: m_AnchorMax.y

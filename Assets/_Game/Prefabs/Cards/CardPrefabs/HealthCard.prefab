@@ -144,6 +144,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2848922073588398525, guid: 3664cc678041aa94c91e834feb963009, type: 3}
+      propertyPath: _numberCard
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2921757665889404297, guid: 3664cc678041aa94c91e834feb963009, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -358,11 +362,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6861383605427269339, guid: 3664cc678041aa94c91e834feb963009, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9915888
-      objectReference: {fileID: 0}
-    - target: {fileID: 6861383605427269339, guid: 3664cc678041aa94c91e834feb963009, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.12942827
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6861383605427269339, guid: 3664cc678041aa94c91e834feb963009, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -408,6 +408,26 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 61cdc6e241b3a6e41921254d097c77b7, type: 3}
+    - target: {fileID: 7829916538466743065, guid: 3664cc678041aa94c91e834feb963009, type: 3}
+      propertyPath: _cardName
+      value: Health
+      objectReference: {fileID: 0}
+    - target: {fileID: 7829916538466743065, guid: 3664cc678041aa94c91e834feb963009, type: 3}
+      propertyPath: _numberCard
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7829916538466743065, guid: 3664cc678041aa94c91e834feb963009, type: 3}
+      propertyPath: _colorBackground.b
+      value: 0.015686275
+      objectReference: {fileID: 0}
+    - target: {fileID: 7829916538466743065, guid: 3664cc678041aa94c91e834feb963009, type: 3}
+      propertyPath: _colorBackground.g
+      value: 0.47058824
+      objectReference: {fileID: 0}
+    - target: {fileID: 7829916538466743065, guid: 3664cc678041aa94c91e834feb963009, type: 3}
+      propertyPath: _colorBackground.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7919691581547730225, guid: 3664cc678041aa94c91e834feb963009, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
