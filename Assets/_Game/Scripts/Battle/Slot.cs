@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using BlockoutRoguelike.Cards.Mobs;
+using UnityEngine;
 
 namespace BlockoutRoguelike.Cards
 {
@@ -6,5 +7,7 @@ namespace BlockoutRoguelike.Cards
     {
         public int Team;
         public int NumberSlot;
+
+        public MobUI ActiveMob;
     }
 }

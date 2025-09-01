@@ -11,15 +11,34 @@ namespace BlockoutRoguelike.Cards.Mobs
         [SerializeField] private TMP_Text _hpText;
         [SerializeField] private TMP_Text _attackText;
         [SerializeField] private TMP_Text _protectionText;
+        
+        public int Attack { get; private set; }
+        public int Hp { get; private set; }
+        public int Protection { get; private set; }
 
         private CardData _cardData;
         public void SetMob(string nameText, CardData cardData)
         {
             _cardData = _cardData;
+
+            Attack = cardData.Attack;
+            Hp = cardData.Health;
+            Protection = cardData.Protection;
+            
             _nameText.text = nameText;
             _hpText.text = cardData.Health.ToString();
             _attackText.text = cardData.Attack.ToString();
             _protectionText.text = cardData.Protection.ToString();
+        }
+
+        public void AddHp(int amount)
+        {
+            Hp += amount;
+            if (Hp < 1)
+            {
+                Hp = 0;
+            }
+            _hpText.text = Hp.ToString();
         }
     }
 }

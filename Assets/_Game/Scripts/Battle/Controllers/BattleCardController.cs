@@ -24,6 +24,7 @@ namespace BlockoutRoguelike.Battle.Controllers
         [SerializeField] private PlayerDeckController _playerDeckController;
         [SerializeField] private EnemyDeckController _enemyDeckController;
         [SerializeField] private InputController _inputController;
+        [SerializeField] private StateMachineController _stateMachineController;
 
         private float _timeAnimation = 0.5f;
         //Player
@@ -34,6 +35,7 @@ namespace BlockoutRoguelike.Battle.Controllers
         private IEnumerator Start()
         {
             _playerDeckController.Init();
+            _enemyDeckController.Init();
             yield return new WaitForSeconds(0.5f);
             FlyCardToPlayer();
             yield return new WaitForSeconds(_timeAnimation);
@@ -47,6 +49,14 @@ namespace BlockoutRoguelike.Battle.Controllers
             };
 
             SetupSlots();
+            _stateMachineController.Setup(moveType =>
+            {
+                if (moveType == 1)
+                {
+                    _enemyDeckController.Move();
+                    _stateMachineController.EndMove();
+                }
+            });
         }
         
         private void FlyCardToPlayer()
@@ -68,11 +78,24 @@ namespace BlockoutRoguelike.Battle.Controllers
         private void AddCardToSlot(CardUI cardUI, Slot slot)
         {
             if (slot.Team != 0) return;
+            if (slot.ActiveMob != null) return;
 
             var prefabMob = _playerMobPrefabs[cardUI.NumberCard];
             var mob = Instantiate(prefabMob, slot.transform);
-            mob.GetComponent<MobUI>().SetMob("Bot", cardUI.CardData);
+            var mobUI = mob.GetComponent<MobUI>();
+            mobUI.SetMob("PlayerMob", cardUI.CardData);
+            slot.ActiveMob = mobUI;
             DestroyImmediate(cardUI.GetComponentInParent<RectTransform>().gameObject);
+            StartCoroutine(EnableLayoutGroup());
+        }
+        
+        private IEnumerator EnableLayoutGroup()
+        {
+            yield return new WaitForEndOfFrame();
+            if (_cardPlayerHorizontalLayoutGroup != null)
+            {
+                _cardPlayerHorizontalLayoutGroup.enabled = true;
+            }
         }
     }
 }
