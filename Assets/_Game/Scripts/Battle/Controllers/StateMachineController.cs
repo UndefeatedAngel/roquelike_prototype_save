@@ -68,6 +68,8 @@ namespace BlockoutRoguelike.Battle.Controllers
                 }
             }
 
+            if (_enemy.CurrentHp < 1) yield break;
+            
             _currentMoveType = 1;
             _movesButtonText.text = "Enemy move";
             _nextMoveAction?.Invoke(_currentMoveType);
@@ -78,13 +80,14 @@ namespace BlockoutRoguelike.Battle.Controllers
             var mob1 = slot1.ActiveMob;
             var mob2 = slot2.ActiveMob;
             var defaultPos = mob1.transform.position;
+            mob1.AttackAnimation();
             mob1.transform.DOMove(mob2.transform.position, 0.5f).OnComplete(() =>
             {
                 mob2.AddHp(-mob1.Attack);
                 if (mob2.Hp < 1)
                 {
+                    slot2.ActiveMob.RemoveMob();
                     slot2.ActiveMob = null;
-                    DestroyImmediate(mob2.gameObject);
                 }
                 mob1.transform.DOMove(defaultPos, 0.5f);
             });
@@ -93,6 +96,8 @@ namespace BlockoutRoguelike.Battle.Controllers
         private void AttackEnemy(Slot playerSlot)
         {
             var mob = playerSlot.ActiveMob;
+            if (_enemy.CurrentHp < 1) return;
+            mob.AttackAnimation();
             var defaultPos = mob.transform.position;
             mob.transform.DOMove(_enemy.PersonTransform.position, 0.5f).OnComplete(() =>
             {
@@ -105,6 +110,8 @@ namespace BlockoutRoguelike.Battle.Controllers
         private void AttackPlayer(Slot enemySlot)
         {
             var mob = enemySlot.ActiveMob;
+            if (_player.CurrentHp < 1) return;
+            mob.AttackAnimation();
             var defaultPos = mob.transform.position;
             mob.transform.DOMove(_player.PersonTransform.position, 0.5f).OnComplete(() =>
             {

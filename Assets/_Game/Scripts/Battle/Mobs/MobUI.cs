@@ -1,4 +1,5 @@
-﻿using BlockoutRoguelike.Battle.Controllers;
+﻿using System.Collections;
+using BlockoutRoguelike.Battle.Controllers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,6 +12,10 @@ namespace BlockoutRoguelike.Cards.Mobs
         [SerializeField] private TMP_Text _hpText;
         [SerializeField] private TMP_Text _attackText;
         [SerializeField] private TMP_Text _protectionText;
+        [SerializeField] private Animator _animator;
+        
+        [Header("Damage")]
+        [SerializeField] private LayoutDamage _layoutDamagePrefab;
         
         public int Attack { get; private set; }
         public int Hp { get; private set; }
@@ -31,6 +36,11 @@ namespace BlockoutRoguelike.Cards.Mobs
             _protectionText.text = cardData.Protection.ToString();
         }
 
+        public void AttackAnimation()
+        {
+            _animator.SetTrigger("attack");
+        }
+
         public void AddHp(int amount)
         {
             Hp += amount;
@@ -38,7 +48,28 @@ namespace BlockoutRoguelike.Cards.Mobs
             {
                 Hp = 0;
             }
+
+            AnimateHp(amount);
             _hpText.text = Hp.ToString();
+        }
+
+        public void RemoveMob()
+        {
+            StartCoroutine(WaitRemoveMob());
+        }
+
+        public IEnumerator WaitRemoveMob()
+        {
+            _animator.SetTrigger("death");
+            yield return new WaitForSeconds(1f);
+            DestroyImmediate(gameObject);
+
+        }
+
+        private void AnimateHp(int amount)
+        {
+            var damage = Instantiate(_layoutDamagePrefab, _layoutDamagePrefab.transform.parent);
+            damage.AnimateDamage(amount);
         }
     }
 }

@@ -53,10 +53,16 @@ namespace BlockoutRoguelike.Battle.Controllers
             {
                 if (moveType == 1)
                 {
-                    _enemyDeckController.Move();
-                    _stateMachineController.EndMove();
+                    StartCoroutine(EnemyDeckMove());
                 }
             });
+        }
+
+        private IEnumerator EnemyDeckMove()
+        {
+            yield return new WaitForSeconds(1f);
+            _enemyDeckController.Move();
+            _stateMachineController.EndMove();
         }
         
         private void FlyCardToPlayer()

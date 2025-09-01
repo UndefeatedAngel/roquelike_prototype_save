@@ -5,6 +5,7 @@ namespace BlockoutRoguelike.Cards.Person
 {
     public class BasePerson: MonoBehaviour
     {
+        [SerializeField] private Animator _animator;
         [SerializeField] private Transform _personTransform;
         [SerializeField] protected int _maxHp;
         [SerializeField] protected Image _hpImage;
@@ -26,10 +27,13 @@ namespace BlockoutRoguelike.Cards.Person
 
         public void AddHp(int amount)
         {
+            if (currentHp < 1) return;
+            
             currentHp += amount;
-            if (currentHp < 0)
+            if (currentHp < 1)
             {
-                return;
+                currentHp = 0;
+                _animator.SetTrigger("death");
             }
             UpdateHp(currentHp);
         }
