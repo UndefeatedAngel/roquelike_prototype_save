@@ -36,14 +36,16 @@ namespace BlockoutRoguelike.Battle.Controllers
 
         public void Move()
         {
-            var mobData = _deckStack.Pop();
-            var prefab = _prefabsDataBase.FirstOrDefault(x => x.CardType == mobData.CardType);
-            if (prefab == null) return;
+            if (_deckStack.Count < 1) return;
             
             foreach (var enemySlot in _enemySlots)
             {
                 if (enemySlot.ActiveMob == null)
                 {
+                    var mobData = _deckStack.Pop();
+                    var prefab = _prefabsDataBase.FirstOrDefault(x => x.CardType == mobData.CardType);
+                    if (prefab == null) return;
+                    
                     var mob = Instantiate(prefab.CardPrefab, enemySlot.transform);
                     enemySlot.ActiveMob = mob.GetComponent<MobUI>();
                     enemySlot.ActiveMob.SetMob("EnemyMob", mobData);
