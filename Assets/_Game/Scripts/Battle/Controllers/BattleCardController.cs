@@ -42,7 +42,7 @@ namespace BlockoutRoguelike.Battle.Controllers
             _enemyDeckController.OnDeath = type =>
             {
                 _playerStats.AddStat(type, 1);
-                _mainUI.UpdateStat(type, _playerStats.GetStat(type));
+                _mainUI.UpdateStat(type, _playerStats.GetStat(type), _enemyDeckController.GetMaxStat(type));
             };
             _enemyDeckController.OnDropCoin = rectTransform =>
             {
@@ -135,7 +135,7 @@ namespace BlockoutRoguelike.Battle.Controllers
             };
             foreach (var stat in stats)
             {
-                _mainUI.UpdateStat(stat, _playerStats.GetStat(stat));
+                _mainUI.UpdateStat(stat, _playerStats.GetStat(stat), _enemyDeckController.GetMaxStat(stat));
             }
         }
     }

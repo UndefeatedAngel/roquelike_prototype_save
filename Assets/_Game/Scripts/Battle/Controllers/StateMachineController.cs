@@ -33,7 +33,7 @@ namespace BlockoutRoguelike.Battle.Controllers
         {
             _nextMoveAction = nextMoveAction;
             _movesButton.onClick.AddListener(EndMove);
-            _movesButtonText.text = "Player move";
+            _movesButtonText.text = "В бой!";
         }
         
 
@@ -52,7 +52,7 @@ namespace BlockoutRoguelike.Battle.Controllers
         private IEnumerator PlayerMove()
         {
             _blockUI.gameObject.SetActive(true);
-            _movesButtonText.text = "Player calculate...";
+            _movesButtonText.text = "Ход игрока...";
             for (int i = 0; i < _playerSlots.Count; i++)
             {
                 var playerSlot = _playerSlots[i];
@@ -75,7 +75,7 @@ namespace BlockoutRoguelike.Battle.Controllers
             if (_enemy.CurrentHp < 1) yield break;
             
             _currentMoveType = 1;
-            _movesButtonText.text = "Enemy move";
+            _movesButtonText.text = "Ход противника...";
             _nextMoveAction?.Invoke(_currentMoveType);
         }
 
@@ -127,7 +127,6 @@ namespace BlockoutRoguelike.Battle.Controllers
         private IEnumerator EnemyMove()
         {
             yield return new WaitForSeconds(0.5f);
-            _movesButtonText.text = "Enemy calculate...";
             for (int i = 0; i < _enemySlots.Count; i++)
             {
                 var enemySlot = _enemySlots[i];
@@ -148,7 +147,7 @@ namespace BlockoutRoguelike.Battle.Controllers
             }
 
             _currentMoveType = 0;
-            _movesButtonText.text = "Player move";
+            _movesButtonText.text = "В бой!";
             _blockUI.gameObject.SetActive(false);
             _nextMoveAction?.Invoke(_currentMoveType);
         }

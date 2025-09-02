@@ -60,5 +60,9 @@ namespace BlockoutRoguelike.Battle.Controllers
             }
         }
 
+        public int GetMaxStat(PlayerCardType type)
+        {
+            return _deck.Count(x=>x.CardType == type);
+        }
     }
 }

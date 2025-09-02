@@ -3,7 +3,6 @@ using BlockoutRoguelike.Battle.Controllers;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace BlockoutRoguelike.Cards.UI
 {
@@ -21,10 +20,10 @@ namespace BlockoutRoguelike.Cards.UI
             _coinsText.text = count.ToString();
         }
         
-        public void UpdateStat(PlayerCardType type, int count)
+        public void UpdateStat(PlayerCardType type, int count, int maxCount)
         {
             var number = (int)type - 1;
-            _statsText[number].text = count.ToString();
+            _statsText[number].text = $"{count}/{maxCount}";
         }
 
         public void UpdateBlood(int count, int maxCount)

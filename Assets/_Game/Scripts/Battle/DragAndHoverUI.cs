@@ -87,7 +87,7 @@ public class DragAndHoverUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             out Vector2 localPoint
         );
         
-        offset = (Vector2)transform.localPosition - localPoint-new Vector2(0, 500);
+        offset = (Vector2)transform.localPosition - localPoint-new Vector2(0, 350);
         
         // Увеличиваем немного при перетаскивании
         transform.DOScale(originalScale * dragScale, 0.2f);
