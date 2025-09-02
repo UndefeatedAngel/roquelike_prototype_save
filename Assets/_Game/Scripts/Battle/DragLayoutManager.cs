@@ -20,7 +20,7 @@ public class DragLayoutManager : MonoBehaviour
         foreach (Transform child in transform)
         {
             DragAndHoverUI dragScript = child.GetComponent<DragAndHoverUI>();
-            if (dragScript != null)
+            if (dragScript != null && dragScript.enabled)
             {
                 dragScript.UpdateOriginalPosition();
             }

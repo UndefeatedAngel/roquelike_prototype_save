@@ -21,6 +21,9 @@ namespace BlockoutRoguelike.Battle.Controllers
 
         [SerializeField] private Button _movesButton;
         [SerializeField] private TMP_Text _movesButtonText;
+        
+        [Header("UI")]
+        [SerializeField] private GameObject _blockUI;
 
         private int _currentMoveType = 0;
 
@@ -48,6 +51,7 @@ namespace BlockoutRoguelike.Battle.Controllers
 
         private IEnumerator PlayerMove()
         {
+            _blockUI.gameObject.SetActive(true);
             _movesButtonText.text = "Player calculate...";
             for (int i = 0; i < _playerSlots.Count; i++)
             {
@@ -145,6 +149,7 @@ namespace BlockoutRoguelike.Battle.Controllers
 
             _currentMoveType = 0;
             _movesButtonText.text = "Player move";
+            _blockUI.gameObject.SetActive(false);
             _nextMoveAction?.Invoke(_currentMoveType);
         }
     }

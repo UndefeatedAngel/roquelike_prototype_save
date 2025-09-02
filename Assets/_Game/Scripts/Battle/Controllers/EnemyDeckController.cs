@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BlockoutRoguelike.Cards;
 using BlockoutRoguelike.Cards.Mobs;
@@ -19,7 +20,9 @@ namespace BlockoutRoguelike.Battle.Controllers
         
         private Stack<CardData> _deckStack = new();
 
-        
+        public Action<PlayerCardType> OnDeath;
+        public Action<RectTransform> OnDropCoin;
+         
         public void Init()
         {
             InitDeck();
@@ -47,8 +50,11 @@ namespace BlockoutRoguelike.Battle.Controllers
                     if (prefab == null) return;
                     
                     var mob = Instantiate(prefab.CardPrefab, enemySlot.transform);
-                    enemySlot.ActiveMob = mob.GetComponent<MobUI>();
-                    enemySlot.ActiveMob.SetMob("EnemyMob", mobData);
+                    var mobUI = mob.GetComponent<EnemyMobUI>();
+                    enemySlot.ActiveMob = mobUI;
+                    mobUI.SetMob("EnemyMob", mobData);
+                    mobUI.OnDeath = type => OnDeath?.Invoke(type);
+                    mobUI.OnCoinDrop = rectTransform => OnDropCoin?.Invoke(rectTransform);
                     break;
                 }
             }

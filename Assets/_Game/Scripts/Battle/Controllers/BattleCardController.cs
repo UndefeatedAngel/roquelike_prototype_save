@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using BlockoutRoguelike.Battle.Cards;
 using BlockoutRoguelike.Cards;
 using BlockoutRoguelike.Cards.Mobs;
+using BlockoutRoguelike.Cards.Person;
+using BlockoutRoguelike.Cards.UI;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,17 +27,33 @@ namespace BlockoutRoguelike.Battle.Controllers
         [SerializeField] private EnemyDeckController _enemyDeckController;
         [SerializeField] private InputController _inputController;
         [SerializeField] private StateMachineController _stateMachineController;
+        [Header("UI")] 
+        [SerializeField] private MainUI _mainUI;
 
         private float _timeAnimation = 0.5f;
-        //Player
-        //Boss
-        //PlayerSlots
-        //BossSlots
+        
+        private PlayerStats _playerStats = new();
 
         private IEnumerator Start()
         {
+            InitPlayerStats();
             _playerDeckController.Init();
             _enemyDeckController.Init();
+            _enemyDeckController.OnDeath = type =>
+            {
+                _playerStats.AddStat(type, 1);
+                _mainUI.UpdateStat(type, _playerStats.GetStat(type));
+            };
+            _enemyDeckController.OnDropCoin = rectTransform =>
+            {
+                _mainUI.FlyCoin(rectTransform, () =>
+                {
+                    _playerStats.Coins += 1;
+                    _mainUI.UpdateCoins(_playerStats.Coins);
+                    DestroyImmediate(rectTransform.GetComponentInParent<RectTransform>().gameObject);
+                });
+            };
+            
             yield return new WaitForSeconds(0.5f);
             FlyCardToPlayer();
             yield return new WaitForSeconds(_timeAnimation);
@@ -69,10 +87,13 @@ namespace BlockoutRoguelike.Battle.Controllers
         {
             var card = _playerDeckController.GetCard();
             card.DisableDeckAnimated(_timeAnimation);
+            card.GetComponent<DragAndHoverUI>().enabled = false;
             card.transform.DOJump(_cardPlayerHorizontalLayoutGroup.transform.position, 50, 1 , _timeAnimation).OnComplete(() =>
             {
                 card.transform.parent = _cardPlayerHorizontalLayoutGroup.transform;
+                card.GetComponent<DragAndHoverUI>().enabled = true;
                 card.GetComponent<DragAndHoverUI>().Setup();
+                card.transform.localScale = Vector3.one;
             });
         }
 
@@ -101,6 +122,20 @@ namespace BlockoutRoguelike.Battle.Controllers
             if (_cardPlayerHorizontalLayoutGroup != null)
             {
                 _cardPlayerHorizontalLayoutGroup.enabled = true;
+            }
+        }
+
+        private void InitPlayerStats()
+        {
+            _mainUI.UpdateCoins(_playerStats.Coins);
+            _mainUI.UpdateBlood(3,3);
+            var stats = new[]
+            {
+                PlayerCardType.Attack, PlayerCardType.Protection, PlayerCardType.Health, PlayerCardType.Mage
+            };
+            foreach (var stat in stats)
+            {
+                _mainUI.UpdateStat(stat, _playerStats.GetStat(stat));
             }
         }
     }

@@ -1,8 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using BlockoutRoguelike.Battle.Controllers;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace BlockoutRoguelike.Cards.Mobs
 {
@@ -22,9 +22,12 @@ namespace BlockoutRoguelike.Cards.Mobs
         public int Protection { get; private set; }
 
         private CardData _cardData;
+
+        public Action<PlayerCardType> OnDeath;
+        
         public void SetMob(string nameText, CardData cardData)
         {
-            _cardData = _cardData;
+            _cardData = cardData;
 
             Attack = cardData.Attack;
             Hp = cardData.Health;
@@ -41,7 +44,7 @@ namespace BlockoutRoguelike.Cards.Mobs
             _animator.SetTrigger("attack");
         }
 
-        public void AddHp(int amount)
+        public virtual void AddHp(int amount)
         {
             Hp += amount;
             if (Hp < 1)
@@ -63,7 +66,7 @@ namespace BlockoutRoguelike.Cards.Mobs
             _animator.SetTrigger("death");
             yield return new WaitForSeconds(1f);
             DestroyImmediate(gameObject);
-
+            OnDeath?.Invoke(_cardData.CardType);
         }
 
         private void AnimateHp(int amount)
