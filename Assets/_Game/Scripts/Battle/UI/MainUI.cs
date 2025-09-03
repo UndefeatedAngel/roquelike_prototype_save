@@ -33,7 +33,7 @@ namespace BlockoutRoguelike.Cards.UI
 
         public void FlyCoin(RectTransform rectTransform, Action endFly)
         {
-            rectTransform.DOJump(new Vector3(-8.5f, 1f, 5.5f), 0.5f, 1, 0.7f).OnComplete(()=>
+            rectTransform.DOJump(new Vector3(-7.4f, 2.85f, 2f), 0.25f, 1, 0.7f).OnComplete(()=>
             {
                 _coinUpAnimationTween?.Kill();
                 _coinUpAnimationTween = _coinRectTransform.DOScale(new Vector3(1.2f, 1.2f, 1.2f), 0.05f).OnComplete(() =>
