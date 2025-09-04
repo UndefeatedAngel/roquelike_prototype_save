@@ -136,6 +136,7 @@ namespace BlockoutRoguelike.Battle.Controllers
 
         private void AddCardToSlot(CardUI cardUI, Slot slot)
         {
+            if (cardUI.CardData.Blood > _playerStats.BloodCurrent) return;
             if (slot.Team != 0) return;
             if (slot.ActiveMob != null) return;
 
