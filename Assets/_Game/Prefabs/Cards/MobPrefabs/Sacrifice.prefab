@@ -654,6 +654,7 @@ MonoBehaviour:
   - {fileID: 5247159789948876454}
   - {fileID: 7527098842447985959}
   _lightObj: {fileID: 1931358911745237791}
+  _animator: {fileID: 2069789434734184378}
 --- !u!136 &6442002901810582360
 CapsuleCollider:
   m_ObjectHideFlags: 0

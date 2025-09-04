@@ -14,6 +14,7 @@ namespace BlockoutRoguelike.Cards.Mobs
         [SerializeField] private Transform[] _knifes;
         [SerializeField] private ParticleSystem[] _bloodParticles;
         [SerializeField] private GameObject _lightObj;
+        [SerializeField] private Animator _animator;
         
         private PlayerStats _playerStats;
         private int _hp = 3;
@@ -21,6 +22,8 @@ namespace BlockoutRoguelike.Cards.Mobs
         private Tweener _knifeTween;
 
         public Action OnGetBlood;
+        
+        private bool _isDead;
 
         public void Set(PlayerStats stats)
         {
@@ -29,12 +32,16 @@ namespace BlockoutRoguelike.Cards.Mobs
 
         public void Highlight(bool state)
         {
+            if (_isDead) return;
+            
             Debug.Log(state);
             _lightObj.SetActive(state);
         }
 
         public void Attack()
         {
+            if (_isDead) return;
+            
             if (!_playerStats.IsNeedBlood())
             {
                 Debug.Log("Blood Maximum");
@@ -69,7 +76,8 @@ namespace BlockoutRoguelike.Cards.Mobs
             OnGetBlood?.Invoke();
             if (_hp < 1)
             {
-                DestroyImmediate(gameObject);
+                _isDead = true;
+                _animator.SetTrigger("death");
             }
         }
     }
