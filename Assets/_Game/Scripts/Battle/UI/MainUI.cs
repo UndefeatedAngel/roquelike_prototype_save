@@ -11,7 +11,7 @@ namespace BlockoutRoguelike.Cards.UI
         [SerializeField] private RectTransform _coinRectTransform;
         [SerializeField] private TMP_Text _coinsText;
         [SerializeField] private TMP_Text[] _statsText;
-        [SerializeField] private TMP_Text _bloodText;
+        [SerializeField] private TMP_Text[] _bloodText;
 
         private Tween _coinUpAnimationTween;
         
@@ -28,7 +28,10 @@ namespace BlockoutRoguelike.Cards.UI
 
         public void UpdateBlood(int count, int maxCount)
         {
-            _bloodText.text = $"{count}/{maxCount}";
+            foreach (var text in _bloodText)
+            {
+                text.text = $"{count}/{maxCount}";
+            }
         }
 
         public void FlyCoin(RectTransform rectTransform, Action endFly)
