@@ -52,7 +52,7 @@ namespace BlockoutRoguelike.Battle.Controllers
                     var mob = Instantiate(prefab.CardPrefab, enemySlot.transform);
                     var mobUI = mob.GetComponent<EnemyMobUI>();
                     enemySlot.ActiveMob = mobUI;
-                    mobUI.SetMob("EnemyMob", mobData);
+                    mobUI.SetMob($"EU: {mobData.GetName()}", mobData);
                     mobUI.OnDeath = type => OnDeath?.Invoke(type);
                     mobUI.OnCoinDrop = rectTransform => OnDropCoin?.Invoke(rectTransform);
                     break;

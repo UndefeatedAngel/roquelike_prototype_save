@@ -38,6 +38,9 @@ namespace BlockoutRoguelike.Battle.Controllers
         
         private List<CardUI> _cardsInDeck = new();
 
+        private int _currentCardAdd;
+        private int _maxCardAdd = 1;
+
         private IEnumerator Start()
         {
             InitPlayerStats();
@@ -60,15 +63,14 @@ namespace BlockoutRoguelike.Battle.Controllers
             };
             
             yield return new WaitForSeconds(0.5f);
-            FlyCardToPlayer();
-            yield return new WaitForSeconds(_timeAnimation);
-            FlyCardToPlayer();
-            yield return new WaitForSeconds(_timeAnimation);
-            FlyCardToPlayer();
-            yield return new WaitForSeconds(_timeAnimation);
+            yield return StartCoroutine(AddCardsToDeck());
             _playerDeckController.OnCardClick += cardUI =>
             {
-                FlyCardToPlayer();
+                if (_currentCardAdd < _maxCardAdd)
+                {
+                    _currentCardAdd++;
+                    FlyCardToPlayer();
+                }
             };
 
             SetupSlots();
@@ -78,7 +80,25 @@ namespace BlockoutRoguelike.Battle.Controllers
                 {
                     StartCoroutine(EnemyDeckMove());
                 }
+                else
+                {
+                    StartCoroutine(AddCardsToDeck());
+                }
             });
+        }
+
+        private IEnumerator AddCardsToDeck()
+        {
+            if (_cardsInDeck.Count < 3)
+            {
+                var count = 3-_cardsInDeck.Count;
+                for (int i = 0; i < count; i++)
+                {
+                    FlyCardToPlayer();
+                    yield return new WaitForSeconds(_timeAnimation);
+                }
+            }
+            _currentCardAdd = 0;
         }
 
         private IEnumerator EnemyDeckMove()
@@ -102,6 +122,10 @@ namespace BlockoutRoguelike.Battle.Controllers
                 card.GetComponent<DragAndHoverUI>().UpdateInput(card.BloodCost()<=_playerStats.BloodCurrent);
                 card.transform.localScale = Vector3.one;
                 _cardsInDeck.Add(card);
+                foreach (var cardDeck in _cardsInDeck)
+                {
+                    cardDeck.GetComponent<DragAndHoverUI>().UpdateInput(card.BloodCost()<=_playerStats.BloodCurrent);
+                }
             });
         }
 
@@ -118,7 +142,7 @@ namespace BlockoutRoguelike.Battle.Controllers
             var prefabMob = _playerMobPrefabs[cardUI.NumberCard];
             var mob = Instantiate(prefabMob, slot.transform);
             var mobUI = mob.GetComponent<MobUI>();
-            mobUI.SetMob("PlayerMob", cardUI.CardData);
+            mobUI.SetMob($"PU: {cardUI.CardData.GetName()}", cardUI.CardData);
             slot.ActiveMob = mobUI;
             _cardsInDeck.Remove(cardUI);
             RemoveBlood(cardUI);

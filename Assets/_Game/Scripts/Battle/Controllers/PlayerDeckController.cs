@@ -24,6 +24,18 @@ namespace BlockoutRoguelike.Battle.Controllers
         public int Protection;
         public int Health;
         public int Blood;
+
+        public string GetName()
+        {
+            return CardType switch
+            {
+                PlayerCardType.Attack => "Attacker",
+                PlayerCardType.Protection => "Defender",
+                PlayerCardType.Health => "Hiller",
+                PlayerCardType.Mage => "Mage",
+                _ => ""
+            };
+        }
     }
     
     [Serializable]
