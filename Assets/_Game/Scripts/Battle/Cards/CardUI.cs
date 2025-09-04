@@ -1,5 +1,6 @@
 ﻿using System;
 using BlockoutRoguelike.Battle.Controllers;
+using BlockoutRoguelike.Cards.Person;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -13,6 +14,8 @@ namespace BlockoutRoguelike.Battle.Cards
         
         [Header("Components")]
         [SerializeField] protected DragAndHoverUI _draggableCard;
+
+        [SerializeField] protected TMP_Text _bloodText;
         [SerializeField] protected TMP_Text _cardAttackText;
         [SerializeField] protected TMP_Text _cardHPText;
         [SerializeField] protected GameObject _deckObject;
@@ -25,11 +28,14 @@ namespace BlockoutRoguelike.Battle.Cards
 
         private CardData _cardData;
         public CardData CardData => _cardData;
-        public void SetCard(CardData cardData)
+        private PlayerStats _playerStats;
+        public void SetCard(CardData cardData, PlayerStats stats)
         {
+            _playerStats = stats;
             _cardData = cardData;
             _cardAttackText.text = cardData.Attack.ToString();
             _cardHPText.text = cardData.Health.ToString();
+            _bloodText.text = cardData.Blood.ToString();
         }
 
 
@@ -68,7 +74,13 @@ namespace BlockoutRoguelike.Battle.Cards
 
         public void OnBeginDrag(PointerEventData eventData)
         {
+            _draggableCard.enabled = _cardData.Blood <= _playerStats.BloodCurrent;
             InputController.ActiveCard = this;
+        }
+
+        public int BloodCost()
+        {
+            return _cardData.Blood;
         }
     }
 }

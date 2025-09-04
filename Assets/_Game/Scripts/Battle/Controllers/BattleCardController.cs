@@ -21,6 +21,8 @@ namespace BlockoutRoguelike.Battle.Controllers
         [Header("Enemy")]
         [SerializeField] private GameObject[] _enemyMobPrefabs;
         [SerializeField] private List<Slot> _enemySlots;
+        [Header("Sacrifices")]
+        [SerializeField] private Sacrifice[] _sacrifices;
         
         [Header("Controllers")]
         [SerializeField] private PlayerDeckController _playerDeckController;
@@ -33,11 +35,14 @@ namespace BlockoutRoguelike.Battle.Controllers
         private float _timeAnimation = 0.5f;
         
         private PlayerStats _playerStats = new();
+        
+        private List<CardUI> _cardsInDeck = new();
 
         private IEnumerator Start()
         {
             InitPlayerStats();
-            _playerDeckController.Init();
+            InitBloods();
+            _playerDeckController.Init(_playerStats);
             _enemyDeckController.Init();
             _enemyDeckController.OnDeath = type =>
             {
@@ -88,12 +93,15 @@ namespace BlockoutRoguelike.Battle.Controllers
             var card = _playerDeckController.GetCard();
             card.DisableDeckAnimated(_timeAnimation);
             card.GetComponent<DragAndHoverUI>().enabled = false;
+            card.GetComponent<DragAndHoverUI>().UpdateInput(false);
             card.transform.DOJump(_cardPlayerHorizontalLayoutGroup.transform.position, 50, 1 , _timeAnimation).OnComplete(() =>
             {
                 card.transform.parent = _cardPlayerHorizontalLayoutGroup.transform;
                 card.GetComponent<DragAndHoverUI>().enabled = true;
                 card.GetComponent<DragAndHoverUI>().Setup();
+                card.GetComponent<DragAndHoverUI>().UpdateInput(card.BloodCost()<=_playerStats.BloodCurrent);
                 card.transform.localScale = Vector3.one;
+                _cardsInDeck.Add(card);
             });
         }
 
@@ -112,10 +120,22 @@ namespace BlockoutRoguelike.Battle.Controllers
             var mobUI = mob.GetComponent<MobUI>();
             mobUI.SetMob("PlayerMob", cardUI.CardData);
             slot.ActiveMob = mobUI;
+            _cardsInDeck.Remove(cardUI);
+            RemoveBlood(cardUI);
             DestroyImmediate(cardUI.GetComponentInParent<RectTransform>().gameObject);
             StartCoroutine(EnableLayoutGroup());
         }
-        
+
+        private void RemoveBlood(CardUI cardUI)
+        {
+            _playerStats.AddBlood(-cardUI.BloodCost());
+            _mainUI.UpdateBlood(_playerStats.BloodCurrent, _playerStats.BloodMax);
+            foreach (var card in _cardsInDeck)
+            {
+                card.GetComponent<DragAndHoverUI>().UpdateInput(card.BloodCost()<=_playerStats.BloodCurrent);
+            }
+        }
+
         private IEnumerator EnableLayoutGroup()
         {
             yield return new WaitForEndOfFrame();
@@ -128,7 +148,6 @@ namespace BlockoutRoguelike.Battle.Controllers
         private void InitPlayerStats()
         {
             _mainUI.UpdateCoins(_playerStats.Coins);
-            _mainUI.UpdateBlood(3,3);
             var stats = new[]
             {
                 PlayerCardType.Attack, PlayerCardType.Protection, PlayerCardType.Health, PlayerCardType.Mage
@@ -136,6 +155,24 @@ namespace BlockoutRoguelike.Battle.Controllers
             foreach (var stat in stats)
             {
                 _mainUI.UpdateStat(stat, _playerStats.GetStat(stat), _enemyDeckController.GetMaxStat(stat));
+            }
+        }
+
+        private void InitBloods()
+        {
+            _mainUI.UpdateBlood(_playerStats.BloodCurrent, _playerStats.BloodMax);
+            foreach (var sacrifice in _sacrifices)
+            {
+                sacrifice.Set(_playerStats);
+                sacrifice.OnGetBlood = () =>
+                {
+                    _playerStats.AddBlood(1);
+                    foreach (var card in _cardsInDeck)
+                    {
+                        card.GetComponent<DragAndHoverUI>().UpdateInput(card.BloodCost()<=_playerStats.BloodCurrent);
+                    }
+                    _mainUI.UpdateBlood(_playerStats.BloodCurrent, _playerStats.BloodMax);
+                };
             }
         }
     }

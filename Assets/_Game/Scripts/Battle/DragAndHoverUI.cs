@@ -29,6 +29,13 @@ public class DragAndHoverUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     private RectTransform canvasRect;
     private Vector2 offset;
 
+    private bool IsInput = true;
+
+    public void UpdateInput(bool state)
+    {
+        IsInput = state;
+    }
+    
     public void Setup()
     {
         originalScale = transform.localScale;
@@ -54,6 +61,8 @@ public class DragAndHoverUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     // Обработка наведения мыши
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (!IsInput) return;
+        
         if (isDragging) return;
         
         isHovering = true;
@@ -63,6 +72,8 @@ public class DragAndHoverUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        if (!IsInput) return;
+        
         if (isDragging) return;
         
         isHovering = false;
@@ -73,6 +84,8 @@ public class DragAndHoverUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     // Начало перетаскивания - ИСПРАВЛЕННАЯ ЧАСТЬ
     public void OnBeginDrag(PointerEventData eventData)
     {
+        if (!IsInput) return;
+        
         isDragging = true;
         
         // Сохраняем оригинальные значения
@@ -107,6 +120,8 @@ public class DragAndHoverUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     // Процесс перетаскивания - ИСПРАВЛЕННАЯ ЧАСТЬ
     public void OnDrag(PointerEventData eventData)
     {
+        if (!IsInput) return;
+        
         if (!isDragging) return;
         
         // Преобразуем позицию мыши в локальные координаты канваса
@@ -124,6 +139,8 @@ public class DragAndHoverUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     // Конец перетаскивания
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (!IsInput) return;
+        
         isDragging = false;
         canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = true;

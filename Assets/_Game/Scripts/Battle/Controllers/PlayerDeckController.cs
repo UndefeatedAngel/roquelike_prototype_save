@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using BlockoutRoguelike.Battle.Cards;
+using BlockoutRoguelike.Cards.Person;
 using UnityEngine;
 
 namespace BlockoutRoguelike.Battle.Controllers
@@ -22,6 +23,7 @@ namespace BlockoutRoguelike.Battle.Controllers
         public int Attack;
         public int Protection;
         public int Health;
+        public int Blood;
     }
     
     [Serializable]
@@ -44,12 +46,12 @@ namespace BlockoutRoguelike.Battle.Controllers
         private Stack<CardUI> _cardsInDeck = new();
 
         public Action<CardUI> OnCardClick;
-        public void Init()
+        public void Init(PlayerStats playerStats)
         {
-            InitDeck();
+            InitDeck(playerStats);
         }
 
-        private void InitDeck()
+        private void InitDeck(PlayerStats playerStats)
         {
             var rng = new System.Random();
             var sortDeck = _deck.OrderBy(x => rng.Next()).ToList();
@@ -61,7 +63,7 @@ namespace BlockoutRoguelike.Battle.Controllers
                 {
                     var card = Instantiate(prefabs.CardPrefab, _deckContainer);
                     var ui = card.GetComponent<CardUI>();
-                    ui.SetCard(playerCard);
+                    ui.SetCard(playerCard, playerStats);
                     ui.SetDeck(true);
                     ui.GetComponent<RectTransform>().anchoredPosition = new Vector2(number, number);
                     ui.OnClickCard += cardUI =>
