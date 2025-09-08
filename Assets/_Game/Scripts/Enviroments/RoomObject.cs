@@ -23,7 +23,15 @@ namespace BlockoutRoguelike.Modules
                 BattleController.Type = roomEnum;
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
-                SceneManager.LoadScene("Battle");
+
+                if (roomEnum == RoomEnum.Enemy || roomEnum == RoomEnum.EliteEnemy)
+                {
+                    SceneManager.LoadScene("Cards");
+                }
+                else
+                {
+                    SceneManager.LoadScene("Battle");
+                }
             }
             else
             {

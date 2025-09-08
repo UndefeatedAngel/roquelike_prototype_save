@@ -8,9 +8,15 @@ namespace BlockoutRoguelike
         [SerializeField] private Environment[] _enviroments;
         [SerializeField] private int _maxSteps = 13;
         private static int _step = 0;
+        private int _maxGames = 2;
 
         private void Start()
         {
+            if (PlayerPrefs.GetInt("Restart") == _maxGames)
+            {
+                PlayerPrefs.SetInt("Restart", 0);
+                _step = 0;
+            }
             GenerateRoomsRandom();
         }
 

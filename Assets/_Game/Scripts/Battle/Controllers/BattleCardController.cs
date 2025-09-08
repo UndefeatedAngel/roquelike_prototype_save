@@ -8,6 +8,8 @@ using BlockoutRoguelike.Cards.Person;
 using BlockoutRoguelike.Cards.UI;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.ProBuilder;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace BlockoutRoguelike.Battle.Controllers
@@ -29,8 +31,8 @@ namespace BlockoutRoguelike.Battle.Controllers
         [SerializeField] private EnemyDeckController _enemyDeckController;
         [SerializeField] private InputController _inputController;
         [SerializeField] private StateMachineController _stateMachineController;
-        [Header("UI")] 
-        [SerializeField] private MainUI _mainUI;
+        [SerializeField] private UIController _uiController;
+        
 
         private float _timeAnimation = 0.5f;
         
@@ -50,14 +52,15 @@ namespace BlockoutRoguelike.Battle.Controllers
             _enemyDeckController.OnDeath = type =>
             {
                 _playerStats.AddStat(type, 1);
-                _mainUI.UpdateStat(type, _playerStats.GetStat(type), _enemyDeckController.GetMaxStat(type));
+                _uiController.UpdateStat(type, _playerStats.GetStat(type), _enemyDeckController.GetMaxStat(type));
+                NextMoveEnemy();
             };
             _enemyDeckController.OnDropCoin = rectTransform =>
             {
-                _mainUI.FlyCoin(rectTransform, () =>
+                _uiController.FlyCoin(rectTransform, () =>
                 {
                     _playerStats.Coins += 1;
-                    _mainUI.UpdateCoins(_playerStats.Coins);
+                    _uiController.UpdateCoins(_playerStats.Coins);
                     DestroyImmediate(rectTransform.GetComponentInParent<RectTransform>().gameObject);
                 });
             };
@@ -74,17 +77,33 @@ namespace BlockoutRoguelike.Battle.Controllers
             };
 
             SetupSlots();
+            _stateMachineController.OnWin = WinGame;
+            _stateMachineController.OnLose = LoseGame;
             _stateMachineController.Setup(moveType =>
             {
                 if (moveType == QueueMove.Enemy)
                 {
+                    _uiController.HideMoveEnemy();
                     StartCoroutine(EnemyDeckMove());
                 }
                 else
                 {
+                    NextMoveEnemy();
                     StartCoroutine(AddCardsToDeck());
                 }
             });
+
+            NextMoveEnemy();
+        }
+
+        private void NextMoveEnemy()
+        {
+            var nextSlot = _enemyDeckController.GetNextSlot()+1;
+            var nextEnemy = _enemyDeckController.GetNextEnemy();
+            if (nextEnemy != PlayerCardType.Empty)
+            {
+                _uiController.ShowMoveEnemy($"S{nextSlot}-{nextEnemy.ToString()}");
+            }
         }
 
         private IEnumerator AddCardsToDeck()
@@ -154,7 +173,7 @@ namespace BlockoutRoguelike.Battle.Controllers
         private void RemoveBlood(CardUI cardUI)
         {
             _playerStats.AddBlood(-cardUI.BloodCost());
-            _mainUI.UpdateBlood(_playerStats.BloodCurrent, _playerStats.BloodMax);
+            _uiController.UpdateBlood(_playerStats.BloodCurrent, _playerStats.BloodMax);
             foreach (var card in _cardsInDeck)
             {
                 card.GetComponent<DragAndHoverUI>().UpdateInput(card.BloodCost()<=_playerStats.BloodCurrent);
@@ -172,20 +191,20 @@ namespace BlockoutRoguelike.Battle.Controllers
 
         private void InitPlayerStats()
         {
-            _mainUI.UpdateCoins(_playerStats.Coins);
+            _uiController.UpdateCoins(_playerStats.Coins);
             var stats = new[]
             {
                 PlayerCardType.Attack, PlayerCardType.Protection, PlayerCardType.Health, PlayerCardType.Mage
             };
             foreach (var stat in stats)
             {
-                _mainUI.UpdateStat(stat, _playerStats.GetStat(stat), _enemyDeckController.GetMaxStat(stat));
+                _uiController.UpdateStat(stat, _playerStats.GetStat(stat), _enemyDeckController.GetMaxStat(stat));
             }
         }
 
         private void InitBloods()
         {
-            _mainUI.UpdateBlood(_playerStats.BloodCurrent, _playerStats.BloodMax);
+            _uiController.UpdateBlood(_playerStats.BloodCurrent, _playerStats.BloodMax);
             foreach (var sacrifice in _sacrifices)
             {
                 sacrifice.Set(_playerStats);
@@ -196,9 +215,27 @@ namespace BlockoutRoguelike.Battle.Controllers
                     {
                         card.GetComponent<DragAndHoverUI>().UpdateInput(card.BloodCost()<=_playerStats.BloodCurrent);
                     }
-                    _mainUI.UpdateBlood(_playerStats.BloodCurrent, _playerStats.BloodMax);
+                    _uiController.UpdateBlood(_playerStats.BloodCurrent, _playerStats.BloodMax);
                 };
             }
+        }
+
+        private void WinGame()
+        {
+            _uiController.ShowWin(() =>
+            {
+                SceneManager.LoadScene("GamePlay");
+            });
+        }
+
+        private void LoseGame()
+        {
+            _uiController.ShowLose(() =>
+            {
+                PlayerPrefs.SetInt("Restart", 1);
+                PlayerPrefs.Save();
+                SceneManager.LoadScene("GamePlay");
+            });
         }
     }
 }

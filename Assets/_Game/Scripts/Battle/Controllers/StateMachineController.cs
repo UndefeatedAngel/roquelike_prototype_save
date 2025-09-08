@@ -34,6 +34,9 @@ namespace BlockoutRoguelike.Battle.Controllers
         private QueueMove _currentMoveType = QueueMove.Player;
 
         private Action<QueueMove> _nextMoveAction;
+        
+        public Action OnWin;
+        public Action OnLose;
 
         public void Setup(Action<QueueMove> nextMoveAction)
         {
@@ -78,7 +81,11 @@ namespace BlockoutRoguelike.Battle.Controllers
                 }
             }
 
-            if (_enemy.CurrentHp < 1) yield break;
+            if (_enemy.CurrentHp < 1)
+            {
+                OnWin?.Invoke();
+                yield break;
+            }
             
             _currentMoveType = QueueMove.Enemy;
             _movesButtonText.text = "Ход противника...";
@@ -107,6 +114,12 @@ namespace BlockoutRoguelike.Battle.Controllers
                         yield return new WaitForSeconds(1.1f);
                     }
                 }
+            }
+
+            if (_player.CurrentHp < 1)
+            {
+                OnLose?.Invoke();
+                yield break;
             }
 
             _currentMoveType = QueueMove.Player;

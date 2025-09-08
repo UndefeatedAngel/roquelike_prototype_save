@@ -64,5 +64,24 @@ namespace BlockoutRoguelike.Battle.Controllers
         {
             return _deck.Count(x=>x.CardType == type);
         }
+
+        public int GetNextSlot()
+        {
+            if (_deckStack.Count < 1) return 0;
+            
+            for (var i = 0; i < _enemySlots.Count; i++)
+            {
+                var slot = _enemySlots[i];
+                if (slot.ActiveMob == null) return i;
+            }
+
+            return 0;
+        }
+
+
+        public PlayerCardType GetNextEnemy()
+        {
+            return _deckStack.Count < 1 ? PlayerCardType.Empty : _deckStack.Peek().CardType;
+        }
     }
 }
