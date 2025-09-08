@@ -10,6 +10,12 @@ using UnityEngine.UI;
 
 namespace BlockoutRoguelike.Battle.Controllers
 {
+    public enum QueueMove
+    {
+        Player,
+        Enemy
+    }
+    
     public class StateMachineController: MonoBehaviour
     {
         [Header("Player")]
@@ -25,11 +31,11 @@ namespace BlockoutRoguelike.Battle.Controllers
         [Header("UI")]
         [SerializeField] private GameObject _blockUI;
 
-        private int _currentMoveType = 0;
+        private QueueMove _currentMoveType = QueueMove.Player;
 
-        private Action<int> _nextMoveAction;
+        private Action<QueueMove> _nextMoveAction;
 
-        public void Setup(Action<int> nextMoveAction)
+        public void Setup(Action<QueueMove> nextMoveAction)
         {
             _nextMoveAction = nextMoveAction;
             _movesButton.onClick.AddListener(EndMove);
@@ -39,7 +45,7 @@ namespace BlockoutRoguelike.Battle.Controllers
 
         public void EndMove()
         {
-            if (_currentMoveType == 0)
+            if (_currentMoveType == QueueMove.Player)
             {
                 StartCoroutine(PlayerMove());
             }
@@ -66,7 +72,7 @@ namespace BlockoutRoguelike.Battle.Controllers
                     }
                     else
                     {
-                        AttackEnemy(playerSlot);
+                        AttackMainType(playerSlot);
                         yield return new WaitForSeconds(1.1f);
                     }
                 }
@@ -74,55 +80,12 @@ namespace BlockoutRoguelike.Battle.Controllers
 
             if (_enemy.CurrentHp < 1) yield break;
             
-            _currentMoveType = 1;
+            _currentMoveType = QueueMove.Enemy;
             _movesButtonText.text = "Ход противника...";
             _nextMoveAction?.Invoke(_currentMoveType);
         }
 
-        private void AttackSlot(Slot slot1, Slot slot2)
-        {
-            var mob1 = slot1.ActiveMob;
-            var mob2 = slot2.ActiveMob;
-            var defaultPos = mob1.transform.position;
-            mob1.AttackAnimation();
-            mob1.transform.DOMove(mob2.transform.position, 0.5f).OnComplete(() =>
-            {
-                mob2.AddHp(-mob1.Attack);
-                if (mob2.Hp < 1)
-                {
-                    slot2.ActiveMob.RemoveMob();
-                    slot2.ActiveMob = null;
-                }
-                mob1.transform.DOMove(defaultPos, 0.5f);
-            });
-        }
         
-        private void AttackEnemy(Slot playerSlot)
-        {
-            var mob = playerSlot.ActiveMob;
-            if (_enemy.CurrentHp < 1) return;
-            mob.AttackAnimation();
-            var defaultPos = mob.transform.position;
-            mob.transform.DOMove(_enemy.PersonTransform.position, 0.5f).OnComplete(() =>
-            {
-                _enemy.AddHp(-playerSlot.ActiveMob.Attack);
-                mob.transform.DOMove(defaultPos, 0.5f);
-            });
-        }
-        
-        
-        private void AttackPlayer(Slot enemySlot)
-        {
-            var mob = enemySlot.ActiveMob;
-            if (_player.CurrentHp < 1) return;
-            mob.AttackAnimation();
-            var defaultPos = mob.transform.position;
-            mob.transform.DOMove(_player.PersonTransform.position, 0.5f).OnComplete(() =>
-            {
-                _player.AddHp(-enemySlot.ActiveMob.Attack);
-                mob.transform.DOMove(defaultPos, 0.5f);
-            });
-        }
 
         private IEnumerator EnemyMove()
         {
@@ -140,16 +103,86 @@ namespace BlockoutRoguelike.Battle.Controllers
                     }
                     else
                     {
-                        AttackPlayer(enemySlot);
+                        AttackMainType(enemySlot);
                         yield return new WaitForSeconds(1.1f);
                     }
                 }
             }
 
-            _currentMoveType = 0;
+            _currentMoveType = QueueMove.Player;
             _movesButtonText.text = "В бой!";
             _blockUI.gameObject.SetActive(false);
             _nextMoveAction?.Invoke(_currentMoveType);
+        }
+
+        private IEnumerator MoveWithType()
+        {
+            _blockUI.gameObject.SetActive(IsPlayerMove());
+            _movesButtonText.text = IsPlayerMove() ? "Ход игрока..." : "Ход противника...";
+            yield return new WaitForSeconds(0.5f);
+            var slots1 = IsPlayerMove() ? _playerSlots : _enemySlots;
+            var slots2 = IsPlayerMove() ? _enemySlots : _playerSlots;
+            for (int i = 0; i < slots1.Count; i++)
+            {
+                var slot1 = slots1[i];
+                if (slot1.ActiveMob != null && slot1.ActiveMob.Attack>0)
+                {
+                    var slot2 = slots2[i];
+                    if (slot2.ActiveMob != null)
+                    {
+                        AttackSlot(slot1, slot2);
+                        yield return new WaitForSeconds(1.1f);
+                    }
+                    else
+                    {
+                        AttackMainType(slot1);
+                        yield return new WaitForSeconds(1.1f);
+                    }
+                }
+            }
+            
+            _currentMoveType = QueueMove.Player;
+            _movesButtonText.text = "В бой!";
+            _blockUI.gameObject.SetActive(false);
+            _nextMoveAction?.Invoke(_currentMoveType);
+        }
+
+        private bool IsPlayerMove()
+        {
+            return _currentMoveType == QueueMove.Player;
+        }
+
+        private void AttackMainType(Slot slot)
+        {
+            var mob = slot.ActiveMob;
+            var person = IsPlayerMove() ? _enemy : _player as BasePerson;
+            if (person.CurrentHp < 1) return;
+            
+            mob.AttackAnimation();
+            var defaultPos = mob.transform.position; ;
+            mob.transform.DOMove(person.PersonTransform.position, 0.5f).OnComplete(() =>
+            {
+                person.AddHp(-slot.ActiveMob.Attack);
+                mob.transform.DOMove(defaultPos, 0.5f);
+            });
+        }
+        
+        private void AttackSlot(Slot slot1, Slot slot2)
+        {
+            var mob1 = slot1.ActiveMob;
+            var mob2 = slot2.ActiveMob;
+            var defaultPos = mob1.transform.position;
+            mob1.AttackAnimation();
+            mob1.transform.DOMove(mob2.transform.position, 0.5f).OnComplete(() =>
+            {
+                mob2.AddHp(-mob1.Attack);
+                if (mob2.Hp < 1)
+                {
+                    slot2.ActiveMob.RemoveMob();
+                    slot2.ActiveMob = null;
+                }
+                mob1.transform.DOMove(defaultPos, 0.5f);
+            });
         }
     }
 }

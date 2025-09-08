@@ -76,7 +76,7 @@ namespace BlockoutRoguelike.Battle.Controllers
             SetupSlots();
             _stateMachineController.Setup(moveType =>
             {
-                if (moveType == 1)
+                if (moveType == QueueMove.Enemy)
                 {
                     StartCoroutine(EnemyDeckMove());
                 }
