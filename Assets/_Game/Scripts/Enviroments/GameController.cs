@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using _Game.Scripts;
+using BlockoutRoguelike.Static;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 namespace BlockoutRoguelike
@@ -7,17 +10,52 @@ namespace BlockoutRoguelike
     {
         [SerializeField] private Environment[] _enviroments;
         [SerializeField] private int _maxSteps = 13;
+        [Header("Controllers")]
+        [SerializeField] private SkinController _skinController;
+        
         private static int _step = 0;
         private int _maxGames = 2;
 
         private void Start()
+        {
+            Restart();
+            SetupSkin();
+            GenerateRoomsRandom();
+        }
+
+        private void Update()
+        {
+            #if DEV_DEBUG
+            if (Input.GetKeyDown(KeyCode.N))
+            {
+                SceneLoadManager.LoadScene(SceneName.GamePlay);
+            }
+            #endif
+        }
+
+        private void Restart()
         {
             if (PlayerPrefs.GetInt("Restart") == _maxGames)
             {
                 PlayerPrefs.SetInt("Restart", 0);
                 _step = 0;
             }
-            GenerateRoomsRandom();
+        }
+
+        private void SetupSkin()
+        {
+            var stepType = EnviromentType.Random;
+            if (_step == 0)
+            {
+                stepType = EnviromentType.First;
+            }
+            else if (_step == _maxSteps - 1)
+            {
+                stepType = EnviromentType.Boss;
+            }
+            
+            Debug.Log($"Step: {_step}");
+            _skinController.Setup(stepType);
         }
 
         private int MaxCountRooms()

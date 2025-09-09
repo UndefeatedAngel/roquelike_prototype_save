@@ -1,3 +1,4 @@
+using BlockoutRoguelike.Static;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -26,11 +27,11 @@ namespace BlockoutRoguelike.Modules
 
                 if (roomEnum == RoomEnum.Enemy || roomEnum == RoomEnum.EliteEnemy)
                 {
-                    SceneManager.LoadScene("Cards");
+                    SceneLoadManager.LoadScene(SceneName.Cards);
                 }
                 else
                 {
-                    SceneManager.LoadScene("Battle");
+                    SceneLoadManager.LoadScene(SceneName.Battle);
                 }
             }
             else

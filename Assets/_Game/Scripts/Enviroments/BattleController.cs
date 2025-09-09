@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using BlockoutRoguelike.Static;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -83,7 +84,7 @@ namespace BlockoutRoguelike
 
         private void EndGame()
         {
-            SceneManager.LoadScene("GamePlay");
+            SceneLoadManager.LoadScene(SceneName.GamePlay);
         }
 
         private void UnknownStart()

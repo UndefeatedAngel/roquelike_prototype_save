@@ -1,12 +1,22 @@
 ﻿using System;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace _Game.Scripts
 {
-    [Serializable]
-    public struct SkinObject
+    public enum EnviromentType
     {
+        Empty,
+        First,
+        Random,
+        Boss
+    }
+    
+    [Serializable]
+    public class SkinObject
+    {
+        public EnviromentType EnviromentType;
         public Color DirectionalLightColors;
         public Vector3 DirectionalLightDirection;
         public Material FloorMaterials;
@@ -26,15 +36,33 @@ namespace _Game.Scripts
         [Header("GDSetup")]
         [SerializeField] private SkinObject[] _skinObjects;
 
-        private void Start()
+        private static SkinObject _lastRandomSkin;
+
+        public void Setup(EnviromentType type)
         {
-            var random = Random.Range(0, _skinObjects.Length);
-            if (_testIndex >= 0)
+            Debug.Log($"SkinType: {type.ToString()}");
+            var skins = _skinObjects.Where(x => x.EnviromentType == type).ToList();
+            if (type == EnviromentType.Random)
             {
-                random = _testIndex;
+                if (_lastRandomSkin !=null)
+                {
+                    for (var i = 0; i < skins.Count; i++)
+                    {
+                        var skinFind = skins[i];
+                        if (!skinFind.Equals(_lastRandomSkin)) continue;
+                        
+                        skins.RemoveAt(i);
+                        break;
+                    }
+                }
             }
 
-            var skin = _skinObjects[random];
+            var random = Random.Range(0, skins.Count);
+            var skin = skins[random];
+            if (type == EnviromentType.Random)
+            {
+                _lastRandomSkin = skin;
+            }
             _directionalLight.color = skin.DirectionalLightColors;
             _directionalLight.transform.eulerAngles = skin.DirectionalLightDirection;
             _floorRenderer.material = skin.FloorMaterials;

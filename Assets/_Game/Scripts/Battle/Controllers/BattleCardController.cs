@@ -6,6 +6,7 @@ using BlockoutRoguelike.Cards;
 using BlockoutRoguelike.Cards.Mobs;
 using BlockoutRoguelike.Cards.Person;
 using BlockoutRoguelike.Cards.UI;
+using BlockoutRoguelike.Static;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.ProBuilder;
@@ -102,7 +103,7 @@ namespace BlockoutRoguelike.Battle.Controllers
             var nextEnemy = _enemyDeckController.GetNextEnemy();
             if (nextEnemy != PlayerCardType.Empty)
             {
-                _uiController.ShowMoveEnemy($"S{nextSlot}-{nextEnemy.ToString()}");
+                _uiController.ShowMoveEnemy($"S{nextSlot}-{_enemyDeckController.GetNextEnemyName()}");
             }
         }
 
@@ -224,7 +225,7 @@ namespace BlockoutRoguelike.Battle.Controllers
         {
             _uiController.ShowWin(() =>
             {
-                SceneManager.LoadScene("GamePlay");
+                SceneLoadManager.LoadScene(SceneName.GamePlay);
             });
         }
 
@@ -234,7 +235,7 @@ namespace BlockoutRoguelike.Battle.Controllers
             {
                 PlayerPrefs.SetInt("Restart", 1);
                 PlayerPrefs.Save();
-                SceneManager.LoadScene("GamePlay");
+                SceneLoadManager.LoadScene(SceneName.GamePlay);
             });
         }
     }

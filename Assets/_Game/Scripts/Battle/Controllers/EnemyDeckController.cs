@@ -79,6 +79,11 @@ namespace BlockoutRoguelike.Battle.Controllers
         }
 
 
+        public string GetNextEnemyName()
+        {
+            return _deckStack.Count < 1 ? "" : _deckStack.Peek().GetName();
+        }
+
         public PlayerCardType GetNextEnemy()
         {
             return _deckStack.Count < 1 ? PlayerCardType.Empty : _deckStack.Peek().CardType;

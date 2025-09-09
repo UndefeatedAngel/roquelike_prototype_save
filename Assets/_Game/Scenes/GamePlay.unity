@@ -805,7 +805,8 @@ MonoBehaviour:
   _enviroments:
   - {fileID: 1953663943}
   - {fileID: 1818061449}
-  _maxSteps: 5
+  _maxSteps: 9
+  _skinController: {fileID: 1959533448}
 --- !u!4 &592974890
 Transform:
   m_ObjectHideFlags: 0
@@ -4250,25 +4251,7 @@ PrefabInstance:
     - {fileID: 1787997983644924979, guid: 1c06d639900b9b44a8a972a60d386fc5, type: 3}
     - {fileID: 1230499064805092730, guid: 1c06d639900b9b44a8a972a60d386fc5, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6630413532913962480, guid: 1c06d639900b9b44a8a972a60d386fc5, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 2941393881447983287, guid: 1c06d639900b9b44a8a972a60d386fc5, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 127938143008069394, guid: 1c06d639900b9b44a8a972a60d386fc5, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 6016991136786523675, guid: 1c06d639900b9b44a8a972a60d386fc5, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 2833536379724809052, guid: 1c06d639900b9b44a8a972a60d386fc5, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 1028464921344097529, guid: 1c06d639900b9b44a8a972a60d386fc5, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c06d639900b9b44a8a972a60d386fc5, type: 3}
 --- !u!4 &1818061447 stripped
 Transform:
@@ -4491,16 +4474,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1382280290999404593, guid: d5a98102b4cead74c92889c7246759a6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 7493078585360149878, guid: d5a98102b4cead74c92889c7246759a6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 5686826367488135891, guid: d5a98102b4cead74c92889c7246759a6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d5a98102b4cead74c92889c7246759a6, type: 3}
 --- !u!4 &1953663942 stripped
 Transform:
@@ -4572,21 +4546,36 @@ MonoBehaviour:
   - {fileID: 2100000, guid: ce001724e9d21084084ee3c8f12c0a5c, type: 2}
   - {fileID: 2100000, guid: ac715ce2e4f656d4396f815ec79cb6d1, type: 2}
   _skinObjects:
-  - DirectionalLightColors: {r: 1, g: 0, b: 0, a: 1}
-    DirectionalLightDirection: {x: -45, y: -30, z: 0}
-    FloorMaterials: {fileID: 2100000, guid: bc7542fa398d07c40a1a88ff877c9ee6, type: 2}
-    RoadColor: {r: 0, g: 0, b: 0, a: 1}
-    TreeColor: {r: 1, g: 0, b: 0, a: 1}
-  - DirectionalLightColors: {r: 1, g: 1, b: 1, a: 1}
-    DirectionalLightDirection: {x: 0, y: -30, z: 0}
-    FloorMaterials: {fileID: 2100000, guid: dba1b385d51554b4f9372291b6d45c00, type: 2}
-    RoadColor: {r: 0, g: 0, b: 0, a: 1}
-    TreeColor: {r: 1, g: 0.92332065, b: 0, a: 1}
-  - DirectionalLightColors: {r: 1, g: 1, b: 1, a: 1}
+  - EnviromentType: 1
+    DirectionalLightColors: {r: 1, g: 1, b: 1, a: 1}
     DirectionalLightDirection: {x: 50, y: -30, z: 0}
     FloorMaterials: {fileID: 2100000, guid: d962ce535805c5a4cb27ee3888bb17af, type: 2}
     RoadColor: {r: 0.33962262, g: 0.29287332, b: 0.13296545, a: 1}
     TreeColor: {r: 0, g: 0.6132076, b: 0.04636999, a: 1}
+  - EnviromentType: 3
+    DirectionalLightColors: {r: 1, g: 0, b: 0, a: 1}
+    DirectionalLightDirection: {x: -45, y: -30, z: 0}
+    FloorMaterials: {fileID: 2100000, guid: bc7542fa398d07c40a1a88ff877c9ee6, type: 2}
+    RoadColor: {r: 0, g: 0, b: 0, a: 1}
+    TreeColor: {r: 1, g: 0, b: 0, a: 1}
+  - EnviromentType: 2
+    DirectionalLightColors: {r: 1, g: 1, b: 1, a: 1}
+    DirectionalLightDirection: {x: 0, y: -30, z: 0}
+    FloorMaterials: {fileID: 2100000, guid: dba1b385d51554b4f9372291b6d45c00, type: 2}
+    RoadColor: {r: 0, g: 0, b: 0, a: 1}
+    TreeColor: {r: 1, g: 0.92332065, b: 0, a: 1}
+  - EnviromentType: 2
+    DirectionalLightColors: {r: 0, g: 0.09055519, b: 1, a: 1}
+    DirectionalLightDirection: {x: 90, y: -30, z: 0}
+    FloorMaterials: {fileID: 2100000, guid: 1dbea9a213a67fb4a87413976f64122b, type: 2}
+    RoadColor: {r: 0, g: 0, b: 0, a: 1}
+    TreeColor: {r: 0, g: 0.06529021, b: 1, a: 1}
+  - EnviromentType: 2
+    DirectionalLightColors: {r: 0.37506914, g: 0, b: 1, a: 1}
+    DirectionalLightDirection: {x: 90, y: -30, z: 0}
+    FloorMaterials: {fileID: 2100000, guid: d0c86399931d65c40ae1b437d71e557d, type: 2}
+    RoadColor: {r: 0, g: 0, b: 0, a: 1}
+    TreeColor: {r: 0.41653395, g: 0, b: 1, a: 1}
 --- !u!43 &2004847145
 Mesh:
   m_ObjectHideFlags: 0
