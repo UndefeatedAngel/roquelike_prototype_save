@@ -1,5 +1,6 @@
 ﻿using _Game.Scripts;
 using BlockoutRoguelike.Static;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
@@ -8,7 +9,9 @@ namespace BlockoutRoguelike
 {
     public class GameController: MonoBehaviour
     {
+        [SerializeField] private TMP_Text _targetText;
         [SerializeField] private Environment[] _enviroments;
+        [SerializeField] private Transform _enviromentsContainer;
         [SerializeField] private int _maxSteps = 13;
         [Header("Controllers")]
         [SerializeField] private SkinController _skinController;
@@ -73,11 +76,11 @@ namespace BlockoutRoguelike
             
             if (_step == 0)
             {
-                _enviroments[0].Setup(true, false, maxBottles);
+                CreateEnvironment(0,true, false, maxBottles);
             }
             else if (_step == _maxSteps-1)
             {
-                _enviroments[0].Setup(false, true, maxBottles);
+                CreateEnvironment(0,false, true, maxBottles);
             }
             else
             {
@@ -86,12 +89,25 @@ namespace BlockoutRoguelike
                 {
                     if (i == countRooms)
                     {
-                        _enviroments[i].Setup(false, false, maxBottles);
-                    }
+                        CreateEnvironment(i,false, false, maxBottles);
+                    } 
                 }
             }
 
             _step++;
+        }
+
+        private void CreateEnvironment(int number, bool isStart, bool isEnd, int maxBottles)
+        {
+            var env = Instantiate(_enviroments[number], _enviromentsContainer, true);
+            env.Setup(isStart, isEnd, maxBottles);
+            var post = maxBottles switch
+            {
+                1  => "ку",
+                2 or 3 or 4 => "ки",
+                _ => "ок"
+            };
+            _targetText.text = $"Собери {maxBottles} бутыл{post} чтобы пройти дальше!";
         }
     }
 }
