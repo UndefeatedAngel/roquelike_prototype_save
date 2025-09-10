@@ -45,12 +45,10 @@ public class DragAndHoverUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         
         layoutGroup = transform.parent.GetComponent<HorizontalLayoutGroup>();
         
-        // Добавляем CanvasGroup для управления прозрачностью при перетаскивании
         canvasGroup = GetComponent<CanvasGroup>();
         if (canvasGroup == null)
             canvasGroup = gameObject.AddComponent<CanvasGroup>();
         
-        // Получаем ссылку на Canvas
         canvas = GetComponentInParent<Canvas>();
         if (canvas != null)
         {
@@ -58,7 +56,6 @@ public class DragAndHoverUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         }
     }
 
-    // Обработка наведения мыши
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (!IsInput) return;
@@ -81,18 +78,15 @@ public class DragAndHoverUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             .SetEase(hoverEase);
     }
 
-    // Начало перетаскивания - ИСПРАВЛЕННАЯ ЧАСТЬ
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (!IsInput) return;
         
         isDragging = true;
         
-        // Сохраняем оригинальные значения
         originalPosition = transform.localPosition;
         originalSiblingIndex = transform.GetSiblingIndex();
         
-        // Рассчитываем offset между позицией мыши и центром объекта
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             canvasRect,
             eventData.position,
@@ -102,41 +96,33 @@ public class DragAndHoverUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         
         offset = (Vector2)transform.localPosition - localPoint-new Vector2(0, 350);
         
-        // Увеличиваем немного при перетаскивании
         transform.DOScale(originalScale * dragScale, 0.2f);
         
-        // Делаем полупрозрачным
         canvasGroup.alpha = 0.8f;
         canvasGroup.blocksRaycasts = false;
         
-        // Отключаем layout group чтобы не мешал
         if (layoutGroup != null)
             layoutGroup.enabled = false;
         
-        // Перемещаем в корень канваса чтобы был поверх других элементов
         transform.SetParent(canvas.transform);
     }
 
-    // Процесс перетаскивания - ИСПРАВЛЕННАЯ ЧАСТЬ
     public void OnDrag(PointerEventData eventData)
     {
         if (!IsInput) return;
         
         if (!isDragging) return;
         
-        // Преобразуем позицию мыши в локальные координаты канваса
         if (canvas != null && RectTransformUtility.ScreenPointToLocalPointInRectangle(
             canvasRect,
             eventData.position,
             eventData.pressEventCamera,
             out Vector2 localPoint))
         {
-            // Устанавливаем позицию с учетом offset
             transform.localPosition = localPoint + offset;
         }
     }
 
-    // Конец перетаскивания
     public void OnEndDrag(PointerEventData eventData)
     {
         if (!IsInput) return;
@@ -151,19 +137,15 @@ public class DragAndHoverUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         }
         else
         {
-            // Если не возвращаем, оставляем там где бросили
             transform.DOScale(originalScale, 0.3f);
         }
     }
 
-    // Плавное возвращение на исходную позицию
     private void ReturnToOriginalPosition()
     {
-        // Возвращаем в оригинального родителя
         transform.SetParent(originalParent);
         transform.SetSiblingIndex(originalSiblingIndex);
         
-        // Анимация возвращения
         Sequence returnSequence = DOTween.Sequence();
         
         returnSequence.Append(transform.DOLocalMove(originalPosition, returnDuration)
@@ -174,13 +156,11 @@ public class DragAndHoverUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         
         returnSequence.OnComplete(() =>
         {
-            // Включаем layout group обратно
             if (layoutGroup != null)
             {
                 StartCoroutine(EnableLayoutGroup());
             }
             
-            // Если курсор все еще над объектом, применяем hover эффект
             if (isHovering)
             {
                 transform.DOScale(originalScale * hoverScale, hoverDuration)
@@ -189,7 +169,6 @@ public class DragAndHoverUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         });
     }
 
-    // Корутина для включения layout group с задержкой
     private IEnumerator EnableLayoutGroup()
     {
         yield return new WaitForEndOfFrame();
@@ -197,13 +176,11 @@ public class DragAndHoverUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             layoutGroup.enabled = true;
     }
 
-    // Обновление оригинальной позиции при изменении layout
     public void UpdateOriginalPosition()
     {
         originalPosition = transform.localPosition;
     }
 
-    // Для принудительного возврата если нужно
     public void ForceReturnToPosition()
     {
         if (isDragging) return;

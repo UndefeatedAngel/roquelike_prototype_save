@@ -6,13 +6,13 @@ using UnityEngine.EventSystems;
 public class KnifeController : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
     [Header("Settings")]
-    public float yOffset = 50f; // Смещение над курсором по Y
-    public float xOffset = 0f; // Смещение по X
-    public float returnSpeed = 10f; // Скорость возвращения на место
+    public float yOffset = 50f;
+    public float xOffset = 0f;
+    public float returnSpeed = 10f;
     
     [Header("References")]
     public Image knifeImage;
-    public LayerMask interactableLayer; // Слой для 3D объектов
+    public LayerMask interactableLayer;
     
     private RectTransform rectTransform;
     private Vector2 originalPosition;
@@ -40,11 +40,9 @@ public class KnifeController : MonoBehaviour, IPointerDownHandler, IDragHandler,
     {
         if (isDragging)
         {
-            // Двигаем нож за мышью с учетом смещений
             Vector2 mousePosition = eventData.position;
             rectTransform.position = new Vector2(mousePosition.x + xOffset, mousePosition.y + yOffset);
             
-            // Проверяем попадание на 3D объекты
             CheckFor3DObjects();
         }
     }
@@ -58,7 +56,6 @@ public class KnifeController : MonoBehaviour, IPointerDownHandler, IDragHandler,
     {
         isDragging = true;
         
-        // Поднимаем нож над мышью с учетом смещений
         Vector2 mousePosition = eventData.position;
         rectTransform.position = new Vector2(mousePosition.x + xOffset, mousePosition.y + yOffset);
     }
@@ -76,10 +73,8 @@ public class KnifeController : MonoBehaviour, IPointerDownHandler, IDragHandler,
         {
             highlightedMob.Blood();
         }
-        // Убираем подсветку
         RemoveHighlight();
         
-        // Возвращаем нож на место
         StartCoroutine(ReturnToPosition());
     }
     
@@ -100,7 +95,6 @@ public class KnifeController : MonoBehaviour, IPointerDownHandler, IDragHandler,
     
     private void CheckFor3DObjects()
     {
-        // Создаем луч из камеры в точку курсора
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         
@@ -109,10 +103,8 @@ public class KnifeController : MonoBehaviour, IPointerDownHandler, IDragHandler,
             var sacrifice = hit.transform.GetComponent<Sacrifice>();
             if (sacrifice!=null && !sacrifice.Equals(highlightedObject))
             {
-                // Убираем старую подсветку
                 RemoveHighlight();
                 
-                // Подсвечиваем новый объект
                 highlightedObject = sacrifice;
                 HighlightObject(highlightedObject);
             }
@@ -127,7 +119,6 @@ public class KnifeController : MonoBehaviour, IPointerDownHandler, IDragHandler,
         }
         else
         {
-            // Если не попали ни на что - убираем подсветку
             RemoveHighlight();
         }
     }
@@ -163,24 +154,20 @@ public class KnifeController : MonoBehaviour, IPointerDownHandler, IDragHandler,
     
     void Update()
     {
-        // Дополнительное отслеживание мыши, если нужно
         if (isDragging && Input.GetMouseButton(0))
         {
-            // Обновляем позицию с учетом смещений (на случай если Drag события не работают)
             Vector2 mousePosition = Input.mousePosition;
             rectTransform.position = new Vector2(mousePosition.x + xOffset, mousePosition.y + yOffset);
             
             CheckFor3DObjects();
         }
         
-        // Если отпустили кнопку мыши во время перетаскивания
         if (isDragging && Input.GetMouseButtonUp(0))
         {
             StopDragging();
         }
     }
     
-    // Метод для быстрой настройки смещений через код
     public void SetOffsets(float x, float y)
     {
         xOffset = x;

@@ -1,5 +1,4 @@
-﻿using System;
-using BlockoutRoguelike.Cards.Mobs;
+﻿using BlockoutRoguelike.Cards.Mobs;
 using UnityEngine;
 
 namespace BlockoutRoguelike.Cards

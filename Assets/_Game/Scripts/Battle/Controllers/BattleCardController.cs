@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using BlockoutRoguelike.Battle.Cards;
 using BlockoutRoguelike.Cards;
 using BlockoutRoguelike.Cards.Mobs;
-using BlockoutRoguelike.Cards.Person;
-using BlockoutRoguelike.Cards.UI;
 using BlockoutRoguelike.Core;
 using BlockoutRoguelike.Static;
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.ProBuilder;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Math = System.Math;
 
