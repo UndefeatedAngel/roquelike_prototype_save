@@ -19,16 +19,16 @@ namespace BlockoutRoguelike.Cards.Person
         protected virtual void Start()
         {
             _currentHp = _maxHp;
-            UpdateHp(_currentHp);
+            UpdateHp();
         }
 
-        private void UpdateHp(int count)
+        private void UpdateHp()
         {
             _hpImage.fillAmount = (float)_currentHp / _maxHp;
             _hpText.text = $"{_currentHp}/{_maxHp}";
         }
 
-        public void AddHp(int amount)
+        public virtual void AddHp(int amount)
         {
             if (_currentHp < 1) return;
             
@@ -38,7 +38,7 @@ namespace BlockoutRoguelike.Cards.Person
                 _currentHp = 0;
                 _animator.SetTrigger("death");
             }
-            UpdateHp(_currentHp);
+            UpdateHp();
         }
     }
 }

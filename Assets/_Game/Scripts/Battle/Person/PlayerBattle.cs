@@ -8,5 +8,11 @@
             _maxHp = Player.MaxHp;
             base.Start();
         }
+
+        public override void AddHp(int amount)
+        {
+            base.AddHp(amount);
+            Player.AddHP(amount);
+        }
     }
 }

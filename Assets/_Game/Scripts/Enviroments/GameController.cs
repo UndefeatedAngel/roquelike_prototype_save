@@ -21,6 +21,8 @@ namespace BlockoutRoguelike
 
         private void Start()
         {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
             if (_step >= _maxSteps)
             {
                 _step = 0;
@@ -76,11 +78,11 @@ namespace BlockoutRoguelike
             
             if (_step == 0)
             {
-                CreateEnvironment(0,true, false, maxBottles);
+                CreateEnvironment(0,true, false, 1);
             }
             else if (_step == _maxSteps-1)
             {
-                CreateEnvironment(0,false, true, maxBottles);
+                CreateEnvironment(0,false, true, 3);
             }
             else
             {
