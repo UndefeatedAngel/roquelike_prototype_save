@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,6 +23,12 @@ namespace BlockoutRoguelike
             
             _hpImage.fillAmount = (float)Player.HP / Player.MaxHp;
             _bottleText.text = Player.Bottle.ToString();
+        }
+
+        private void OnDestroy()
+        {
+            Player.OnHPUpdate = null;
+            Player.OnBottleUpdate = null;
         }
     }
 }

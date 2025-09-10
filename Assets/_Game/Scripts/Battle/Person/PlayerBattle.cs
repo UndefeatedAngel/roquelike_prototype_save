@@ -6,7 +6,7 @@
         {
             _currentHp = Player.HP;
             _maxHp = Player.MaxHp;
-            base.Start();
+            UpdateHp();
         }
 
         public override void AddHp(int amount)

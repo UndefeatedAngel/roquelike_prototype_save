@@ -22,7 +22,7 @@ namespace BlockoutRoguelike.Cards.Person
             UpdateHp();
         }
 
-        private void UpdateHp()
+        protected void UpdateHp()
         {
             _hpImage.fillAmount = (float)_currentHp / _maxHp;
             _hpText.text = $"{_currentHp}/{_maxHp}";
