@@ -6,12 +6,14 @@ using BlockoutRoguelike.Cards;
 using BlockoutRoguelike.Cards.Mobs;
 using BlockoutRoguelike.Cards.Person;
 using BlockoutRoguelike.Cards.UI;
+using BlockoutRoguelike.Core;
 using BlockoutRoguelike.Static;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.ProBuilder;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Math = System.Math;
 
 namespace BlockoutRoguelike.Battle.Controllers
 {
@@ -164,6 +166,7 @@ namespace BlockoutRoguelike.Battle.Controllers
             var mob = Instantiate(prefabMob, slot.transform);
             var mobUI = mob.GetComponent<MobUI>();
             mobUI.SetMob($"PU: {cardUI.CardData.GetName()}", cardUI.CardData);
+            mobUI.OnGetBlood = AddBlood;
             slot.ActiveMob = mobUI;
             _cardsInDeck.Remove(cardUI);
             RemoveBlood(cardUI);
@@ -211,14 +214,20 @@ namespace BlockoutRoguelike.Battle.Controllers
                 sacrifice.Set(_playerStats);
                 sacrifice.OnGetBlood = () =>
                 {
-                    _playerStats.AddBlood(1);
-                    foreach (var card in _cardsInDeck)
-                    {
-                        card.GetComponent<DragAndHoverUI>().UpdateInput(card.BloodCost()<=_playerStats.BloodCurrent);
-                    }
-                    _uiController.UpdateBlood(_playerStats.BloodCurrent, _playerStats.BloodMax);
+                    AddBlood(1);
                 };
             }
+        }
+
+        private void AddBlood(int count)
+        {
+            var add = Math.Min(count, _playerStats.BloodMax-_playerStats.BloodCurrent);
+            _playerStats.AddBlood(add);
+            foreach (var card in _cardsInDeck)
+            {
+                card.GetComponent<DragAndHoverUI>().UpdateInput(card.BloodCost()<=_playerStats.BloodCurrent);
+            }
+            _uiController.UpdateBlood(_playerStats.BloodCurrent, _playerStats.BloodMax);
         }
 
         private void WinGame()

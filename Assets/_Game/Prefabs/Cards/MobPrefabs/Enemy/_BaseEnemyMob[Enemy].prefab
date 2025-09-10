@@ -535,6 +535,7 @@ MonoBehaviour:
   _attackText: {fileID: 717126402035532189}
   _protectionText: {fileID: 4242904545752941175}
   _animator: {fileID: 0}
+  _highlight: {fileID: 0}
   _layoutDamagePrefab: {fileID: 7177100910964020416}
   _coinPrefab: {fileID: 191547845685245769}
 --- !u!114 &4242904545752941175 stripped

@@ -13,6 +13,7 @@ namespace BlockoutRoguelike.Cards.Mobs
         [SerializeField] private TMP_Text _attackText;
         [SerializeField] private TMP_Text _protectionText;
         [SerializeField] private Animator _animator;
+        [SerializeField] private GameObject _highlight;
         
         [Header("Damage")]
         [SerializeField] private LayoutDamage _layoutDamagePrefab;
@@ -24,6 +25,7 @@ namespace BlockoutRoguelike.Cards.Mobs
         private CardData _cardData;
 
         public Action<PlayerCardType> OnDeath;
+        public Action<int> OnGetBlood;
         
         public void SetMob(string nameText, CardData cardData)
         {
@@ -73,6 +75,18 @@ namespace BlockoutRoguelike.Cards.Mobs
         {
             var damage = Instantiate(_layoutDamagePrefab, _layoutDamagePrefab.transform.parent);
             damage.AnimateDamage(amount);
+        }
+        
+        public void Highlight(bool state)
+        {
+            _highlight.SetActive(state);
+        }
+
+        public void Blood()
+        {
+            AddHp(-Hp);
+            RemoveMob();
+            OnGetBlood?.Invoke(_cardData.Blood);
         }
     }
 }

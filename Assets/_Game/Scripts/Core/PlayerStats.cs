@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using BlockoutRoguelike.Battle.Controllers;
 
-namespace BlockoutRoguelike.Cards.Person
+namespace BlockoutRoguelike.Core
 {
     public class PlayerStats
     {

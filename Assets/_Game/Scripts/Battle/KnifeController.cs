@@ -19,6 +19,7 @@ public class KnifeController : MonoBehaviour, IPointerDownHandler, IDragHandler,
     private Vector2 originalAnchoredPosition;
     private bool isDragging = false;
     private Sacrifice highlightedObject;
+    private MobUI highlightedMob;
     
     void Start()
     {
@@ -70,6 +71,11 @@ public class KnifeController : MonoBehaviour, IPointerDownHandler, IDragHandler,
         {
             highlightedObject.Attack();
         }
+
+        if (highlightedMob != null)
+        {
+            highlightedMob.Blood();
+        }
         // Убираем подсветку
         RemoveHighlight();
         
@@ -101,7 +107,7 @@ public class KnifeController : MonoBehaviour, IPointerDownHandler, IDragHandler,
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
             var sacrifice = hit.transform.GetComponent<Sacrifice>();
-            if (!sacrifice.Equals(highlightedObject))
+            if (sacrifice!=null && !sacrifice.Equals(highlightedObject))
             {
                 // Убираем старую подсветку
                 RemoveHighlight();
@@ -109,6 +115,14 @@ public class KnifeController : MonoBehaviour, IPointerDownHandler, IDragHandler,
                 // Подсвечиваем новый объект
                 highlightedObject = sacrifice;
                 HighlightObject(highlightedObject);
+            }
+
+            var mob = hit.transform.GetComponent<MobUI>();
+            if (mob!=null&& !mob.Equals(highlightedMob))
+            {
+                RemoveHighlight();
+                highlightedMob = mob;
+                HighlightObject(mob);
             }
         }
         else
@@ -124,6 +138,12 @@ public class KnifeController : MonoBehaviour, IPointerDownHandler, IDragHandler,
         Debug.Log("Object highlighted: " + sacrifice.name);
     }
     
+    private void HighlightObject(MobUI mob)
+    {
+        mob.Highlight(true);
+        Debug.Log("Mob highlighted: " + mob.name);
+    }
+    
     private void RemoveHighlight()
     {
         if (highlightedObject != null)
@@ -131,6 +151,13 @@ public class KnifeController : MonoBehaviour, IPointerDownHandler, IDragHandler,
             highlightedObject.Highlight(false);
             Debug.Log("Highlight removed from: " + highlightedObject.name);
             highlightedObject = null;
+        }
+
+        if (highlightedMob != null)
+        {
+            highlightedMob.Highlight(false);
+            Debug.Log("Highlight removed from: " + highlightedMob.name);
+            highlightedMob = null;
         }
     }
     

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using BlockoutRoguelike.Battle.Cards;
-using BlockoutRoguelike.Cards.Person;
+using BlockoutRoguelike.Core;
 using UnityEngine;
 
 namespace BlockoutRoguelike.Battle.Controllers

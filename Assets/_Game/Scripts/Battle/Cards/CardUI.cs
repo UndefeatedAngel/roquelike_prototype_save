@@ -1,6 +1,6 @@
 ﻿using System;
 using BlockoutRoguelike.Battle.Controllers;
-using BlockoutRoguelike.Cards.Person;
+using BlockoutRoguelike.Core;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;

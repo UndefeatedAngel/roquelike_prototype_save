@@ -1,5 +1,5 @@
 ﻿using System;
-using BlockoutRoguelike.Cards.Person;
+using BlockoutRoguelike.Core;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
