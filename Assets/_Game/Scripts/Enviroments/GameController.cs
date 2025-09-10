@@ -18,6 +18,10 @@ namespace BlockoutRoguelike
 
         private void Start()
         {
+            if (_step >= _maxSteps)
+            {
+                _step = 0;
+            }
             Restart();
             SetupSkin();
             GenerateRoomsRandom();
@@ -66,11 +70,6 @@ namespace BlockoutRoguelike
         private void GenerateRoomsRandom()
         {
             var maxBottles = Random.Range(1, 4);
-            
-            if (_step >= _maxSteps)
-            {
-                _step = 0;
-            }
             
             if (_step == 0)
             {

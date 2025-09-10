@@ -7,3 +7,5 @@ Assets/_Game/Models/Cards/Player/PlayerPerson/PlayerPerson.fbx filter=lfs diff=l
 Assets/_Game/Models/Cards/Enviroment/Arena/textures/barge_composit_1M_u1_v1.jpeg filter=lfs diff=lfs merge=lfs -text
 Assets/Layer[[:space:]]Lab/GUI[[:space:]]Pro-SuperCasual/Preview/** filter=lfs diff=lfs merge=lfs -text
 Assets/Layer[[:space:]]Lab/GUI[[:space:]]Pro-SuperCasual/Preview/*.png filter=lfs diff=lfs merge=lfs -text
+*.hdr filter=lfs diff=lfs merge=lfs -text
+*.exr filter=lfs diff=lfs merge=lfs -text

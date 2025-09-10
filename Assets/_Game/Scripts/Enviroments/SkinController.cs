@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace _Game.Scripts
+namespace BlockoutRoguelike
 {
     public enum EnviromentType
     {
@@ -11,17 +11,6 @@ namespace _Game.Scripts
         First,
         Random,
         Boss
-    }
-    
-    [Serializable]
-    public class SkinObject
-    {
-        public EnviromentType EnviromentType;
-        public Color DirectionalLightColors;
-        public Vector3 DirectionalLightDirection;
-        public Material FloorMaterials;
-        public Color RoadColor;
-        public Color TreeColor;
     }
     
     public class SkinController: MonoBehaviour
@@ -34,22 +23,27 @@ namespace _Game.Scripts
         [SerializeField] private Material[] _treeMaterials;
         
         [Header("GDSetup")]
-        [SerializeField] private SkinObject[] _skinObjects;
+        [SerializeField] private SkinObjectEnv[] _skinObjects;
 
-        private static SkinObject _lastRandomSkin;
+        private static int _lastRandomSkin = -1;
 
         public void Setup(EnviromentType type)
         {
+            for (int i = 0; i < _skinObjects.Length; i++)
+            {
+                _skinObjects[i].SetID(i);
+            }
+            
             Debug.Log($"SkinType: {type.ToString()}");
             var skins = _skinObjects.Where(x => x.EnviromentType == type).ToList();
             if (type == EnviromentType.Random)
             {
-                if (_lastRandomSkin !=null)
+                if (_lastRandomSkin>0)
                 {
                     for (var i = 0; i < skins.Count; i++)
                     {
                         var skinFind = skins[i];
-                        if (!skinFind.Equals(_lastRandomSkin)) continue;
+                        if (skinFind.Id!=_lastRandomSkin) continue;
                         
                         skins.RemoveAt(i);
                         break;
@@ -61,12 +55,27 @@ namespace _Game.Scripts
             var skin = skins[random];
             if (type == EnviromentType.Random)
             {
-                _lastRandomSkin = skin;
+                _lastRandomSkin = skin.Id;
             }
             _directionalLight.color = skin.DirectionalLightColors;
             _directionalLight.transform.eulerAngles = skin.DirectionalLightDirection;
             _floorRenderer.material = skin.FloorMaterials;
             _roadMaterial.color = skin.RoadColor;
+            if (skin.ParticleSystem.Length>0)
+            {
+                var isParticleRandom = Random.Range(0, 3);
+                if (isParticleRandom > 0)
+                {
+                    var rndP = Random.Range(0, skin.ParticleSystem.Length);
+                    var skinPrefab = skin.ParticleSystem[rndP];
+                    Instantiate(skinPrefab, null, true);
+                }
+            }
+
+            if (skin.SkyboxMaterial != null)
+            {
+                RenderSettings.skybox = skin.SkyboxMaterial;
+            }
             foreach (var treeMaterial in _treeMaterials)
             {
                 treeMaterial.color = skin.TreeColor;

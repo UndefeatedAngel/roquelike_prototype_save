@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bb114b849fa4139bf553cc9dacfbbb3, type: 3}
+  m_Name: FirstSkin
+  m_EditorClassIdentifier: 
+  EnviromentType: 1
+  DirectionalLightColors: {r: 1, g: 1, b: 1, a: 1}
+  DirectionalLightDirection: {x: 50, y: -30, z: 0}
+  FloorMaterials: {fileID: 2100000, guid: d962ce535805c5a4cb27ee3888bb17af, type: 2}
+  RoadColor: {r: 0.34117648, g: 0.29411766, b: 0.13333334, a: 1}
+  TreeColor: {r: 0, g: 0.6117647, b: 0.047058824, a: 1}
+  SkyboxMaterial: {fileID: 2100000, guid: 4e154bf235e41704bbd6bbc6fd6c63f6, type: 2}
+  ParticleSystem:
+  - {fileID: 5251321451208507715, guid: 25a58b642e5bce549a7ac78afb6d56eb, type: 3}
+  - {fileID: 1247747548212767815, guid: aa0d539a8911a5d4b94f8b86b5fe69c0, type: 3}
+  - {fileID: 1798299541506962955, guid: 3f9edbc0ca0d8df489c4a796bbfe6500, type: 3}
+  - {fileID: 5823821507936957221, guid: 25b0e2c147dd052499caa4a425975423, type: 3}
