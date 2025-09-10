@@ -107,7 +107,7 @@ namespace BlockoutRoguelike
                 2 or 3 or 4 => "ки",
                 _ => "ок"
             };
-            _targetText.text = $"Собери {maxBottles} бутыл{post} чтобы пройти дальше!";
+            _targetText.text = $"Найди {maxBottles} бутыл{post} чтобы пройти дальше!";
         }
     }
 }
