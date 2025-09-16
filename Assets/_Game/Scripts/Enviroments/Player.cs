@@ -32,5 +32,11 @@ namespace BlockoutRoguelike
             _bottle += amount;
             OnBottleUpdate?.Invoke(_bottle);
         }
+
+        public static void Restart()
+        {
+            _hp = _maxHp;
+            OnHPUpdate?.Invoke(_hp);
+        }
     }
 }

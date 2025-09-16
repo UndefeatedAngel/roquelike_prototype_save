@@ -2,7 +2,7 @@
 
 namespace BlockoutRoguelike
 {
-    [CreateAssetMenu(fileName = "SkinObject", menuName = "BlockoutRoguelike./SkinObject")]
+    [CreateAssetMenu(fileName = "SkinObject", menuName = "BlockoutRoguelike/SkinObject")]
     public class SkinObjectEnv: ScriptableObject
     {
         private int _id;

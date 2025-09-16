@@ -1,8 +1,8 @@
-﻿using _Game.Scripts;
+﻿using BlockoutRoguelike.Core;
 using BlockoutRoguelike.Static;
+using StarterAssets;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 namespace BlockoutRoguelike
@@ -15,6 +15,8 @@ namespace BlockoutRoguelike
         [SerializeField] private int _maxSteps = 13;
         [Header("Controllers")]
         [SerializeField] private SkinController _skinController;
+        [SerializeField] private InventoryController _inventoryController;
+        [SerializeField] private ThirdPersonController _thirdPersonController;
         
         private static int _step = 0;
         private int _maxGames = 2;
@@ -30,6 +32,7 @@ namespace BlockoutRoguelike
             Restart();
             SetupSkin();
             GenerateRoomsRandom();
+            _inventoryController.Init();
         }
 
         private void Update()
@@ -40,10 +43,20 @@ namespace BlockoutRoguelike
                 SceneLoadManager.LoadScene(SceneName.GamePlay);
             }
             #endif
+
+            if (Input.GetKeyDown(KeyCode.I) && !_inventoryController.IsInventoryShow())
+            {
+                _thirdPersonController.LockCameraPosition = true;
+                _inventoryController.ShowUI(() =>
+                {
+                    _thirdPersonController.LockCameraPosition = false;
+                });
+            }
         }
 
         private void Restart()
         {
+            Player.Restart();
             if (PlayerPrefs.GetInt("Restart") == _maxGames)
             {
                 PlayerPrefs.SetInt("Restart", 0);

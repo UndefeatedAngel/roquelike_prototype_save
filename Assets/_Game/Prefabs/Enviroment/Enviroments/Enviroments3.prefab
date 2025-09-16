@@ -134,6 +134,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enviroments3
       objectReference: {fileID: 0}
+    - target: {fileID: 1422084363646694763, guid: d5a98102b4cead74c92889c7246759a6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1486792247708119054, guid: d5a98102b4cead74c92889c7246759a6, type: 3}
       propertyPath: m_Splines.Array.size
       value: 11
