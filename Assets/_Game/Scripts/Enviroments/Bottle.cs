@@ -1,13 +1,12 @@
 ﻿using BlockoutRoguelike;
-using UnityEngine;
+using BlockoutRoguelike.Enviroments;
 
 namespace _Game.Scripts
 {
-    public class Bottle: MonoBehaviour
+    public class Bottle: BaseInteractObject
     {
-        private void OnTriggerEnter(Collider other)
+        protected override void Interact()
         {
-            if (!other.CompareTag("Player")) return;
             Player.AddBottle(1);
             Destroy(gameObject);
         }

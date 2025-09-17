@@ -1,11 +1,11 @@
+using BlockoutRoguelike.Enviroments;
 using BlockoutRoguelike.Static;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace BlockoutRoguelike.Modules
 {
-    public class RoomObject : MonoBehaviour
+    public class RoomObject : BaseInteractObject
     {
         [SerializeField] private TMP_Text[] _nameTexts;
         [SerializeField] private TMP_Text _questText;
@@ -13,30 +13,28 @@ namespace BlockoutRoguelike.Modules
 
         private int _maxBottle;
 
-        public void OnTriggerEnter(Collider other)
+        protected override void TriggerEnter()
         {
-            Debug.Log("OnTriggerEnter:" + other.name);
-            if(!other.CompareTag("Player")) return;
-            
-            if (Player.Bottle >= _maxBottle)
-            {
-                Player.AddBottle(-_maxBottle);
-                BattleController.Type = roomEnum;
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
+            base.TriggerEnter();
+            UpdateQuestText($"{Player.Bottle}/{_maxBottle} bottles");
+        }
 
-                if (roomEnum == RoomEnum.Enemy || roomEnum == RoomEnum.EliteEnemy)
-                {
-                    SceneLoadManager.LoadScene(SceneName.Cards);
-                }
-                else
-                {
-                    SceneLoadManager.LoadScene(SceneName.Battle);
-                }
+        protected override void Interact()
+        {
+            if (Player.Bottle < _maxBottle) return;
+            
+            Player.AddBottle(-_maxBottle);
+            BattleController.Type = roomEnum;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
+            if (roomEnum == RoomEnum.Enemy || roomEnum == RoomEnum.EliteEnemy)
+            {
+                SceneLoadManager.LoadScene(SceneName.Cards);
             }
             else
             {
-                UpdateQuestText($"{Player.Bottle}/{_maxBottle} bottles");
+                SceneLoadManager.LoadScene(SceneName.Battle);
             }
         }
 

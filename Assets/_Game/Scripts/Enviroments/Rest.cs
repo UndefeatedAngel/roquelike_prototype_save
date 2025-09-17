@@ -1,14 +1,12 @@
 ﻿using BlockoutRoguelike;
-using UnityEngine;
+using BlockoutRoguelike.Enviroments;
 
 namespace _Game.Scripts
 {
-    public class Rest: MonoBehaviour
+    public class Rest: BaseInteractObject
     {
-        private void OnTriggerEnter(Collider other)
+        protected override void Interact()
         {
-            if (!other.CompareTag("Player")) return;
-            
             Player.AddHP(Player.MaxHp-Player.HP);
             Destroy(gameObject);
         }

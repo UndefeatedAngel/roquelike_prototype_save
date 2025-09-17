@@ -1,10 +1,11 @@
-﻿using DG.Tweening;
+﻿using BlockoutRoguelike.Enviroments;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
 namespace BlockoutRoguelike.Modules
 {
-    public class ChangeColorTextTrigger: MonoBehaviour
+    public class ChangeColorTextTrigger: BaseInteractObject
     {
         [SerializeField] private TMP_Text _text;
         [SerializeField] private Color _disableColor;
@@ -17,20 +18,15 @@ namespace BlockoutRoguelike.Modules
             ChangeTextHighlight(false);
         }
 
-        private void OnTriggerEnter(Collider other)
+        protected override void Interact()
         {
-            if (other.CompareTag("Player"))
-            {
-                ChangeTextHighlight(true);
-            }
+            ChangeTextHighlight(true);
         }
 
-        private void OnTriggerExit(Collider other)
+        protected override void ClearInteract()
         {
-            if (other.CompareTag("Player"))
-            {
-                ChangeTextHighlight(false);
-            }
+            base.ClearInteract();
+            ChangeTextHighlight(false);
         }
 
         private void ChangeTextHighlight(bool state)

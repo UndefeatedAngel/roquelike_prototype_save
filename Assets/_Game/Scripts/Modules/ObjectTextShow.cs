@@ -1,9 +1,10 @@
-﻿using TMPro;
+﻿using BlockoutRoguelike.Enviroments;
+using TMPro;
 using UnityEngine;
 
 namespace BlockoutRoguelike.Modules
 {
-    public class ObjectTextShow: MonoBehaviour
+    public class ObjectTextShow: BaseInteractObject
     {
         [SerializeField] private string _textToShow;
         [SerializeField] private TMP_Text[] _texts;
@@ -18,20 +19,15 @@ namespace BlockoutRoguelike.Modules
             }
         }
 
-        private void OnTriggerEnter(Collider other)
+        protected override void Interact()
         {
-            if (other.CompareTag("Player"))
-            {
-                _textObject.SetActive(true);
-            }
+            _textObject.SetActive(true);
         }
 
-        private void OnTriggerExit(Collider other)
+        protected override void ClearInteract()
         {
-            if (other.CompareTag("Player"))
-            {
-                _textObject.SetActive(false);
-            }
+            base.ClearInteract();
+            _textObject.SetActive(false);
         }
     }
 }
