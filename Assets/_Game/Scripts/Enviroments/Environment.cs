@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BlockoutRoguelike.Modules;
 using UnityEngine;
@@ -11,10 +12,11 @@ namespace BlockoutRoguelike
         [SerializeField] private GameObject _bottlePrefab;
         [SerializeField] private Transform[] _bottlePoints;
         [SerializeField] private RoomObject[] _roomEnds;
-        public void Setup(bool isStart, bool isEnd, int maxBottles)
+        public void Setup(bool isStart, bool isEnd, int maxBottles, Action<GameObject[]> OnBottles)
         {
             gameObject.SetActive(true);
-            GenerateBottle(maxBottles);
+            var bottles = GenerateBottle(maxBottles);
+            OnBottles?.Invoke(bottles.ToArray());
             
             if (isStart)
             {
@@ -41,15 +43,19 @@ namespace BlockoutRoguelike
             }
         }
 
-        private void GenerateBottle(int maxBottles)
+        private List<GameObject> GenerateBottle(int maxBottles)
         {
+            var bottles = new List<GameObject>();
             var bottlesToSpawn = Mathf.Min(maxBottles, _bottlePoints.Length);
             var rng = new System.Random();
             var shuffledPoints = _bottlePoints.OrderBy(x => rng.Next()).ToArray();
             for (var i = 0; i < bottlesToSpawn; i++)
             {
-                Instantiate(_bottlePrefab, shuffledPoints[i]);
+                var bottle= Instantiate(_bottlePrefab, shuffledPoints[i]);
+                bottles.Add(bottle);
             }
+
+            return bottles;
         }
     }
 }

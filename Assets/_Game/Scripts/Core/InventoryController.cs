@@ -1,18 +1,19 @@
 ﻿using System;
 using BlockoutRoguelike.Core.Rune;
+using BlockoutRoguelike.Core.UI.Inventory;
 using UnityEngine;
 
 namespace BlockoutRoguelike.Core
 {
     public class InventoryController: MonoBehaviour
     {
-        [SerializeField] private InventoryUI _inventoryUI;
+        [SerializeField] private LobbyUI lobbyUI;
         [SerializeField] private RuneSettings _runeSettings;
 
         private bool _isInventoryShow;
         public void Init()
         {
-            _inventoryUI.Init(_runeSettings);
+            lobbyUI.Init(_runeSettings);
         }
 
         public bool IsInventoryShow()
@@ -25,8 +26,8 @@ namespace BlockoutRoguelike.Core
             _isInventoryShow = true;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-            _inventoryUI.Show();
-            _inventoryUI.OnHide = () =>
+            lobbyUI.Show();
+            lobbyUI.OnHide = () =>
             {
                 HideUI();
                 onHide?.Invoke();

@@ -478,7 +478,7 @@ GameObject:
   - component: {fileID: 7127308149043203168}
   - component: {fileID: 3001275698214840222}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: MobProtectionText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -531,7 +531,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: 5
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -709,7 +709,7 @@ GameObject:
   - component: {fileID: 7433002092846468881}
   - component: {fileID: 3122065627761783928}
   m_Layer: 5
-  m_Name: HorizontalLayout (5)
+  m_Name: 'MobHealth [HorizontalLayout]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1262,7 +1262,7 @@ GameObject:
   - component: {fileID: 5539547198083429590}
   - component: {fileID: 9222275027414196604}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: DescriptionText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1325,7 +1325,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 0.509434, g: 0.509434, b: 0.509434, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1550,7 +1550,7 @@ GameObject:
   - component: {fileID: 1604315590234543370}
   - component: {fileID: 5326176823986269386}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: EnemiesText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1603,7 +1603,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: 2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2403,7 +2403,7 @@ GameObject:
   - component: {fileID: 7131686543109637727}
   - component: {fileID: 7308954624533497545}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: ParametrsText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2538,7 +2538,7 @@ GameObject:
   - component: {fileID: 6082793373845640993}
   - component: {fileID: 5184507018278944153}
   m_Layer: 5
-  m_Name: HorizontalLayout
+  m_Name: 'AllFight [HorizontalLayout]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3064,7 +3064,7 @@ GameObject:
   - component: {fileID: 9136698572095010200}
   - component: {fileID: 1059807333841401083}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: EliteEnemiesText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3117,7 +3117,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: 3
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3376,17 +3376,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3400810676346711779}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5330550231406125746}
+  m_Father: {fileID: 3907351796278511146}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 17.618038}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5477102665505610703
 MonoBehaviour:
@@ -3572,7 +3572,7 @@ GameObject:
   - component: {fileID: 5598420893326045019}
   - component: {fileID: 6144069506279182432}
   m_Layer: 5
-  m_Name: Line (5)
+  m_Name: Line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3694,7 +3694,7 @@ GameObject:
   - component: {fileID: 3043519856978638655}
   - component: {fileID: 1940305187366608364}
   m_Layer: 5
-  m_Name: Line (3)
+  m_Name: Line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4104,7 +4104,7 @@ GameObject:
   - component: {fileID: 3907351796278511146}
   - component: {fileID: 4192493837703845237}
   m_Layer: 5
-  m_Name: HorizontalLayout (2)
+  m_Name: 'EliteEnemies [HorizontalLayout]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4125,6 +4125,7 @@ RectTransform:
   - {fileID: 7839847843338841410}
   - {fileID: 8459380614161835544}
   - {fileID: 3464438175509514601}
+  - {fileID: 2520941329892327073}
   m_Father: {fileID: 5330550231406125746}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -4158,6 +4159,62 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!1 &3795381294271926029
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7505876098335867950}
+  - component: {fileID: 4800446463943325209}
+  m_Layer: 5
+  m_Name: Line
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7505876098335867950
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3795381294271926029}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5330550231406125746}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &4800446463943325209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3795381294271926029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: 20
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!1 &4031037557158858162
 GameObject:
   m_ObjectHideFlags: 0
@@ -4498,8 +4555,9 @@ GameObject:
   - component: {fileID: 5422753413429036356}
   - component: {fileID: 6141988172732543284}
   - component: {fileID: 5923795387762995234}
+  - component: {fileID: 3392307834739970662}
   m_Layer: 5
-  m_Name: Profile
+  m_Name: ProfileWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4563,6 +4621,37 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3392307834739970662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4111329235875960454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80c6098286b14250acb0b91713365038, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _nameText: {fileID: 6540575539093145867}
+  _descriptionText: {fileID: 9222275027414196604}
+  _goldText: {fileID: 6685739327599451081}
+  _hpText: {fileID: 7625604952921892052}
+  _cardPrefab: {fileID: 0}
+  _cardsParent: {fileID: 0}
+  _runePrefab: {fileID: 0}
+  _runeParent: {fileID: 0}
+  _rewardPrefab: {fileID: 0}
+  _rewardParent: {fileID: 0}
+  _allFightsText: {fileID: 7722760942686887132}
+  _enemiesDeathText: {fileID: 5326176823986269386}
+  _eliteEnemiesDeathText: {fileID: 1059807333841401083}
+  _mobAttackDeathText: {fileID: 7057416968327393414}
+  _mobProtectionDeathText: {fileID: 3001275698214840222}
+  _mobHealthDeathText: {fileID: 2985533080670570919}
+  _mobMageDeathText: {fileID: 830954167551927777}
+  _bossPrefab: {fileID: 0}
+  _bossParent: {fileID: 0}
 --- !u!1 &4234432274981032378
 GameObject:
   m_ObjectHideFlags: 0
@@ -4672,7 +4761,7 @@ GameObject:
   - component: {fileID: 5290348756013189282}
   - component: {fileID: 6685739327599451081}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: GoldCountText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4809,7 +4898,7 @@ GameObject:
   - component: {fileID: 4428239577634754305}
   - component: {fileID: 4707084253261287138}
   m_Layer: 5
-  m_Name: ParametrLayout
+  m_Name: StatsLayout
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4889,7 +4978,7 @@ MonoBehaviour:
   m_MinWidth: -1
   m_MinHeight: -1
   m_PreferredWidth: -1
-  m_PreferredHeight: 900
+  m_PreferredHeight: 1000
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
@@ -5396,7 +5485,7 @@ GameObject:
   - component: {fileID: 2533964467918202347}
   - component: {fileID: 4214573501401129661}
   m_Layer: 5
-  m_Name: Line (7)
+  m_Name: Line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6234,7 +6323,7 @@ GameObject:
   - component: {fileID: 1779881918305704620}
   - component: {fileID: 4537038725837862637}
   m_Layer: 5
-  m_Name: Line (6)
+  m_Name: Line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6386,7 +6475,7 @@ GameObject:
   - component: {fileID: 4226438590146118197}
   - component: {fileID: 8565786520610841613}
   m_Layer: 5
-  m_Name: Line (1)
+  m_Name: Line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6731,7 +6820,7 @@ GameObject:
   - component: {fileID: 1182476924868301694}
   - component: {fileID: 7722760942686887132}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: AllFightText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6784,7 +6873,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: 1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7285,7 +7374,7 @@ GameObject:
   - component: {fileID: 8401617263340436675}
   - component: {fileID: 4099861063691948085}
   m_Layer: 5
-  m_Name: HorizontalLayout (6)
+  m_Name: 'MobMage [HorizontalLayout]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7351,7 +7440,7 @@ GameObject:
   - component: {fileID: 9101491134805293973}
   - component: {fileID: 6540575539093145867}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: NameText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7487,7 +7576,7 @@ GameObject:
   - component: {fileID: 5320021067874086109}
   - component: {fileID: 830954167551927777}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: MobMageText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7540,7 +7629,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: 7
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7922,7 +8011,7 @@ GameObject:
   - component: {fileID: 4382941448460269309}
   - component: {fileID: 7057416968327393414}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: MobAttackText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7975,7 +8064,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: 4
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -8057,7 +8146,7 @@ GameObject:
   - component: {fileID: 8500381837619614150}
   - component: {fileID: 8922515196402554244}
   m_Layer: 5
-  m_Name: Line (4)
+  m_Name: Line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8331,7 +8420,7 @@ GameObject:
   - component: {fileID: 3166677296493661782}
   - component: {fileID: 3154631674899886463}
   m_Layer: 5
-  m_Name: HorizontalLayout (3)
+  m_Name: 'MobAttack [HorizontalLayout]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8783,7 +8872,7 @@ GameObject:
   - component: {fileID: 8499838896387351426}
   - component: {fileID: 4689183546281130836}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: StatsText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8863,7 +8952,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 52.85
+  m_fontSize: 60
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -9080,7 +9169,7 @@ GameObject:
   - component: {fileID: 919521737892888889}
   - component: {fileID: 4746992200659978754}
   m_Layer: 5
-  m_Name: HorizontalLayout
+  m_Name: GoldHorizontalLayout
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9569,7 +9658,7 @@ GameObject:
   - component: {fileID: 3223485325041737885}
   - component: {fileID: 8237665237472170272}
   m_Layer: 5
-  m_Name: HorizontalLayout (1)
+  m_Name: HpHorizontalLayout (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9794,7 +9883,7 @@ RectTransform:
   - {fileID: 6082793373845640993}
   - {fileID: 4226438590146118197}
   - {fileID: 8379989822776180752}
-  - {fileID: 2520941329892327073}
+  - {fileID: 7505876098335867950}
   - {fileID: 3907351796278511146}
   - {fileID: 3043519856978638655}
   - {fileID: 3166677296493661782}
@@ -10039,7 +10128,7 @@ GameObject:
   - component: {fileID: 539357715868130792}
   - component: {fileID: 1891549230286432129}
   m_Layer: 5
-  m_Name: ParametrLayout
+  m_Name: ParametrsLayout
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10135,7 +10224,7 @@ GameObject:
   - component: {fileID: 5570851616120578333}
   - component: {fileID: 7625604952921892052}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: HpText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10762,7 +10851,7 @@ GameObject:
   - component: {fileID: 6883908829644625656}
   - component: {fileID: 2985533080670570919}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: MobHealthText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10815,7 +10904,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: 6
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -11241,7 +11330,7 @@ GameObject:
   - component: {fileID: 8379989822776180752}
   - component: {fileID: 3410211527363714011}
   m_Layer: 5
-  m_Name: HorizontalLayout (1)
+  m_Name: 'Enemies [HorizontalLayout]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11306,7 +11395,7 @@ GameObject:
   - component: {fileID: 7841877501316738913}
   - component: {fileID: 7124787409419155702}
   m_Layer: 5
-  m_Name: HorizontalLayout (4)
+  m_Name: 'MobProtection [HorizontalLayout]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

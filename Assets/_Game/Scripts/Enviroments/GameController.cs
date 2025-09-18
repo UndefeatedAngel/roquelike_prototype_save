@@ -1,4 +1,5 @@
 ﻿using BlockoutRoguelike.Core;
+using BlockoutRoguelike.Modules;
 using BlockoutRoguelike.Static;
 using StarterAssets;
 using TMPro;
@@ -13,6 +14,7 @@ namespace BlockoutRoguelike
         [SerializeField] private Environment[] _enviroments;
         [SerializeField] private Transform _enviromentsContainer;
         [SerializeField] private int _maxSteps = 13;
+        [SerializeField] private AtomicStyleIndicator[] _atomicStyleIndicators;
         [Header("Controllers")]
         [SerializeField] private SkinController _skinController;
         [SerializeField] private InventoryController _inventoryController;
@@ -115,7 +117,14 @@ namespace BlockoutRoguelike
         private void CreateEnvironment(int number, bool isStart, bool isEnd, int maxBottles)
         {
             var env = Instantiate(_enviroments[number], _enviromentsContainer, true);
-            env.Setup(isStart, isEnd, maxBottles);
+            env.Setup(isStart, isEnd, maxBottles, objects =>
+            {
+                for (int i = 0; i < objects.Length; i++)
+                {
+                    var indicator = _atomicStyleIndicators[i];
+                    indicator.target = objects[i].transform;
+                }
+            });
             var post = maxBottles switch
             {
                 1  => "ку",

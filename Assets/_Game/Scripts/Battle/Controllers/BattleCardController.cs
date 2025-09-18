@@ -40,15 +40,19 @@ namespace BlockoutRoguelike.Battle.Controllers
 
         private int _currentCardAdd;
         private int _maxCardAdd = 1;
+        
+        private Stats _stats;
 
         private IEnumerator Start()
         {
+            InitStats();
             InitPlayerStats();
             InitBloods();
             _playerDeckController.Init(_playerStats);
             _enemyDeckController.Init();
             _enemyDeckController.OnDeath = type =>
             {
+                _stats.MobEnemyDeath(type);
                 _playerStats.AddStat(type, 1);
                 _uiController.UpdateStat(type, _playerStats.GetStat(type), _enemyDeckController.GetMaxStat(type));
                 NextMoveEnemy();
@@ -188,6 +192,13 @@ namespace BlockoutRoguelike.Battle.Controllers
             }
         }
 
+        private void InitStats()
+        {
+            _stats = new Stats();
+            _stats.LoadStats();
+            _stats.AddFight();
+        }
+
         private void InitPlayerStats()
         {
             _uiController.UpdateCoins(_playerStats.Coins);
@@ -227,6 +238,8 @@ namespace BlockoutRoguelike.Battle.Controllers
 
         private void WinGame()
         {
+           _stats.AddEnemiesDeath();
+            
             _uiController.ShowWin(() =>
             {
                 SceneLoadManager.LoadScene(SceneName.GamePlay);

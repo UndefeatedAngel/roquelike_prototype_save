@@ -3,9 +3,9 @@ using BlockoutRoguelike.Core.Rune;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace BlockoutRoguelike.Core
+namespace BlockoutRoguelike.Core.UI.Inventory
 {
-    public class InventoryUI: MonoBehaviour
+    public class LobbyUI: MonoBehaviour
     {
         [SerializeField] private RuneUI _runeUIPrefab;
         [SerializeField] private Button _closeButton;
@@ -19,7 +19,7 @@ namespace BlockoutRoguelike.Core
         {
             _runeSettings = runeSettings;
             _closeButton.onClick.AddListener(Hide);
-            CreateGrid();
+           // CreateGrid();
         }
 
         private void CreateGrid()
