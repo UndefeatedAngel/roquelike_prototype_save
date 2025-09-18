@@ -570,7 +570,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 2.5
+  m_Radius: 4
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6132333822331033558
 GameObject:
@@ -584,6 +584,7 @@ GameObject:
   - component: {fileID: 2365592286705018575}
   - component: {fileID: 8247555445668123380}
   - component: {fileID: 10070128550812554}
+  - component: {fileID: 8432495647714007253}
   m_Layer: 0
   m_Name: RoomEnd
   m_TagString: Untagged
@@ -660,6 +661,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _objectToRotate: {fileID: 9040581948721868901}
   _speed: 50
+--- !u!135 &8432495647714007253
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6132333822331033558}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 3
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6940024236575835295
 GameObject:
   m_ObjectHideFlags: 0

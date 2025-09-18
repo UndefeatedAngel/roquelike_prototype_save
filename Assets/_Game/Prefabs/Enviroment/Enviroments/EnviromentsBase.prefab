@@ -3412,20 +3412,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8432495647714007253, guid: 87aa4008a789787469264ef74c0500b2, type: 3}
+      propertyPath: m_Radius
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6132333822331033558, guid: 87aa4008a789787469264ef74c0500b2, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2247351443929215340}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 87aa4008a789787469264ef74c0500b2, type: 3}
 --- !u!114 &905364056529840095 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2365592286705018575, guid: 87aa4008a789787469264ef74c0500b2, type: 3}
   m_PrefabInstance: {fileID: 3189738717680681232}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8745523631889405638}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ac89ea9ec1ecc874fad7e86fba30bcf6, type: 3}
@@ -3436,32 +3437,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8124055318921794800, guid: 87aa4008a789787469264ef74c0500b2, type: 3}
   m_PrefabInstance: {fileID: 3189738717680681232}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &8745523631889405638 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6132333822331033558, guid: 87aa4008a789787469264ef74c0500b2, type: 3}
-  m_PrefabInstance: {fileID: 3189738717680681232}
-  m_PrefabAsset: {fileID: 0}
---- !u!135 &2247351443929215340
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8745523631889405638}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 3
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &7575425410236800706
 PrefabInstance:
   m_ObjectHideFlags: 0

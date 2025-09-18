@@ -18,9 +18,15 @@ namespace BlockoutRoguelike.Modules
             ChangeTextHighlight(false);
         }
 
+        protected override void TriggerEnter()
+        {
+            base.TriggerEnter();
+            ChangeTextHighlight(true);
+        }
+
         protected override void Interact()
         {
-            ChangeTextHighlight(true);
+            
         }
 
         protected override void ClearInteract()
