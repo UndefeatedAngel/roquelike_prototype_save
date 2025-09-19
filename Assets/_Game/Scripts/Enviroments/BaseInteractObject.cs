@@ -30,7 +30,10 @@ namespace BlockoutRoguelike.Enviroments
             
         }
 
-        protected abstract void Interact();
+        protected virtual void Interact()
+        {
+            
+        }
 
         protected virtual void ClearInteract()
         {

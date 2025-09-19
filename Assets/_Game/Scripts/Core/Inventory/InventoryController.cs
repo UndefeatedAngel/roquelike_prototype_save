@@ -1,16 +1,38 @@
 ﻿using System;
 using BlockoutRoguelike.Core.Rune;
 using BlockoutRoguelike.Core.UI.Inventory;
+using StarterAssets;
 using UnityEngine;
 
-namespace BlockoutRoguelike.Core
+namespace BlockoutRoguelike.Core.Inventory
 {
     public class InventoryController: MonoBehaviour
     {
+        [SerializeField] private GameInventoryView _gameInventoryView;
+        
+        [SerializeField] private ThirdPersonController _thirdPersonController;
         [SerializeField] private LobbyUI lobbyUI;
         [SerializeField] private RuneSettings _runeSettings;
 
         private bool _isInventoryShow;
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.I) && !IsInventoryShow())
+            {
+                _thirdPersonController.LockCameraPosition = true;
+                ShowUI(() =>
+                {
+                    _thirdPersonController.LockCameraPosition = false;
+                });
+            }
+
+            if (Input.GetKeyDown(KeyCode.Escape) && IsInventoryShow())
+            {
+                HideUI();
+            }
+        }
+
         public void Init()
         {
             lobbyUI.Init(_runeSettings);

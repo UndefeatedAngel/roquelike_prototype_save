@@ -19,8 +19,9 @@ namespace BlockoutRoguelike.Modules
             }
         }
 
-        protected override void Interact()
+        protected override void TriggerEnter()
         {
+            base.TriggerEnter();
             _textObject.SetActive(true);
         }
 

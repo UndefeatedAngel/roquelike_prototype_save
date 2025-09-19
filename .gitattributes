@@ -9,3 +9,7 @@ Assets/Layer[[:space:]]Lab/GUI[[:space:]]Pro-SuperCasual/Preview/** filter=lfs d
 Assets/Layer[[:space:]]Lab/GUI[[:space:]]Pro-SuperCasual/Preview/*.png filter=lfs diff=lfs merge=lfs -text
 *.hdr filter=lfs diff=lfs merge=lfs -text
 *.exr filter=lfs diff=lfs merge=lfs -text
+"*.fbx" filter=lfs diff=lfs merge=lfs -text
+"Assets/Decrepit[[:space:]]Dungeon[[:space:]]LITE/Textures/*.png" filter=lfs diff=lfs merge=lfs -text
+"Assets/_Game/Models/ChestMain/Materials/tex_chest_diff.png" filter=lfs diff=lfs merge=lfs -text
+"*.png" filter=lfs diff=lfs merge=lfs -text

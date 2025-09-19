@@ -1,4 +1,4 @@
-﻿using BlockoutRoguelike.Core;
+﻿using BlockoutRoguelike.Core.Inventory;
 using BlockoutRoguelike.Modules;
 using BlockoutRoguelike.Static;
 using StarterAssets;
@@ -45,15 +45,6 @@ namespace BlockoutRoguelike
                 SceneLoadManager.LoadScene(SceneName.GamePlay);
             }
             #endif
-
-            if (Input.GetKeyDown(KeyCode.I) && !_inventoryController.IsInventoryShow())
-            {
-                _thirdPersonController.LockCameraPosition = true;
-                _inventoryController.ShowUI(() =>
-                {
-                    _thirdPersonController.LockCameraPosition = false;
-                });
-            }
         }
 
         private void Restart()

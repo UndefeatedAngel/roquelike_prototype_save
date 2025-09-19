@@ -1,4 +1,5 @@
 ﻿using System;
+using BlockoutRoguelike.Core.Inventory;
 using TMPro;
 using UnityEngine;
 
