@@ -170,5 +170,10 @@ namespace BlockoutRoguelike.Cards.Mobs
                 shieldEffect.Play();
             }
         }
+        
+        public void WinDance()
+        {
+            _animator.SetBool("dance", true);
+        }
     }
 }

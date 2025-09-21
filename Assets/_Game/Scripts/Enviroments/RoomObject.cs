@@ -37,6 +37,13 @@ namespace BlockoutRoguelike.Modules
                     
                 });
             }
+            else if (roomEnum == RoomEnum.Chest)
+            {
+                SceneLoader.Instance.LoadSceneAsync(SceneType.Chest, () =>
+                {
+                    
+                });
+            }
             else
             {
                 SceneLoader.Instance.LoadSceneAsync(SceneType.Battle, () =>

@@ -77,7 +77,11 @@ namespace BlockoutRoguelike.Battle.Controllers
 
             if (_enemy.CurrentHp < 1)
             {
-                OnWin?.Invoke();
+                StartCoroutine(AnimationDance(true, () =>
+                {
+                    OnWin?.Invoke();
+
+                }));
                 yield break;
             }
             
@@ -208,7 +212,11 @@ namespace BlockoutRoguelike.Battle.Controllers
 
             if (_player.CurrentHp < 1)
             {
-                OnLose?.Invoke();
+                StartCoroutine(AnimationDance(false, () =>
+                {
+                    OnLose?.Invoke();
+                }));
+                
                 yield break;
             }
 
@@ -288,6 +296,32 @@ namespace BlockoutRoguelike.Battle.Controllers
                 }
                 mob1.transform.DOMove(defaultPos, 0.5f);
             });
+        }
+        
+        private IEnumerator AnimationDance(bool isWin, Action end)
+        {
+            if (isWin)
+            {
+                _player.WinDance();
+                foreach (var playerSlot in _playerSlots)
+                {
+                    playerSlot.ActiveMob?.WinDance();
+                    yield return new WaitForSeconds(UnityEngine.Random.Range(0f, 0.25f));
+                }
+            }
+            else
+            {
+                _enemy.WinDance();
+                foreach (var enemySlot in _enemySlots)
+                {
+                    enemySlot.ActiveMob?.WinDance();
+                    yield return new WaitForSeconds(UnityEngine.Random.Range(0f, 1f));
+                }
+            }
+
+            yield return new WaitForSeconds(10f);
+
+            end?.Invoke();
         }
     }
 }

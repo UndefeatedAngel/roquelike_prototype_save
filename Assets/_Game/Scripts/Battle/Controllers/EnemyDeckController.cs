@@ -4,6 +4,7 @@ using System.Linq;
 using BlockoutRoguelike.Cards;
 using BlockoutRoguelike.Cards.Mobs;
 using UnityEngine;
+using Random = System.Random;
 
 namespace BlockoutRoguelike.Battle.Controllers
 {
@@ -22,7 +23,9 @@ namespace BlockoutRoguelike.Battle.Controllers
 
         public Action<PlayerCardType> OnDeath;
         public Action<RectTransform> OnDropCoin;
-         
+
+
+        private int _nextSlot;
         public void Init()
         {
             InitDeck();
@@ -40,24 +43,19 @@ namespace BlockoutRoguelike.Battle.Controllers
         public void Move()
         {
             if (_deckStack.Count < 1) return;
+            if(_nextSlot<0) return;
+            var enemySlot = _enemySlots[_nextSlot];
             
-            foreach (var enemySlot in _enemySlots)
-            {
-                if (enemySlot.ActiveMob == null)
-                {
-                    var mobData = _deckStack.Pop();
-                    var prefab = _prefabsDataBase.FirstOrDefault(x => x.CardType == mobData.CardType);
-                    if (prefab == null) return;
-                    
-                    var mob = Instantiate(prefab.CardPrefab, enemySlot.transform);
-                    var mobUI = mob.GetComponent<EnemyMobUI>();
-                    enemySlot.ActiveMob = mobUI;
-                    mobUI.SetMob($"EU: {mobData.GetName()}", mobData);
-                    mobUI.OnDeath = type => OnDeath?.Invoke(type);
-                    mobUI.OnCoinDrop = rectTransform => OnDropCoin?.Invoke(rectTransform);
-                    break;
-                }
-            }
+            var mobData = _deckStack.Pop();
+            var prefab = _prefabsDataBase.FirstOrDefault(x => x.CardType == mobData.CardType);
+            if (prefab == null) return;
+            
+            var mob = Instantiate(prefab.CardPrefab, enemySlot.transform);
+            var mobUI = mob.GetComponent<EnemyMobUI>();
+            enemySlot.ActiveMob = mobUI;
+            mobUI.SetMob($"EU: {mobData.GetName()}", mobData);
+            mobUI.OnDeath = type => OnDeath?.Invoke(type);
+            mobUI.OnCoinDrop = rectTransform => OnDropCoin?.Invoke(rectTransform);
         }
 
         public int GetMaxStat(PlayerCardType type)
@@ -67,15 +65,48 @@ namespace BlockoutRoguelike.Battle.Controllers
 
         public int GetNextSlot()
         {
+            _nextSlot = -1;
             if (_deckStack.Count < 1) return 0;
-            
+
+            var slots = new List<int>();
             for (var i = 0; i < _enemySlots.Count; i++)
             {
                 var slot = _enemySlots[i];
-                if (slot.ActiveMob == null) return i;
+                if (slot.ActiveMob == null)
+                {
+                    slots.Add(i);
+                }
             }
 
-            return 0;
+            if (slots.Count <= 0) return 0;
+
+            var saveSlot = -1;
+            var saveAttack = 0;
+            for (int i = 0; i < _playerSlots.Count; i++)
+            {
+                if(!slots.Contains(i)) continue;
+                var mob = _playerSlots[i].ActiveMob;
+                if (mob != null && mob.Attack > 0)
+                {
+                    if (mob.Attack > saveAttack)
+                    {
+                        saveSlot = i;
+                        saveAttack = mob.Attack;
+                    }
+                }
+            }
+
+            if (saveSlot >= 0)
+            {
+                _nextSlot = saveSlot;
+                return saveSlot;
+            }
+            ;
+            
+            var random = UnityEngine.Random.Range(0, slots.Count);
+            _nextSlot = slots[random];
+            return slots[random];
+
         }
 
 
@@ -84,9 +115,14 @@ namespace BlockoutRoguelike.Battle.Controllers
             return _deckStack.Count < 1 ? "" : _deckStack.Peek().GetName();
         }
 
-        public PlayerCardType GetNextEnemy()
+        public PlayerCardType GetNextEnemyType()
         {
             return _deckStack.Count < 1 ? PlayerCardType.Empty : _deckStack.Peek().CardType;
+        }
+        
+        public CardData GetNextEnemyData()
+        {
+            return _deckStack.Count < 1 ? new CardData(): _deckStack.Peek();
         }
     }
 }

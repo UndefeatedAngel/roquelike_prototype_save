@@ -58,9 +58,10 @@ namespace BlockoutRoguelike.Battle.Controllers
             _loseUI.gameObject.SetActive(true);
         }
 
-        public void ShowMoveEnemy(string text)
+        public void ShowMoveEnemy(int slot, CardData data)
         {
-            _moveEnemyUI.Show(text);
+            _moveEnemyUI.gameObject.SetActive(true);
+            _moveEnemyUI.Show(slot, data);
         }
 
         public void HideMoveEnemy()

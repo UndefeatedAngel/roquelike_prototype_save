@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using BlockoutRoguelike.Battle.Cards;
 using BlockoutRoguelike.Cards;
@@ -8,6 +9,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using Math = System.Math;
+using Random = UnityEngine.Random;
 
 namespace BlockoutRoguelike.Battle.Controllers
 {
@@ -60,7 +62,7 @@ namespace BlockoutRoguelike.Battle.Controllers
                 _stats.MobEnemyDeath(type);
                 _playerStats.AddStat(type, 1);
                 _uiController.UpdateStat(type, _playerStats.GetStat(type), _enemyDeckController.GetMaxStat(type));
-                NextMoveEnemy();
+                //NextMoveEnemy();
             };
             _enemyDeckController.OnDropCoin = rectTransform =>
             {
@@ -122,10 +124,10 @@ namespace BlockoutRoguelike.Battle.Controllers
         private void NextMoveEnemy()
         {
             var nextSlot = _enemyDeckController.GetNextSlot()+1;
-            var nextEnemy = _enemyDeckController.GetNextEnemy();
-            if (nextEnemy != PlayerCardType.Empty)
+            var nextEnemy = _enemyDeckController.GetNextEnemyData();
+            if (nextEnemy.CardType != PlayerCardType.Empty)
             {
-                _uiController.ShowMoveEnemy($"S{nextSlot}-{_enemyDeckController.GetNextEnemyName()}");
+                _uiController.ShowMoveEnemy(nextSlot-1, nextEnemy);
             }
         }
 
@@ -189,6 +191,8 @@ namespace BlockoutRoguelike.Battle.Controllers
             _cardsInDeck.RemoveAll(x=>x.Guid == cardUI.Guid);
             RemoveBlood(cardUI);
             DestroyImmediate(cardUI.GetComponentInParent<RectTransform>().gameObject);
+
+            NextMoveEnemy();
             //StartCoroutine(EnableLayoutGroup());
         }
 
@@ -262,14 +266,14 @@ namespace BlockoutRoguelike.Battle.Controllers
         private void WinGame()
         {
            _stats.AddEnemiesDeath();
-            
-            _uiController.ShowWin(() =>
-            {
-                SceneLoader.Instance.LoadSceneAsync(SceneType.GamePlay, () =>
-                {
-                    
-                });
-            });
+
+           _uiController.ShowWin(() =>
+           {
+               SceneLoader.Instance.LoadSceneAsync(SceneType.GamePlay, () =>
+               {
+                
+               });
+           });
         }
 
         private void LoseGame()
@@ -278,10 +282,7 @@ namespace BlockoutRoguelike.Battle.Controllers
             {
                 PlayerPrefs.SetInt("Restart", 1);
                 PlayerPrefs.Save();
-                SceneLoader.Instance.LoadSceneAsync(SceneType.GamePlay, () =>
-                {
-                    
-                });
+                SceneLoader.Instance.LoadSceneAsync(SceneType.GamePlay, () => { });
             });
         }
     }

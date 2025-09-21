@@ -40,5 +40,10 @@ namespace BlockoutRoguelike.Cards.Person
             }
             UpdateHp();
         }
+
+        public void WinDance()
+        {
+            _animator.SetBool("dance", true);
+        }
     }
 }
