@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,11 @@ namespace _Game.Scripts.Modules.SceneLoader
 
         private float _startProgress = 0f;
         private float _targetProgress = 0f;
+
+        private void Awake()
+        {
+            gameObject.SetActive(false);
+        }
 
         public void ClearProgress()
         {

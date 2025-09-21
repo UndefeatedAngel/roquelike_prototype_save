@@ -1,22 +1,24 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace BlockoutRoguelike.Core.Inventory.InventorySystem.UI
 {
     public class InventoryUI : MonoBehaviour
     {
         [Header("Inventory Slots")]
-        [SerializeField] private InventorySlotUI _slot1;
-        [SerializeField] private InventorySlotUI _slot2;
-        [SerializeField] private InventorySlotUI _slot3;
+        [SerializeField] private InventorySlotUI[] _slots;
         
         private List<InventorySlotUI> inventorySlots = new();
         
         private void Start()
         {
+            inventorySlots = new List<InventorySlotUI>();
             // Инициализируем список слотов
-            inventorySlots = new List<InventorySlotUI> { _slot1, _slot2, _slot3 };
+            foreach (var slot in _slots)
+            {
+                inventorySlots.Add(slot);
+            }
+            
             InventorySystemController.Instance.onInventoryChanged += UpdateInventoryUI;
             
             // Инициализируем все слоты как пустые

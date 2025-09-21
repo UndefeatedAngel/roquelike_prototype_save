@@ -15,6 +15,7 @@ namespace BlockoutRoguelike.Battle.Controllers
 {
     public class BattleCardController: MonoBehaviour
     {
+        [SerializeField] private Transform _pointStartMob;
         [SerializeField] private HorizontalLayoutGroup _cardPlayerHorizontalLayoutGroup;
         [Header("Player")]
         [SerializeField] private GameObject[] _playerMobPrefabs;
@@ -91,7 +92,7 @@ namespace BlockoutRoguelike.Battle.Controllers
                 {
                     _noAmountBloodTween?.Kill();
                     _noAmountBloodGroup.alpha = 0;
-                    _noAmountBloodTween = _noAmountBloodGroup.DOFade(1f, 1f).OnComplete(() =>
+                    _noAmountBloodTween = _noAmountBloodGroup.DOFade(1f, 1f).SetEase(Ease.InQuad).OnComplete(() =>
                     {
                         _noAmountBloodTween = _noAmountBloodGroup.DOFade(0f, 1f).OnComplete(() =>
                         {
@@ -185,7 +186,7 @@ namespace BlockoutRoguelike.Battle.Controllers
             var prefabMob = _playerMobPrefabs[cardUI.NumberCard];
             var mob = Instantiate(prefabMob, slot.transform);
             var mobUI = mob.GetComponent<MobUI>();
-            mobUI.SetMob($"PU: {cardUI.CardData.GetName()}", cardUI.CardData);
+            mobUI.SetMob($"PU: {cardUI.CardData.GetName()}", cardUI.CardData, _pointStartMob, cardUI.GetCardImage());
             mobUI.OnGetBlood = AddBlood;
             slot.ActiveMob = mobUI;
             _cardsInDeck.RemoveAll(x=>x.Guid == cardUI.Guid);

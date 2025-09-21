@@ -5,6 +5,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace BlockoutRoguelike.Battle.Cards
 {
@@ -14,7 +15,7 @@ namespace BlockoutRoguelike.Battle.Cards
         
         [Header("Components")]
         [SerializeField] protected DragAndHoverUI _draggableCard;
-
+        [SerializeField] private Image _cardImage;
         [SerializeField] protected TMP_Text _bloodText;
         [SerializeField] protected TMP_Text _cardAttackText;
         [SerializeField] protected TMP_Text _cardHPText;
@@ -46,6 +47,11 @@ namespace BlockoutRoguelike.Battle.Cards
             _cardAttackText.text = cardData.Attack.ToString();
             _cardHPText.text = cardData.Health.ToString();
             _bloodText.text = cardData.Blood.ToString();
+        }
+
+        public Sprite GetCardImage()
+        {
+            return _cardImage.sprite;
         }
 
 

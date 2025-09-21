@@ -542,6 +542,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2816240466737206596}
   m_SourcePrefab: {fileID: 100100000, guid: e29ba2e7123d5974b98c9db21c424c6a, type: 3}
+--- !u!195 &100377953565596662 stripped
+NavMeshAgent:
+  m_CorrespondingSourceObject: {fileID: 4218780569086055183, guid: e29ba2e7123d5974b98c9db21c424c6a, type: 3}
+  m_PrefabInstance: {fileID: 4316844986927614201}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &717126402035532189 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3610546652720318820, guid: e29ba2e7123d5974b98c9db21c424c6a, type: 3}
@@ -570,7 +575,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 457719a173374c7088d1846eff383a51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _protectionGroup: {fileID: 0}
+  _navMeshAgent: {fileID: 100377953565596662}
+  _protectionGroup: {fileID: 8386609825582441333}
   _nameText: {fileID: 7423787388335092047}
   _hpText: {fileID: 6979392276235958970}
   _attackText: {fileID: 717126402035532189}
@@ -630,3 +636,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!225 &8386609825582441333 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 5731880108992195468, guid: e29ba2e7123d5974b98c9db21c424c6a, type: 3}
+  m_PrefabInstance: {fileID: 4316844986927614201}
+  m_PrefabAsset: {fileID: 0}

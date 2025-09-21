@@ -174,7 +174,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3146355216644268776, guid: e29ba2e7123d5974b98c9db21c424c6a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.31
+      value: 0.365
       objectReference: {fileID: 0}
     - target: {fileID: 3146355216644268776, guid: e29ba2e7123d5974b98c9db21c424c6a, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -182,7 +182,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3923871036792318002, guid: e29ba2e7123d5974b98c9db21c424c6a, type: 3}
       propertyPath: m_Name
-      value: SacrificeMob
+      value: Bafomed
       objectReference: {fileID: 0}
     - target: {fileID: 4428238999200448241, guid: e29ba2e7123d5974b98c9db21c424c6a, type: 3}
       propertyPath: m_Color.b

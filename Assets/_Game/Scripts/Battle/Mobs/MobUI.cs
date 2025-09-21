@@ -1,18 +1,22 @@
 ﻿using System;
 using System.Collections;
 using BlockoutRoguelike.Battle.Controllers;
+using BlockoutRoguelike.Core.Inventory.InventorySystem;
 using DG.Tweening;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Serialization;
+using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 namespace BlockoutRoguelike.Cards.Mobs
 {
     public class MobUI: MonoBehaviour
     {
+        [SerializeField] private AnimatedTextTooltip _animatedTextTooltip;
+        [SerializeField] private NavMeshAgent _navMeshAgent;
         [SerializeField] private CanvasGroup _protectionGroup;
-        
+
+        [SerializeField] private GameObject _uiObj;
         [SerializeField] private TMP_Text _nameText;
         [SerializeField] private TMP_Text _hpText;
         [SerializeField] private TMP_Text _attackText;
@@ -39,9 +43,25 @@ namespace BlockoutRoguelike.Cards.Mobs
         public Action<int> OnGetBlood;
 
         private int countCreate;
-        
-        public void SetMob(string nameText, CardData cardData)
+
+        [SerializeField] private Transform _benchPoint;
+        private float _rotationSpeed = 5f;
+        private bool isBench;
+
+        private Sprite _icon;
+
+        private void Update()
         {
+            if (!isBench) return;
+            
+            UpdateAnimation();
+            SmoothRotation();
+        }
+        
+        public void SetMob(string nameText, CardData cardData, Transform benchPoint, Sprite icon)
+        {
+            _icon = icon;
+            _benchPoint = benchPoint;
             _cardData = cardData;
 
             MobType = cardData.CardType;
@@ -162,6 +182,57 @@ namespace BlockoutRoguelike.Cards.Mobs
             GiveDamage(Protection+Hp);
             RemoveMob();
             OnGetBlood?.Invoke(_cardData.Blood);
+        }
+
+        public void Bench()
+        {
+            StartCoroutine(WaitBench());
+        }
+
+        private IEnumerator WaitBench()
+        {
+            if (!InventorySystemController.Instance.HasSpace())
+            {
+                //TODO: Hint no space
+                yield break;
+            }
+            _navMeshAgent.SetDestination(_benchPoint.position);
+            isBench = true;
+            _uiObj.SetActive(false);
+            InventorySystemController.Instance.AddItem(new GenericImageItem(_icon, Hp));
+            GetComponentInParent<Slot>().ActiveMob = null;
+
+            yield return new WaitForSeconds(1f);
+            var tempTexts = new[]
+            {
+                "Мой мускул устал! Иду качать другой!",
+                "Мой долг велит мне жить. Вам — нет.",
+                "Вы останетесь здесь гнить без меня!",
+                "Прощайте. Иду призвать нечто...более послушное!"
+            };
+            var number = (int)_cardData.CardType - 1;
+            var tempText = tempTexts[number];
+            _animatedTextTooltip.ShowText(tempText);
+        }
+        
+        void UpdateAnimation()
+        {
+            if (_animator != null)
+            {
+                // Скорость для анимации движения
+                float speed = _navMeshAgent.velocity.magnitude / _navMeshAgent.speed;
+                _animator.SetFloat("Speed", speed);
+            }
+        }
+        
+        void SmoothRotation()
+        {
+            if (_navMeshAgent.velocity.magnitude > 0.1f)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(_navMeshAgent.velocity.normalized);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 
+                    _rotationSpeed * Time.deltaTime);
+            }
         }
 
         public int AllHealth()
