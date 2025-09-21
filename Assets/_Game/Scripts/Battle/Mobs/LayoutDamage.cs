@@ -11,7 +11,7 @@ namespace BlockoutRoguelike.Cards.Mobs
         
         public void AnimateDamage(int amount)
         {
-            _text.text = amount.ToString();
+            _text.text = amount>0 ? $"+{amount}" : amount.ToString();
             gameObject.SetActive(true);
             _canvasGroup.DOFade(0f, 2f);
             transform.GetComponent<RectTransform>().DOAnchorPosY(1f, 1f).OnComplete(() =>

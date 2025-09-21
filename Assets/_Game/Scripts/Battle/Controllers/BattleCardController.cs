@@ -189,7 +189,7 @@ namespace BlockoutRoguelike.Battle.Controllers
             _cardsInDeck.RemoveAll(x=>x.Guid == cardUI.Guid);
             RemoveBlood(cardUI);
             DestroyImmediate(cardUI.GetComponentInParent<RectTransform>().gameObject);
-            StartCoroutine(EnableLayoutGroup());
+            //StartCoroutine(EnableLayoutGroup());
         }
 
         private void RemoveBlood(CardUI cardUI)

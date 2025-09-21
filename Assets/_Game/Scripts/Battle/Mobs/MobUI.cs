@@ -22,6 +22,10 @@ namespace BlockoutRoguelike.Cards.Mobs
         [Header("Damage")]
         [SerializeField] private LayoutDamage _layoutDamagePrefab;
         
+        [Header("Effects")]
+        [SerializeField] private ParticleSystem[] _hpEffects;
+        [SerializeField] private ParticleSystem[] _shieldEffects;
+        
         public PlayerCardType MobType { get; private set; }
         public int Attack { get; private set; }
         public int Hp { get; private set; }
@@ -84,7 +88,14 @@ namespace BlockoutRoguelike.Cards.Mobs
                 Hp = MaxHp;
             }
 
-            AnimateHp(amount);
+            if (amount < 0)
+            {
+                AnimateHp(amount);
+            }
+            else
+            {
+                PlayHpEffect();
+            }
             _hpText.text = $"{Hp}/{MaxHp}";
         }
 
@@ -96,7 +107,11 @@ namespace BlockoutRoguelike.Cards.Mobs
                 _protectionGroup.DOFade(0f, 1f);
                 Protection = 0;
             }
-            
+
+            if (amount > 0)
+            {
+                PlayProtectionEffect();
+            }
             _protectionText.text = Protection.ToString();
             if (Protection > 0)
             {
@@ -138,6 +153,22 @@ namespace BlockoutRoguelike.Cards.Mobs
         public int AllHealth()
         {
             return Hp + Protection;
+        }
+
+        private void PlayHpEffect()
+        {
+            foreach (var hpEffect in _hpEffects)
+            {
+                hpEffect.Play();
+            }
+        }
+        
+        private void PlayProtectionEffect()
+        {
+            foreach (var shieldEffect in _shieldEffects)
+            {
+                shieldEffect.Play();
+            }
         }
     }
 }

@@ -180,7 +180,7 @@ namespace BlockoutRoguelike.Battle.Controllers
                 mob.AddHp(addHealth);
                 
                 //TODO: Animation
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(2f);
             }
         }
 
