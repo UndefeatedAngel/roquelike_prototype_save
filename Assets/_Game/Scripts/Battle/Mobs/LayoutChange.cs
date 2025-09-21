@@ -1,21 +1,34 @@
-﻿using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
 namespace BlockoutRoguelike.Cards.Mobs
 {
-    public class LayoutDamage: MonoBehaviour
+    public enum TypeChange
     {
+        Hp,
+        Protection
+    }
+    
+    public class LayoutChange: MonoBehaviour
+    {
+        [SerializeField] private GameObject[] _icons;
         [SerializeField] private CanvasGroup _canvasGroup;
         [SerializeField] private TMP_Text _text;
         
-        public void AnimateDamage(int amount)
+        public void AnimateChange(TypeChange type, int amount, Action endAction)
         {
             _text.text = amount>0 ? $"+{amount}" : amount.ToString();
             gameObject.SetActive(true);
+            for (int i = 0; i < _icons.Length; i++)
+            {
+                _icons[i].SetActive(i == (int)type);
+            }
             _canvasGroup.DOFade(0f, 2f);
             transform.GetComponent<RectTransform>().DOAnchorPosY(1f, 1f).OnComplete(() =>
             {
+                endAction?.Invoke();
                 _canvasGroup.DOKill();
                 DestroyImmediate(gameObject);
             });

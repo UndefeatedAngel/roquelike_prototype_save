@@ -22,7 +22,7 @@ namespace BlockoutRoguelike.Battle.Controllers
                 //остаток hp<0 не лечим
                 if(lostHp <0) continue;
                 if (lostHp == 0) return i;
-                var score = lostHp;
+                var score = lostHp+attack*1000;
                 if (score<bestScore)
                 {
                     bestScore = score;
@@ -56,7 +56,7 @@ namespace BlockoutRoguelike.Battle.Controllers
                 //остаток hp<0 не лечим
                 if(lostHp <0) continue;
                 if (lostHp == 0) return i;
-                var score = incHp*1000+lostHp;
+                var score = incHp*100+lostHp+attack*1000;
                 
                 if (score>bestScore)
                 {

@@ -141,6 +141,23 @@ public class DragAndHoverUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         }
     }
 
+    public void EndDrag()
+    {
+        transform.DOKill();
+        isDragging = false;
+        canvasGroup.alpha = 1f;
+        canvasGroup.blocksRaycasts = true;
+        
+        if (returnToOriginalPosition)
+        {
+            ReturnToOriginalPosition();
+        }
+        else
+        {
+            transform.DOScale(originalScale, 0.3f);
+        }
+    }
+
     private void ReturnToOriginalPosition()
     {
         transform.SetParent(originalParent);

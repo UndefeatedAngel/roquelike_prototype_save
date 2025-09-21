@@ -5,6 +5,7 @@ using DG.Tweening;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace BlockoutRoguelike.Cards.Mobs
 {
@@ -19,8 +20,8 @@ namespace BlockoutRoguelike.Cards.Mobs
         [SerializeField] private Animator _animator;
         [SerializeField] private GameObject _highlight;
         
-        [Header("Damage")]
-        [SerializeField] private LayoutDamage _layoutDamagePrefab;
+        [Header("Change(damage, protection, hp)")]
+        [SerializeField] private LayoutChange layoutChangePrefab;
         
         [Header("Effects")]
         [SerializeField] private ParticleSystem[] _hpEffects;
@@ -36,6 +37,8 @@ namespace BlockoutRoguelike.Cards.Mobs
 
         public Action<PlayerCardType> OnDeath;
         public Action<int> OnGetBlood;
+
+        private int countCreate;
         
         public void SetMob(string nameText, CardData cardData)
         {
@@ -90,10 +93,11 @@ namespace BlockoutRoguelike.Cards.Mobs
 
             if (amount < 0)
             {
-                AnimateHp(amount);
+                AnimateChange(TypeChange.Hp, amount);
             }
-            else
+            else if(amount>0)
             {
+                AnimateChange(TypeChange.Hp, amount);
                 PlayHpEffect();
             }
             _hpText.text = $"{Hp}/{MaxHp}";
@@ -111,6 +115,11 @@ namespace BlockoutRoguelike.Cards.Mobs
             if (amount > 0)
             {
                 PlayProtectionEffect();
+                AnimateChange(TypeChange.Protection, amount);
+            }
+            else if (amount < 0)
+            {
+                AnimateChange(TypeChange.Protection, amount);
             }
             _protectionText.text = Protection.ToString();
             if (Protection > 0)
@@ -132,10 +141,15 @@ namespace BlockoutRoguelike.Cards.Mobs
             OnDeath?.Invoke(_cardData.CardType);
         }
 
-        private void AnimateHp(int amount)
+        private void AnimateChange(TypeChange typeChange, int amount)
         {
-            var damage = Instantiate(_layoutDamagePrefab, _layoutDamagePrefab.transform.parent);
-            damage.AnimateDamage(amount);
+            var damage = Instantiate(layoutChangePrefab, layoutChangePrefab.transform.parent);
+            damage.AnimateChange(typeChange, amount, () =>
+            {
+                countCreate = 0;
+            });
+            countCreate++;
+            damage.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, countCreate*0.25f);
         }
         
         public void Highlight(bool state)
