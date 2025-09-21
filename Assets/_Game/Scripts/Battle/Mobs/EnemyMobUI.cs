@@ -10,9 +10,9 @@ namespace BlockoutRoguelike.Cards.Mobs
     {
         [SerializeField] private RectTransform _coinPrefab;
         public Action<RectTransform> OnCoinDrop;
-        public override void AddHp(int amount)
+        public override void GiveDamage(int amount)
         {
-            base.AddHp(amount);
+            base.GiveDamage(amount);
             
             StartCoroutine(DropEnemy(0));
         }

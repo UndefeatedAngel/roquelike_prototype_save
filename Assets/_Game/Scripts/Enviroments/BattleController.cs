@@ -1,8 +1,6 @@
 ﻿using System.Collections;
-using BlockoutRoguelike.Static;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -84,7 +82,10 @@ namespace BlockoutRoguelike
 
         private void EndGame()
         {
-            SceneLoadManager.LoadScene(SceneName.GamePlay);
+            SceneLoader.Instance.LoadSceneAsync(SceneType.GamePlay, () =>
+            {
+                
+            });
         }
 
         private void UnknownStart()

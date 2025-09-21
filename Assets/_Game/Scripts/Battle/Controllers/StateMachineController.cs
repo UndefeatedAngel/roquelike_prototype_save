@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using BlockoutRoguelike.Cards;
+using BlockoutRoguelike.Cards.Mobs;
 using BlockoutRoguelike.Cards.Person;
 using DG.Tweening;
 using TMPro;
@@ -16,7 +17,7 @@ namespace BlockoutRoguelike.Battle.Controllers
         Enemy
     }
     
-    public class StateMachineController: MonoBehaviour
+    public partial class StateMachineController: MonoBehaviour
     {
         [Header("Player")]
         [SerializeField] private PlayerBattle _player;
@@ -62,10 +63,35 @@ namespace BlockoutRoguelike.Battle.Controllers
         {
             _blockUI.gameObject.SetActive(true);
             _movesButtonText.text = "Ход игрока...";
+            
+            //Магичим
+            //Лечим
+            yield return StartCoroutine(PlayerHealths());
+            //Ставим защиты
+            yield return StartCoroutine(PlayerDefends());
+            //Атакуем
+            yield return StartCoroutine(PlayerAttack());
+            
+            
+            
+
+            if (_enemy.CurrentHp < 1)
+            {
+                OnWin?.Invoke();
+                yield break;
+            }
+            
+            _currentMoveType = QueueMove.Enemy;
+            _movesButtonText.text = "Ход противника...";
+            _nextMoveAction?.Invoke(_currentMoveType);
+        }
+
+        private IEnumerator PlayerAttack()
+        {
             for (int i = 0; i < _playerSlots.Count; i++)
             {
                 var playerSlot = _playerSlots[i];
-                if (playerSlot.ActiveMob != null && playerSlot.ActiveMob.Attack>0)
+                if (playerSlot.ActiveMob != null && playerSlot.ActiveMob.Attack > 0)
                 {
                     var enemySlot = _enemySlots[i];
                     if (enemySlot.ActiveMob != null)
@@ -80,19 +106,83 @@ namespace BlockoutRoguelike.Battle.Controllers
                     }
                 }
             }
-
-            if (_enemy.CurrentHp < 1)
-            {
-                OnWin?.Invoke();
-                yield break;
-            }
-            
-            _currentMoveType = QueueMove.Enemy;
-            _movesButtonText.text = "Ход противника...";
-            _nextMoveAction?.Invoke(_currentMoveType);
         }
-
         
+        private IEnumerator PlayerDefends()
+        {
+            var protectionMobs = new List<MobUI>();
+            foreach (var slot in _playerSlots)
+            {
+                var activeMob = slot.ActiveMob;
+                if (activeMob != null && activeMob.MobType == PlayerCardType.Protection)
+                {
+                    protectionMobs.Add(activeMob);
+                }
+            }
+
+            foreach (var _ in protectionMobs)
+            {
+                var addProtection = 2;
+                var length = _playerSlots.Count;
+                var allhs = new int[length];
+                var ps = new int[length];
+                for (int i = 0; i < length; i++)
+                {
+                    allhs[i] = _playerSlots[i].ActiveMob?.AllHealth() ?? 0;
+                    ps[i] = _enemySlots[i].ActiveMob?.AllHealth() ?? 0;
+                }
+
+                var numberSlot = FindBestSlotForProtection(allhs, ps, addProtection);
+                if (numberSlot == -1) yield break;
+                    
+                var mob =  _playerSlots[numberSlot].ActiveMob;
+                mob.AddProtection(addProtection);
+                
+                //TODO: Animation
+                yield return new WaitForSeconds(1f);
+            }
+        }
+        
+        private IEnumerator PlayerHealths()
+        {
+            var healthMobs = new List<MobUI>();
+            foreach (var slot in _playerSlots)
+            {
+                var activeMob = slot.ActiveMob;
+                if (activeMob != null && activeMob.MobType == PlayerCardType.Health)
+                {
+                    healthMobs.Add(activeMob);
+                }
+            }
+
+            foreach (var _ in healthMobs)
+            {
+                var addHealth = 2;
+                var length = _playerSlots.Count;
+                var allhs = new int[length];
+                var curhs = new int[length];
+                var maxhs = new int[length];
+                var ps = new int[length];
+                for (int i = 0; i < length; i++)
+                {
+                    var activeMob = _playerSlots[i].ActiveMob;
+                    allhs[i] = activeMob?.AllHealth() ?? 0;
+                    curhs[i] = activeMob?.Hp  ?? 0;
+                    maxhs[i] = activeMob?.MaxHp ?? 0;
+                        ps[i] = _enemySlots[i].ActiveMob?.AllHealth() ?? 0;
+
+                }
+
+                var numberSlot = FindBestSlotForHP(allhs, curhs, maxhs, ps, addHealth);
+                if (numberSlot == -1) yield break; // не лечим если все на максимуме
+                
+                var mob =  _playerSlots[numberSlot].ActiveMob;
+                mob.AddHp(addHealth);
+                
+                //TODO: Animation
+                yield return new WaitForSeconds(1f);
+            }
+        }
 
         private IEnumerator EnemyMove()
         {
@@ -172,7 +262,8 @@ namespace BlockoutRoguelike.Battle.Controllers
             if (person.CurrentHp < 1) return;
             
             mob.AttackAnimation();
-            var defaultPos = mob.transform.position; ;
+            var defaultPos = mob.transform.position;
+            mob.transform.DOKill();
             mob.transform.DOMove(person.PersonTransform.position, 0.5f).OnComplete(() =>
             {
                 person.AddHp(-slot.ActiveMob.Attack);
@@ -186,9 +277,10 @@ namespace BlockoutRoguelike.Battle.Controllers
             var mob2 = slot2.ActiveMob;
             var defaultPos = mob1.transform.position;
             mob1.AttackAnimation();
+            mob1.transform.DOKill();
             mob1.transform.DOMove(mob2.transform.position, 0.5f).OnComplete(() =>
             {
-                mob2.AddHp(-mob1.Attack);
+                mob2.GiveDamage(mob1.Attack);
                 if (mob2.Hp < 1)
                 {
                     slot2.ActiveMob.RemoveMob();

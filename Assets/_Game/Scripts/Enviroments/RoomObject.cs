@@ -1,5 +1,5 @@
+using System;
 using BlockoutRoguelike.Enviroments;
-using BlockoutRoguelike.Static;
 using TMPro;
 using UnityEngine;
 
@@ -12,6 +12,8 @@ namespace BlockoutRoguelike.Modules
         private RoomEnum roomEnum;
 
         private int _maxBottle;
+
+        private Action<SceneType> _sceneLoadAction;
 
         protected override void TriggerEnter()
         {
@@ -30,11 +32,17 @@ namespace BlockoutRoguelike.Modules
 
             if (roomEnum == RoomEnum.Enemy || roomEnum == RoomEnum.EliteEnemy)
             {
-                SceneLoadManager.LoadScene(SceneName.Cards);
+                SceneLoader.Instance.LoadSceneAsync(SceneType.Cards, () =>
+                {
+                    
+                });
             }
             else
             {
-                SceneLoadManager.LoadScene(SceneName.Battle);
+                SceneLoader.Instance.LoadSceneAsync(SceneType.Battle, () =>
+                {
+                    
+                });
             }
         }
 

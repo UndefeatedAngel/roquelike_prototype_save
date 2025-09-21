@@ -29,7 +29,7 @@ public class DragAndHoverUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     private RectTransform canvasRect;
     private Vector2 offset;
 
-    private bool IsInput = true;
+    [SerializeField]private bool IsInput = true;
 
     public void UpdateInput(bool state)
     {
@@ -94,7 +94,7 @@ public class DragAndHoverUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             out Vector2 localPoint
         );
         
-        offset = (Vector2)transform.localPosition - localPoint-new Vector2(0, 350);
+        offset = Vector2.zero;
         
         transform.DOScale(originalScale * dragScale, 0.2f);
         

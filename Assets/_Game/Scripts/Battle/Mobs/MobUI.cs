@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections;
 using BlockoutRoguelike.Battle.Controllers;
+using DG.Tweening;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace BlockoutRoguelike.Cards.Mobs
 {
     public class MobUI: MonoBehaviour
     {
+        [SerializeField] private CanvasGroup _protectionGroup;
+        
         [SerializeField] private TMP_Text _nameText;
         [SerializeField] private TMP_Text _hpText;
         [SerializeField] private TMP_Text _attackText;
@@ -18,8 +22,10 @@ namespace BlockoutRoguelike.Cards.Mobs
         [Header("Damage")]
         [SerializeField] private LayoutDamage _layoutDamagePrefab;
         
+        public PlayerCardType MobType { get; private set; }
         public int Attack { get; private set; }
         public int Hp { get; private set; }
+        public int MaxHp { get; private set; }
         public int Protection { get; private set; }
 
         private CardData _cardData;
@@ -31,19 +37,38 @@ namespace BlockoutRoguelike.Cards.Mobs
         {
             _cardData = cardData;
 
+            MobType = cardData.CardType;
             Attack = cardData.Attack;
             Hp = cardData.Health;
+            MaxHp = cardData.Health;
             Protection = cardData.Protection;
             
             _nameText.text = nameText;
-            _hpText.text = cardData.Health.ToString();
+            _hpText.text = $"{Hp}/{MaxHp}";
             _attackText.text = cardData.Attack.ToString();
             _protectionText.text = cardData.Protection.ToString();
+            if (cardData.Protection > 0)
+            {
+                _protectionGroup.alpha = 1;
+            }
         }
 
         public void AttackAnimation()
         {
             _animator.SetTrigger("attack");
+        }
+
+        public virtual void GiveDamage(int amount)
+        {
+            var attackPower = amount;
+            if (Protection > 0)
+            {
+                var attack = Mathf.Min(attackPower, Protection);
+                AddProtection(-attack);
+                attackPower -= attack;
+            }
+            
+            AddHp(-attackPower);
         }
 
         public virtual void AddHp(int amount)
@@ -54,8 +79,29 @@ namespace BlockoutRoguelike.Cards.Mobs
                 Hp = 0;
             }
 
+            if (Hp > MaxHp)
+            {
+                Hp = MaxHp;
+            }
+
             AnimateHp(amount);
-            _hpText.text = Hp.ToString();
+            _hpText.text = $"{Hp}/{MaxHp}";
+        }
+
+        public virtual void AddProtection(int amount)
+        {
+            Protection += amount;
+            if (Protection < 1)
+            {
+                _protectionGroup.DOFade(0f, 1f);
+                Protection = 0;
+            }
+            
+            _protectionText.text = Protection.ToString();
+            if (Protection > 0)
+            {
+                _protectionGroup.DOFade(1f, 1f);
+            }
         }
 
         public void RemoveMob()
@@ -84,9 +130,14 @@ namespace BlockoutRoguelike.Cards.Mobs
 
         public void Blood()
         {
-            AddHp(-Hp);
+            GiveDamage(Protection+Hp);
             RemoveMob();
             OnGetBlood?.Invoke(_cardData.Blood);
+        }
+
+        public int AllHealth()
+        {
+            return Hp + Protection;
         }
     }
 }

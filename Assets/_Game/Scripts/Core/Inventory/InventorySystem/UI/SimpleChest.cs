@@ -1,13 +1,17 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using _Game.Scripts.Modules;
+using BlockoutRoguelike.Modules;
+using UnityEngine;
 
 namespace BlockoutRoguelike.Core.Inventory.InventorySystem.UI
 {
     public class SimpleChest : MonoBehaviour
     {
         [Header("Настройки сундука")]
-        public string requiredKeyId; // Должен совпадать с keyId ключа
-        public string doorId; // Должен совпадать с doorId ключа
         public Transform chestOpenTransform;
+        public List<string> requiredKeyIds; // Должен совпадать с keyId ключа
+        public string doorId; // Должен совпадать с doorId ключа
+        public List<int> requiredKeyCounts; // Количество каждого ключа
         
         [Header("Визуальные настройки")]
         [SerializeField] private float openAngle = 45f;
@@ -15,18 +19,41 @@ namespace BlockoutRoguelike.Core.Inventory.InventorySystem.UI
         
         [Header("Подсказка")]
         [SerializeField] private GameObject tooltipPrefab;
-        [SerializeField] private Vector3 tooltipOffset = new Vector3(0, 1.5f, 0);
+        [SerializeField] private Vector3 tooltipOffset = new(0, 1.5f, 0);
+        
+        [Header("Открыт сундука")]
+        [SerializeField] private CoinEjector _coinEjector;
+        [SerializeField] private GameObject[] _disableObjects;
+        [SerializeField] private MoveObject _doorExit;
         
         private GameObject tooltipInstance;
-        private bool playerInRange = false;
-        private bool isOpen = false;
+        private bool playerInRange;
+        private bool isOpen;
         private Quaternion closedRotation;
         private Quaternion openRotation;
+        private Dictionary<string, int> foundKeyCounts = new();
         
         private void Start()
         {
             closedRotation = chestOpenTransform.rotation;
             openRotation = Quaternion.Euler(openAngle, 0, 0) * closedRotation;
+            
+            // Инициализируем словарь найденных ключей
+            foreach (var keyId in requiredKeyIds)
+            {
+                foundKeyCounts[keyId] = 0;
+            }
+        
+            // Если количества не заданы, устанавливаем по умолчанию 1
+            if (requiredKeyCounts == null || requiredKeyCounts.Count != requiredKeyIds.Count)
+            {
+                requiredKeyCounts = new List<int>();
+                foreach (var keyId in requiredKeyIds)
+                {
+                    requiredKeyCounts.Add(1);
+                }
+            }
+            
             CreateTooltip();
             UpdateTooltip();
         }
@@ -48,17 +75,53 @@ namespace BlockoutRoguelike.Core.Inventory.InventorySystem.UI
                 ItemTooltip tooltip = tooltipInstance.GetComponent<ItemTooltip>();
                 if (tooltip != null)
                 {
-                    tooltip.SetItemInfo("Сундук", "В сундуке можно найти сокровища!");
                     if (isOpen)
                     {
-                        tooltip.SetInteractMessage("Сундук уже открыт");
+                        tooltip.SetItemInfo("Сундук уже открыт", "Вы все забрали!");
+                        tooltip.SetInteractMessage("");
                     }
                     else
                     {
-                        tooltip.SetInteractMessage("Нажмите F чтобы открыть");
+                        if (IsReadyToOpen())
+                        {
+                            tooltip.SetItemInfo("Сундук", $"Здесь вы получите сокровища!");
+                            tooltip.SetInteractMessage("Нажмите F чтобы открыть");
+                        }
+                        else
+                        {
+                            string status = GetKeyProgressText();
+                            tooltip.SetItemInfo("Сундук заперт", $"Найдите ключи {status} чтобы забрать сокровища!");
+                            tooltip.SetInteractMessage("");
+                        }
                     }
                 }
             }
+        }
+        
+        private string GetKeyProgressText()
+        {
+            var foundCounts = 0;
+            var requiredCounts = 0;
+            for (var i = 0; i < requiredKeyIds.Count; i++)
+            {
+                var keyId = requiredKeyIds[i];
+                requiredCounts+= requiredKeyCounts[i];
+                foundCounts+= foundKeyCounts.ContainsKey(keyId) ? foundKeyCounts[keyId] : 0;
+            }
+            return $"{foundCounts}/{requiredCounts}";
+        }
+
+        private bool IsReadyToOpen()
+        {
+            var foundCounts = 0;
+            var requiredCounts = 0;
+            for (var i = 0; i < requiredKeyIds.Count; i++)
+            {
+                var keyId = requiredKeyIds[i];
+                requiredCounts+= requiredKeyCounts[i];
+                foundCounts+= foundKeyCounts.ContainsKey(keyId) ? foundKeyCounts[keyId] : 0;
+            }
+            return foundCounts == requiredCounts;
         }
         
         private void OnTriggerEnter(Collider other)
@@ -66,6 +129,7 @@ namespace BlockoutRoguelike.Core.Inventory.InventorySystem.UI
             if (other.CompareTag("Player") && !isOpen)
             {
                 playerInRange = true;
+                CheckPlayerKeys();
                 ShowTooltip();
             }
         }
@@ -87,54 +151,113 @@ namespace BlockoutRoguelike.Core.Inventory.InventorySystem.UI
             }
             
             // Плавное открытие/закрытие
-            if (isOpen)
+            chestOpenTransform.rotation = Quaternion.Lerp(chestOpenTransform.rotation, isOpen ? openRotation : closedRotation, openSpeed * Time.deltaTime);
+        }
+        
+        private void CheckPlayerKeys()
+        {
+            // Сбрасываем счётчики
+            foreach (var keyId in requiredKeyIds)
             {
-                chestOpenTransform.rotation = Quaternion.Lerp(chestOpenTransform.rotation, openRotation, openSpeed * Time.deltaTime);
+                foundKeyCounts[keyId] = 0;
             }
-            else
+        
+            // Проверяем все ключи в инвентаре
+            var allKeys = InventorySystemController.Instance.FindAllKeysForDoor(doorId);
+        
+            foreach (var key in allKeys)
             {
-                chestOpenTransform.rotation = Quaternion.Lerp(chestOpenTransform.rotation, closedRotation, openSpeed * Time.deltaTime);
+                if (requiredKeyIds.Contains(key.KeyId))
+                {
+                    foundKeyCounts[key.KeyId] += key.CurrentStack;
+                }
             }
+        
+            UpdateTooltip();
         }
         
         private void TryOpenChest()
         {
-            // Ищем ключ в инвентаре
-            KeyItem key = InventorySystemController.Instance.FindKeyForDoor(doorId);
-            
-            if (key != null && key.KeyId == requiredKeyId)
+            CheckPlayerKeys();
+        
+            bool hasAllKeys = true;
+            for (int i = 0; i < requiredKeyIds.Count; i++)
             {
-                // Ключ найден - открываем сундук
+                string keyId = requiredKeyIds[i];
+                int requiredCount = requiredKeyCounts[i];
+                int foundCount = foundKeyCounts[keyId];
+            
+                if (foundCount < requiredCount)
+                {
+                    hasAllKeys = false;
+                    Debug.Log($"Не хватает ключа {keyId}: {foundCount}/{requiredCount}");
+                }
+            }
+        
+            if (hasAllKeys)
+            {
                 OpenChest();
-                Debug.Log($"Сундук открыт ключом: {key.KeyId}");
             }
             else
             {
-                ItemTooltip tooltip = tooltipInstance.GetComponent<ItemTooltip>();
-                if (tooltip != null)
-                {
-                    tooltip.SetItemInfo("Сундук", "В сундуке можно найти сокровища!");
-                    if (!isOpen)
-                    {
-                        tooltip.SetInteractMessage("Найдите ключ чтобы открыть сундук!");
-                    }
-                }
-                // Ключ не найден
-                Debug.Log("Нужен ключ чтобы открыть этот сундук!");
-                Debug.Log($"Требуется ключ с ID: {requiredKeyId} для двери: {doorId}");
+                Debug.Log("Не все ключи собраны!");
             }
         }
         
         private void OpenChest()
         {
             isOpen = true;
+            RemoveUsedKeys();
             UpdateTooltip();
             HideTooltip();
-            
-            // Можно добавить звук открытия
-            // Можно добавить выдачу лута здесь
-            
             Debug.Log("Сундук открыт!");
+            foreach (var disableObject in _disableObjects)
+            {
+                disableObject.SetActive(false);
+            }
+            Invoke("CoinEject", 1f);
+            Invoke("DoorExitOpen", 3f);
+        }
+
+        private void CoinEject()
+        {
+            _coinEjector.EjectCoins();
+        }
+
+        private void DoorExitOpen()
+        {
+            _doorExit.Move();
+        }
+        
+        private void RemoveUsedKeys()
+        {
+            var allKeys = InventorySystemController.Instance.FindAllKeysForDoor(doorId);
+        
+            for (int i = 0; i < requiredKeyIds.Count; i++)
+            {
+                string keyId = requiredKeyIds[i];
+                int requiredCount = requiredKeyCounts[i];
+                int remainingToRemove = requiredCount;
+            
+                foreach (var key in allKeys)
+                {
+                    if (key.KeyId == keyId && remainingToRemove > 0)
+                    {
+                        int toRemove = Mathf.Min(remainingToRemove, key.CurrentStack);
+                        key.CurrentStack -= toRemove;
+                        remainingToRemove -= toRemove;
+                    
+                        if (key.CurrentStack <= 0)
+                        {
+                            InventorySystemController.Instance.RemoveItem(key);
+                        }
+                    
+                        if (remainingToRemove <= 0) break;
+                    }
+                }
+            }
+            
+            InventorySystemController.Instance.NotifyInventoryChanged();
         }
         
         private void ShowTooltip()
@@ -153,16 +276,16 @@ namespace BlockoutRoguelike.Core.Inventory.InventorySystem.UI
             }
         }
         
-        // Метод для принудительного открытия (для тестов)
-        public void ForceOpen()
+        // Метод для добавления требуемого ключа
+        public void AddRequiredKey(string keyId, int count = 1)
         {
-            OpenChest();
-        }
-        
-        // Метод для проверки, открыт ли сундук
-        public bool IsOpen()
-        {
-            return isOpen;
+            if (!requiredKeyIds.Contains(keyId))
+            {
+                requiredKeyIds.Add(keyId);
+                requiredKeyCounts.Add(count);
+                foundKeyCounts[keyId] = 0;
+            }
+            UpdateTooltip();
         }
         
         private void OnDestroy()

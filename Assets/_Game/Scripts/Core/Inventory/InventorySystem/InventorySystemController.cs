@@ -9,7 +9,7 @@ namespace BlockoutRoguelike.Core.Inventory.InventorySystem
         
         public static InventorySystemController Instance { get; private set; }
         
-        private List<BaseInventoryItem> items = new List<BaseInventoryItem>();
+        private List<BaseInventoryItem> items = new();
         
         public delegate void OnInventoryChanged();
         public event OnInventoryChanged onInventoryChanged;
@@ -47,7 +47,7 @@ namespace BlockoutRoguelike.Core.Inventory.InventorySystem
                         
                         if (newItem.CurrentStack <= 0)
                         {
-                            onInventoryChanged?.Invoke();
+                            NotifyInventoryChanged();
                             return true;
                         }
                     }
@@ -58,7 +58,7 @@ namespace BlockoutRoguelike.Core.Inventory.InventorySystem
             if (items.Count < inventorySlots)
             {
                 items.Add(newItem);
-                onInventoryChanged?.Invoke();
+                NotifyInventoryChanged();
                 return true;
             }
             
@@ -71,7 +71,7 @@ namespace BlockoutRoguelike.Core.Inventory.InventorySystem
         {
             if (items.Remove(itemToRemove))
             {
-                onInventoryChanged?.Invoke();
+                NotifyInventoryChanged();
                 return true;
             }
             return false;
@@ -94,8 +94,8 @@ namespace BlockoutRoguelike.Core.Inventory.InventorySystem
                 {
                     RemoveItem(itemToUse);
                 }
-                
-                onInventoryChanged?.Invoke();
+
+                NotifyInventoryChanged();
                 return true;
             }
             return false;
@@ -118,6 +118,26 @@ namespace BlockoutRoguelike.Core.Inventory.InventorySystem
         {
             return items.Find(item => item is KeyItem key && key.DoorId == doorId) as KeyItem;
         }
+    
+        // Поиск ключа по ID ключа (точное совпадение)
+        public KeyItem FindKeyById(string keyId)
+        {
+            return items.Find(item => item is KeyItem key && key.KeyId == keyId) as KeyItem;
+        }
+    
+        // Поиск всех ключей для определённой двери
+        public List<KeyItem> FindAllKeysForDoor(string doorId)
+        {
+            return items.FindAll(item => item is KeyItem key && key.DoorId == doorId)
+                .ConvertAll(item => item as KeyItem);
+        }
+    
+        // Поиск всех ключей с определённым ID ключа
+        public List<KeyItem> FindAllKeysById(string keyId)
+        {
+            return items.FindAll(item => item is KeyItem key && key.KeyId == keyId)
+                .ConvertAll(item => item as KeyItem);
+        }
         
         // Проверка наличия места
         public bool HasSpace()
@@ -134,6 +154,11 @@ namespace BlockoutRoguelike.Core.Inventory.InventorySystem
             PlayerPrefs.Save();
         }
         
+        public void NotifyInventoryChanged()
+        {
+            onInventoryChanged?.Invoke();
+        }
+        
         // Загрузка инвентаря
         public void LoadInventory()
         {
@@ -142,7 +167,7 @@ namespace BlockoutRoguelike.Core.Inventory.InventorySystem
                 string json = PlayerPrefs.GetString("Inventory");
                 InventoryData data = JsonUtility.FromJson<InventoryData>(json);
                 items = data.Items;
-                onInventoryChanged?.Invoke();
+                NotifyInventoryChanged();
             }
         }
         

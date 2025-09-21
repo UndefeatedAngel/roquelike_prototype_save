@@ -904,7 +904,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   modelToRotate: {fileID: 0}
-  rotationSpeed: 5
+  rotationSpeed: 10
   maxRotationSpeed: 10
   inertiaDamping: 0.95
   stopThreshold: 0.1

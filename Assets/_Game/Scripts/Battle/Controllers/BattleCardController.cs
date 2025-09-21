@@ -4,7 +4,6 @@ using BlockoutRoguelike.Battle.Cards;
 using BlockoutRoguelike.Cards;
 using BlockoutRoguelike.Cards.Mobs;
 using BlockoutRoguelike.Core;
-using BlockoutRoguelike.Static;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,6 +23,9 @@ namespace BlockoutRoguelike.Battle.Controllers
         [Header("Sacrifices")]
         [SerializeField] private Sacrifice[] _sacrifices;
         
+        [Header("UI")]
+        [SerializeField] private CanvasGroup _noAmountBloodGroup;
+        
         [Header("Controllers")]
         [SerializeField] private PlayerDeckController _playerDeckController;
         [SerializeField] private EnemyDeckController _enemyDeckController;
@@ -42,6 +44,9 @@ namespace BlockoutRoguelike.Battle.Controllers
         private int _maxCardAdd = 1;
         
         private Stats _stats;
+        
+        private Tweener _noAmountBloodTween;
+        
 
         private IEnumerator Start()
         {
@@ -69,7 +74,7 @@ namespace BlockoutRoguelike.Battle.Controllers
             
             yield return new WaitForSeconds(0.5f);
             yield return StartCoroutine(AddCardsToDeck());
-            _playerDeckController.OnCardClick += cardUI =>
+            _playerDeckController.OnCardDeckClick += cardUI =>
             {
                 if (_currentCardAdd < _maxCardAdd)
                 {
@@ -77,6 +82,22 @@ namespace BlockoutRoguelike.Battle.Controllers
                     FlyCardToPlayer();
                 }
             };
+
+            _playerDeckController.OnCardSelect += cardUI =>
+            {
+                if (cardUI.BloodCost() > _playerStats.BloodCurrent)
+                {
+                    _noAmountBloodTween?.Kill();
+                    _noAmountBloodGroup.alpha = 0;
+                    _noAmountBloodTween = _noAmountBloodGroup.DOFade(1f, 1f).OnComplete(() =>
+                    {
+                        _noAmountBloodTween = _noAmountBloodGroup.DOFade(0f, 1f).OnComplete(() =>
+                        {
+
+                        });
+                    });
+                }
+            }; 
 
             SetupSlots();
             _stateMachineController.OnWin = WinGame;
@@ -129,24 +150,19 @@ namespace BlockoutRoguelike.Battle.Controllers
             _stateMachineController.EndMove();
         }
         
-        private void FlyCardToPlayer()
+        private void FlyCardToPlayer(CardUI cardUI = null)
         {
-            var card = _playerDeckController.GetCard();
+            var card = cardUI != null ? cardUI : _playerDeckController.GetCard();
             card.DisableDeckAnimated(_timeAnimation);
             card.GetComponent<DragAndHoverUI>().enabled = false;
             card.GetComponent<DragAndHoverUI>().UpdateInput(false);
             card.transform.DOJump(_cardPlayerHorizontalLayoutGroup.transform.position, 50, 1 , _timeAnimation).OnComplete(() =>
             {
-                card.transform.parent = _cardPlayerHorizontalLayoutGroup.transform;
-                card.GetComponent<DragAndHoverUI>().enabled = true;
+                card.transform.SetParent(_cardPlayerHorizontalLayoutGroup.transform);
                 card.GetComponent<DragAndHoverUI>().Setup();
-                card.GetComponent<DragAndHoverUI>().UpdateInput(card.BloodCost()<=_playerStats.BloodCurrent);
                 card.transform.localScale = Vector3.one;
                 _cardsInDeck.Add(card);
-                foreach (var cardDeck in _cardsInDeck)
-                {
-                    cardDeck.GetComponent<DragAndHoverUI>().UpdateInput(card.BloodCost()<=_playerStats.BloodCurrent);
-                }
+                UpdateDragState();
             });
         }
 
@@ -157,7 +173,10 @@ namespace BlockoutRoguelike.Battle.Controllers
 
         private void AddCardToSlot(CardUI cardUI, Slot slot)
         {
-            if (cardUI.CardData.Blood > _playerStats.BloodCurrent) return;
+            if (cardUI.CardData.Blood > _playerStats.BloodCurrent)
+            {
+                return;
+            }
             if (slot.Team != 0) return;
             if (slot.ActiveMob != null) return;
 
@@ -167,7 +186,7 @@ namespace BlockoutRoguelike.Battle.Controllers
             mobUI.SetMob($"PU: {cardUI.CardData.GetName()}", cardUI.CardData);
             mobUI.OnGetBlood = AddBlood;
             slot.ActiveMob = mobUI;
-            _cardsInDeck.Remove(cardUI);
+            _cardsInDeck.RemoveAll(x=>x.Guid == cardUI.Guid);
             RemoveBlood(cardUI);
             DestroyImmediate(cardUI.GetComponentInParent<RectTransform>().gameObject);
             StartCoroutine(EnableLayoutGroup());
@@ -177,10 +196,7 @@ namespace BlockoutRoguelike.Battle.Controllers
         {
             _playerStats.AddBlood(-cardUI.BloodCost());
             _uiController.UpdateBlood(_playerStats.BloodCurrent, _playerStats.BloodMax);
-            foreach (var card in _cardsInDeck)
-            {
-                card.GetComponent<DragAndHoverUI>().UpdateInput(card.BloodCost()<=_playerStats.BloodCurrent);
-            }
+            UpdateDragState();
         }
 
         private IEnumerator EnableLayoutGroup()
@@ -229,11 +245,18 @@ namespace BlockoutRoguelike.Battle.Controllers
         {
             var add = Math.Min(count, _playerStats.BloodMax-_playerStats.BloodCurrent);
             _playerStats.AddBlood(add);
+            UpdateDragState();
+            _uiController.UpdateBlood(_playerStats.BloodCurrent, _playerStats.BloodMax);
+        }
+
+        private void UpdateDragState()
+        {
             foreach (var card in _cardsInDeck)
             {
-                card.GetComponent<DragAndHoverUI>().UpdateInput(card.BloodCost()<=_playerStats.BloodCurrent);
+                var drag = card.GetComponent<DragAndHoverUI>();
+                drag.UpdateInput(card.BloodCost()<=_playerStats.BloodCurrent);
+                drag.ForceReturnToPosition();
             }
-            _uiController.UpdateBlood(_playerStats.BloodCurrent, _playerStats.BloodMax);
         }
 
         private void WinGame()
@@ -242,7 +265,10 @@ namespace BlockoutRoguelike.Battle.Controllers
             
             _uiController.ShowWin(() =>
             {
-                SceneLoadManager.LoadScene(SceneName.GamePlay);
+                SceneLoader.Instance.LoadSceneAsync(SceneType.GamePlay, () =>
+                {
+                    
+                });
             });
         }
 
@@ -252,7 +278,10 @@ namespace BlockoutRoguelike.Battle.Controllers
             {
                 PlayerPrefs.SetInt("Restart", 1);
                 PlayerPrefs.Save();
-                SceneLoadManager.LoadScene(SceneName.GamePlay);
+                SceneLoader.Instance.LoadSceneAsync(SceneType.GamePlay, () =>
+                {
+                    
+                });
             });
         }
     }

@@ -54,10 +54,12 @@ namespace BlockoutRoguelike.Battle.Controllers
         [Space]
         [Header("Prefabs")]
         [SerializeField] private List<PrefabData> _prefabsDataBase;
+        
 
         private Stack<CardUI> _cardsInDeck = new();
+        public Action<CardUI> OnCardSelect;
+        public Action<CardUI> OnCardDeckClick;
 
-        public Action<CardUI> OnCardClick;
         public void Init(PlayerStats playerStats)
         {
             InitDeck(playerStats);
@@ -80,7 +82,11 @@ namespace BlockoutRoguelike.Battle.Controllers
                     ui.GetComponent<RectTransform>().anchoredPosition = new Vector2(number, number);
                     ui.OnClickCard += cardUI =>
                     {
-                        OnCardClick?.Invoke(cardUI);
+                        OnCardSelect?.Invoke(cardUI);
+                    };
+                    ui.OnClickCardDeck += cardUI =>
+                    {
+                        OnCardDeckClick?.Invoke(cardUI);
                     };
                     number+=2;
                     _cardsInDeck.Push(ui);

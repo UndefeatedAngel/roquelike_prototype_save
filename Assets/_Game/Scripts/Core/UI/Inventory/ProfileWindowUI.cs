@@ -14,7 +14,7 @@ namespace BlockoutRoguelike.Core.UI.Inventory
         [SerializeField] private TMP_Text _goldText;
         [SerializeField] private TMP_Text _hpText;
         [Header("Cards")]
-        [SerializeField] private CardUI _cardPrefab;
+        [SerializeField] private GameObject _cardPrefab;
         [SerializeField] private Transform _cardsParent;
         [Header("Rune")] 
         [SerializeField] private RuneUI _runePrefab;

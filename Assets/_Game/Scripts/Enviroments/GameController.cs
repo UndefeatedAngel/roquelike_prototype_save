@@ -1,6 +1,5 @@
 ﻿using BlockoutRoguelike.Core.Inventory;
 using BlockoutRoguelike.Modules;
-using BlockoutRoguelike.Static;
 using StarterAssets;
 using TMPro;
 using UnityEngine;
@@ -42,7 +41,10 @@ namespace BlockoutRoguelike
             #if DEV_DEBUG
             if (Input.GetKeyDown(KeyCode.N))
             {
-                SceneLoadManager.LoadScene(SceneName.GamePlay);
+                SceneLoader.Instance.LoadSceneAsync(SceneType.GamePlay, () =>
+                {
+                    
+                });
             }
             #endif
         }

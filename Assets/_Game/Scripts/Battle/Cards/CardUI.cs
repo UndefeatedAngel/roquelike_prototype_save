@@ -25,10 +25,20 @@ namespace BlockoutRoguelike.Battle.Cards
         public int NumberCard => _numberCard;
 
         public Action<CardUI> OnClickCard;
+        public Action<CardUI> OnClickCardDeck;
 
         private CardData _cardData;
         public CardData CardData => _cardData;
         private PlayerStats _playerStats;
+
+        private string _guid;
+        public string Guid => _guid;
+
+        private void Start()
+        {
+            _guid = $"card_{System.Guid.NewGuid().ToString()}";
+        }
+
         public void SetCard(CardData cardData, PlayerStats stats)
         {
             _playerStats = stats;
@@ -66,21 +76,30 @@ namespace BlockoutRoguelike.Battle.Cards
         
         public void OnPointerDown(PointerEventData eventData)
         {
-            if (!IsDeck) return;
+            if (!IsDeck)
+            {
+                OnClickCard?.Invoke(this);
+                return;
+            }
             
             if (eventData.button != PointerEventData.InputButton.Left) return;
-            OnClickCard?.Invoke(this);
+            OnClickCardDeck?.Invoke(this);
         }
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            _draggableCard.enabled = _cardData.Blood <= _playerStats.BloodCurrent;
+            _draggableCard.UpdateInput(_cardData.Blood <= _playerStats.BloodCurrent);
             InputController.ActiveCard = this;
         }
 
         public int BloodCost()
         {
             return _cardData.Blood;
+        }
+
+        public void ActiveDrag(bool state)
+        {
+            _draggableCard.UpdateInput(state);
         }
     }
 }
