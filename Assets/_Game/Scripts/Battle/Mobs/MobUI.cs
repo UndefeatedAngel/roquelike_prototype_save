@@ -12,6 +12,7 @@ namespace BlockoutRoguelike.Cards.Mobs
 {
     public class MobUI: MonoBehaviour
     {
+        [SerializeField] private AudioSource _audioSource;
         [SerializeField] private AnimatedTextTooltip _animatedTextTooltip;
         [SerializeField] private NavMeshAgent _navMeshAgent;
         [SerializeField] private CanvasGroup _protectionGroup;
@@ -202,6 +203,7 @@ namespace BlockoutRoguelike.Cards.Mobs
             InventorySystemController.Instance.AddItem(new GenericImageItem(_icon, Hp));
             GetComponentInParent<Slot>().ActiveMob = null;
 
+            AudioController.Instance.PlayLeaveSound();
             yield return new WaitForSeconds(1f);
             var tempTexts = new[]
             {
@@ -213,6 +215,8 @@ namespace BlockoutRoguelike.Cards.Mobs
             var number = (int)_cardData.CardType - 1;
             var tempText = tempTexts[number];
             _animatedTextTooltip.ShowText(tempText);
+            yield return new WaitForSeconds(5f);
+            AudioController.Instance.HideLeaveSound();
         }
         
         void UpdateAnimation()

@@ -1324,7 +1324,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4286743170
   m_fontColor: {r: 0.509434, g: 0.509434, b: 0.509434, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -4635,8 +4635,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nameText: {fileID: 6540575539093145867}
   _descriptionText: {fileID: 9222275027414196604}
-  _goldText: {fileID: 6685739327599451081}
-  _hpText: {fileID: 7625604952921892052}
   _cardPrefab: {fileID: 0}
   _cardsParent: {fileID: 0}
   _runePrefab: {fileID: 0}
@@ -9168,6 +9166,7 @@ GameObject:
   m_Component:
   - component: {fileID: 919521737892888889}
   - component: {fileID: 4746992200659978754}
+  - component: {fileID: 4991372186089549428}
   m_Layer: 5
   m_Name: GoldHorizontalLayout
   m_TagString: Untagged
@@ -9223,6 +9222,21 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &4991372186089549428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7761843356415851300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3eb80521e84446448755ead57003fe85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _coinsText: {fileID: 6685739327599451081}
+  _animationDuration: 0.5
+  _useAnimation: 0
 --- !u!1 &7787998753967380072
 GameObject:
   m_ObjectHideFlags: 0
@@ -9657,6 +9671,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3223485325041737885}
   - component: {fileID: 8237665237472170272}
+  - component: {fileID: 5521749545093180648}
   m_Layer: 5
   m_Name: HpHorizontalLayout (1)
   m_TagString: Untagged
@@ -9712,6 +9727,22 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &5521749545093180648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8178902593436041480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1f249a6ee104530a2b4054e4cf93903, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healthFillImage: {fileID: 0}
+  _healthText: {fileID: 7625604952921892052}
+  _animationDuration: 0.5
+  _useAnimation: 0
 --- !u!1 &8233211267092006730
 GameObject:
   m_ObjectHideFlags: 0

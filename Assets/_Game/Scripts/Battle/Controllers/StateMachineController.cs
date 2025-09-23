@@ -19,7 +19,6 @@ namespace BlockoutRoguelike.Battle.Controllers
     
     public partial class StateMachineController: MonoBehaviour
     {
-        [SerializeField] AudioSource _audioSource;
         [Header("Player")]
         [SerializeField] private PlayerBattle _player;
         [SerializeField] private List<Slot> _playerSlots;
@@ -298,24 +297,9 @@ namespace BlockoutRoguelike.Battle.Controllers
                 mob1.transform.DOMove(defaultPos, 0.5f);
             });
         }
-        
-        public void FadeIn(float duration = 1f)
-        {
-            _audioSource.volume = 0f;
-            _audioSource.Play();
-            DOTween.To(() => _audioSource.volume, x => _audioSource.volume = x, 1f, duration);
-        }
-    
-        // Плавное уменьшение громкости
-        public void FadeOut(float duration = 1f)
-        {
-            DOTween.To(() => _audioSource.volume, x => _audioSource.volume = x, 0.2f, duration)
-                .OnComplete(() => _audioSource.Stop());
-        }
         private IEnumerator AnimationDance(bool isWin, Action end)
         {
-            _audioSource.Play();
-            FadeIn();
+            AudioController.Instance.PlayWinSound();
             if (isWin)
             {
                 _player.WinDance();
@@ -338,7 +322,7 @@ namespace BlockoutRoguelike.Battle.Controllers
             yield return new WaitForSeconds(10f);
 
             end?.Invoke();
-            FadeOut();
+            AudioController.Instance.HideWinSound();
         }
     }
 }

@@ -3239,7 +3239,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4689183546281130836, guid: a6ce1dba5f4fbef458080a6a54df610a, type: 3}
       propertyPath: m_fontSize
-      value: 52.85
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 4760773453413228820, guid: a6ce1dba5f4fbef458080a6a54df610a, type: 3}
       propertyPath: m_fontSize
@@ -3885,6 +3885,30 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7505876098335867950, guid: a6ce1dba5f4fbef458080a6a54df610a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7505876098335867950, guid: a6ce1dba5f4fbef458080a6a54df610a, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7505876098335867950, guid: a6ce1dba5f4fbef458080a6a54df610a, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7505876098335867950, guid: a6ce1dba5f4fbef458080a6a54df610a, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7505876098335867950, guid: a6ce1dba5f4fbef458080a6a54df610a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7505876098335867950, guid: a6ce1dba5f4fbef458080a6a54df610a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7551903434855518633, guid: a6ce1dba5f4fbef458080a6a54df610a, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -4440,6 +4464,10 @@ PrefabInstance:
     - target: {fileID: 9222275027414196604, guid: a6ce1dba5f4fbef458080a6a54df610a, type: 3}
       propertyPath: m_fontSize
       value: 72
+      objectReference: {fileID: 0}
+    - target: {fileID: 9222275027414196604, guid: a6ce1dba5f4fbef458080a6a54df610a, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4286743170
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

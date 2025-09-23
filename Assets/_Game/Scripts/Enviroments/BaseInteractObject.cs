@@ -7,7 +7,7 @@ namespace BlockoutRoguelike.Enviroments
     {
         private void OnTriggerEnter(Collider other)
         {
-            var pc = other.GetComponent<PlayerController>();
+            var pc = other.GetComponent<OldPlayerController>();
             if (pc != null)
             {
                 TriggerEnter();
@@ -17,7 +17,7 @@ namespace BlockoutRoguelike.Enviroments
 
         private void OnTriggerExit(Collider other)
         {
-            var pc = other.GetComponent<PlayerController>();
+            var pc = other.GetComponent<OldPlayerController>();
             if (pc != null)
             {
                 ClearInteract();
