@@ -57,6 +57,11 @@ public class SceneLoader : MonoBehaviour
         StartCoroutine(LoadSceneAsyncCoroutine(sceneType, onComplete));
     }
     
+    public void LoadScene(SceneType sceneType)
+    {
+        SceneManager.LoadScene(sceneType.ToString());
+    }
+    
     private IEnumerator LoadSceneAsyncCoroutine(SceneType sceneType, Action onComplete)
     {
         isLoading = true;

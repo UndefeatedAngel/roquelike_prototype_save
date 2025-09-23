@@ -3,6 +3,7 @@ using BlockoutRoguelike.Modules;
 using StarterAssets;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 namespace BlockoutRoguelike
@@ -41,10 +42,7 @@ namespace BlockoutRoguelike
             #if DEV_DEBUG
             if (Input.GetKeyDown(KeyCode.N))
             {
-                SceneLoader.Instance.LoadSceneAsync(SceneType.GamePlay, () =>
-                {
-                    
-                });
+                SceneLoader.Instance.LoadScene(SceneType.GamePlay);
             }
             #endif
         }

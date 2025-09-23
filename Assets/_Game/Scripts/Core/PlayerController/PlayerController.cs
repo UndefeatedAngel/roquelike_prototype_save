@@ -49,6 +49,8 @@ namespace BlockoutRoguelike.Core.PlayerController
         
         public void TakeDamage(int damage) => _playerModel.Health.Decrease(damage);
         public void Heal(int amount) => _playerModel.Health.Increase(amount);
+
+        public bool IsDead() => _playerModel.Health.IsDead;
         
         public void AddCoins(int amount) => _playerModel.Coins.Increase(amount);
         

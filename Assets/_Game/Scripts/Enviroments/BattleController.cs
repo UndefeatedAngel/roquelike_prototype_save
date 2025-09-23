@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using BlockoutRoguelike.Core.PlayerController;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +9,7 @@ namespace BlockoutRoguelike
 {
     public class BattleController: MonoBehaviour
     {
+        [SerializeField] private PlayerController _playerController;
         [SerializeField] private GameObject _gameOverPanel;
         [SerializeField] private Sprite[] _iconBoss;
         public static RoomEnum Type;
@@ -68,10 +70,12 @@ namespace BlockoutRoguelike
                     break;
                 case RoomEnum.Chest:
                     _narrativeText.text = "В сундуке ты получаешь сокровища!";
+                    _playerController.AddCoins(50);
                     ChestStart();
                     break;
                 case RoomEnum.Trade:
-                    _narrativeText.text = "У торговца можно купить что-то полезное!";
+                    _narrativeText.text = "У торговца ты покупаешь что-то полезное!";
+                    _playerController.SpendCoins(50);
                     TradeStart();
                     break;
                 case RoomEnum.Boss:
@@ -99,6 +103,7 @@ namespace BlockoutRoguelike
             else
             {
                 _narrativeText.text = "В сундуке ты получаешь сокровища!";
+                _playerController.AddCoins(50);
                 ChestStart();
             }
         }
@@ -130,11 +135,6 @@ namespace BlockoutRoguelike
             ChestStart();
         }
         
-        private void RestStart()
-        {
-            Player.AddHP(7);
-            ChestStart();
-        }
         private void BossStart()
         {
             _enemyUI.gameObject.SetActive(true);
@@ -148,11 +148,11 @@ namespace BlockoutRoguelike
         {
             _enemyUI.gameObject.SetActive(true);
             _buttonAttack.gameObject.SetActive(false);
-            Player.AddHP(-_attack);
-            if (Player.HP <= 0)
+            _playerController.TakeDamage(_attack);
+            if(_playerController.IsDead())
             {
                 _gameOverPanel.gameObject.SetActive(true);
-                //GameOver
+                EndGame();
             }
             else
             {
