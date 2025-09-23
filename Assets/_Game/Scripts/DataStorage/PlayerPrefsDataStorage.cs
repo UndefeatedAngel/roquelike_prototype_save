@@ -4,13 +4,28 @@ namespace BlockoutRoguelike.DataStorage
 {
     public class PlayerPrefsDataStorage : IDataStorage
     {
-        public void SaveInt(string key, int value) => PlayerPrefs.SetInt(key, value);
+        public void SaveInt(string key, int value)
+        {
+            PlayerPrefs.SetInt(key, value);
+            Save();
+        }
+
         public int LoadInt(string key, int defaultValue = 0) => PlayerPrefs.GetInt(key, defaultValue);
         
-        public void SaveFloat(string key, float value) => PlayerPrefs.SetFloat(key, value);
+        public void SaveFloat(string key, float value)
+        {
+            PlayerPrefs.SetFloat(key, value);
+            Save();
+        }
+
         public float LoadFloat(string key, float defaultValue = 0f) => PlayerPrefs.GetFloat(key, defaultValue);
         
-        public void SaveString(string key, string value) => PlayerPrefs.SetString(key, value);
+        public void SaveString(string key, string value)
+        {
+            PlayerPrefs.SetString(key, value);
+            Save();
+        }
+
         public string LoadString(string key, string defaultValue = "") => PlayerPrefs.GetString(key, defaultValue);
         
         public bool HasKey(string key) => PlayerPrefs.HasKey(key);
