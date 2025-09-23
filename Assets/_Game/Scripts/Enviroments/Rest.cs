@@ -1,5 +1,4 @@
-﻿using BlockoutRoguelike;
-using BlockoutRoguelike.Enviroments;
+﻿using BlockoutRoguelike.Enviroments;
 
 namespace _Game.Scripts
 {
@@ -7,7 +6,6 @@ namespace _Game.Scripts
     {
         protected override void Interact()
         {
-            Player.AddHP(Player.MaxHp-Player.HP);
             Destroy(gameObject);
         }
     }

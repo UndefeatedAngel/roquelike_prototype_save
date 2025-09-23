@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using BlockoutRoguelike.Inventory.Services;
 using BlockoutRoguelike.Modules;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -12,7 +13,7 @@ namespace BlockoutRoguelike
         [SerializeField] private GameObject _bottlePrefab;
         [SerializeField] private Transform[] _bottlePoints;
         [SerializeField] private RoomObject[] _roomEnds;
-        public void Setup(bool isStart, bool isEnd, int maxBottles, Action<GameObject[]> OnBottles)
+        public void Setup(InventoryService inventoryService, bool isStart, RoomEnum testRoom, bool isEnd, int maxBottles, Action<GameObject[]> OnBottles)
         {
             gameObject.SetActive(true);
             var bottles = GenerateBottle(maxBottles);
@@ -22,14 +23,21 @@ namespace BlockoutRoguelike
             {
                 foreach (var room in _roomEnds)
                 {
-                    room.Setup(RoomEnum.Enemy, maxBottles);
+                    room.Setup(RoomEnum.Enemy, maxBottles, inventoryService);
+                }
+            }
+            else if (testRoom != RoomEnum.Unknown)
+            {
+                foreach (var room in _roomEnds)
+                {
+                    room.Setup(testRoom, maxBottles, inventoryService);
                 }
             }
             else if (isEnd)
             {
                 foreach (var room in _roomEnds)
                 {
-                    room.Setup(RoomEnum.Boss, maxBottles);
+                    room.Setup(RoomEnum.Boss, maxBottles, inventoryService);
                 }
             }
             else
@@ -38,7 +46,7 @@ namespace BlockoutRoguelike
                 {
                     var maxCount = Enum.GetValues(typeof(RoomEnum)).Length - 1;
                     var type = Random.Range(0, maxCount);
-                    room.Setup((RoomEnum)type, maxBottles);
+                    room.Setup((RoomEnum)type, maxBottles, inventoryService);
                 }
             }
         }

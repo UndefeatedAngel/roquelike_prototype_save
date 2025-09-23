@@ -1,4 +1,5 @@
 ﻿using BlockoutRoguelike.Core.Inventory;
+using BlockoutRoguelike.Core.PlayerController;
 using BlockoutRoguelike.Modules;
 using StarterAssets;
 using TMPro;
@@ -10,6 +11,7 @@ namespace BlockoutRoguelike
 {
     public class GameController: MonoBehaviour
     {
+        [SerializeField] private RoomEnum _testRoom = RoomEnum.Unknown;
         [SerializeField] private TMP_Text _targetText;
         [SerializeField] private Environment[] _enviroments;
         [SerializeField] private Transform _enviromentsContainer;
@@ -19,17 +21,18 @@ namespace BlockoutRoguelike
         [SerializeField] private SkinController _skinController;
         [SerializeField] private InventoryController _inventoryController;
         [SerializeField] private ThirdPersonController _thirdPersonController;
+        [SerializeField] private PlayerController _playerController;
         
-        private static int _step = 0;
-        private int _maxGames = 2;
+        public static int Step = 0;
 
         private void Start()
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-            if (_step >= _maxSteps)
+            _playerController.Setup();
+            if (Step >= _maxSteps)
             {
-                _step = 0;
+                Step = 0;
             }
             Restart();
             SetupSkin();
@@ -49,27 +52,22 @@ namespace BlockoutRoguelike
 
         private void Restart()
         {
-            Player.Restart();
-            if (PlayerPrefs.GetInt("Restart") == _maxGames)
-            {
-                PlayerPrefs.SetInt("Restart", 0);
-                _step = 0;
-            }
+            _playerController.Restart();
         }
 
         private void SetupSkin()
         {
             var stepType = EnviromentType.Random;
-            if (_step == 0)
+            if (Step == 0)
             {
                 stepType = EnviromentType.First;
             }
-            else if (_step == _maxSteps - 1)
+            else if (Step == _maxSteps - 1)
             {
                 stepType = EnviromentType.Boss;
             }
             
-            Debug.Log($"Step: {_step}");
+            Debug.Log($"Step: {Step}");
             _skinController.Setup(stepType);
         }
 
@@ -82,11 +80,11 @@ namespace BlockoutRoguelike
         {
             var maxBottles = Random.Range(1, 4);
             
-            if (_step == 0)
+            if (Step == 0)
             {
                 CreateEnvironment(0,true, false, 1);
             }
-            else if (_step == _maxSteps-1)
+            else if (Step == _maxSteps-1)
             {
                 CreateEnvironment(0,false, true, 3);
             }
@@ -102,13 +100,13 @@ namespace BlockoutRoguelike
                 }
             }
 
-            _step++;
+            Step++;
         }
 
         private void CreateEnvironment(int number, bool isStart, bool isEnd, int maxBottles)
         {
             var env = Instantiate(_enviroments[number], _enviromentsContainer, true);
-            env.Setup(isStart, isEnd, maxBottles, objects =>
+            env.Setup(_playerController.GetInventoryService(), isStart, _testRoom, isEnd, maxBottles, objects =>
             {
                 for (int i = 0; i < objects.Length; i++)
                 {

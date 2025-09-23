@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using BlockoutRoguelike.Core.Person.Models;
 using BlockoutRoguelike.Core.Person.UI.Views;
+using BlockoutRoguelike.Inventory.Services;
 
 namespace BlockoutRoguelike.Core.UI
 {
@@ -8,6 +9,7 @@ namespace BlockoutRoguelike.Core.UI
     {
         [SerializeField] private HealthUI[] _healthUI;
         [SerializeField] private CoinsUI[] _coinsUI;
+        [SerializeField] private InventoryHUD _inventoryHUD;
         
         public void Initialize(PlayerModel playerModel, bool skipInitialAnimation = true)
         {
@@ -25,6 +27,14 @@ namespace BlockoutRoguelike.Core.UI
                 {
                     coinsUI.Initialize(playerModel.Coins, skipInitialAnimation);
                 }
+            }
+        }
+        
+        public void InitializeInventory(InventoryService inventoryService)
+        {
+            if (_inventoryHUD != null)
+            {
+                _inventoryHUD.Initialize(inventoryService);
             }
         }
     }

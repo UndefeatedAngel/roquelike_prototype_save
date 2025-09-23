@@ -2162,7 +2162,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0.365, y: -0.125}
-  m_SizeDelta: {x: 0.23, y: 0.25}
+  m_SizeDelta: {x: 0, y: 0.25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5409199328473093862
 CanvasRenderer:
@@ -2765,6 +2765,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2013942341591556747}
   - {fileID: 674164981561692136}
   - {fileID: 8643912073272949203}
   - {fileID: 1086204330034910667}
@@ -2783,6 +2784,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 150f693f2b8d4b2fb23814e2bdc03610, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _attackPoint: {fileID: 0}
   _audioSource: {fileID: 0}
   _animatedTextTooltip: {fileID: 725510172570183213}
   _navMeshAgent: {fileID: 4218780569086055183}
@@ -2848,7 +2850,7 @@ NavMeshAgent:
   m_Height: 1.5
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 0
 --- !u!1 &4579367306364494772
 GameObject:
   m_ObjectHideFlags: 0
@@ -3244,7 +3246,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0.31, y: -0.125}
-  m_SizeDelta: {x: 0.12, y: 0.25}
+  m_SizeDelta: {x: 0, y: 0.25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3813146261702657411
 CanvasRenderer:
@@ -3359,6 +3361,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 0
+--- !u!1 &5616786466240290330
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2013942341591556747}
+  m_Layer: 0
+  m_Name: AttackPoiint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2013942341591556747
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5616786466240290330}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.417}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6488946696730844936}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5765344331878156791
 GameObject:
   m_ObjectHideFlags: 0

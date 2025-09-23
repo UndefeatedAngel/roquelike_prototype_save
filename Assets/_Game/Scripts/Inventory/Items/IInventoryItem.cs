@@ -7,6 +7,7 @@
         int MaxStackSize { get; }
         int CurrentStack { get; }
         bool IsStackable { get; }
+        string IconPath { get; } 
         
         bool CanStackWith(IInventoryItem other);
         bool TryStack(ref IInventoryItem other);

@@ -1,14 +1,17 @@
 ﻿using BlockoutRoguelike;
+using BlockoutRoguelike.Core.Interactable;
 using BlockoutRoguelike.Enviroments;
+using UnityEngine;
 
 namespace _Game.Scripts
 {
     public class Bottle: BaseInteractObject
     {
+        [SerializeField] private CollectableItem _collectableItem;
+        
         protected override void Interact()
         {
-            Player.AddBottle(1);
-            Destroy(gameObject);
+            _collectableItem.TryCollectItem();
         }
     }
 }

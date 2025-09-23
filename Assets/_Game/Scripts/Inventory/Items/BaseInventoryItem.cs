@@ -7,6 +7,7 @@ namespace BlockoutRoguelike.Inventory.Items
         public abstract string ItemId { get; }
         public abstract string DisplayName { get; }
         public abstract int MaxStackSize { get; }
+        public virtual string IconPath => $"Items/{ItemId}";
         public int CurrentStack { get; protected set; }
         public bool IsStackable => MaxStackSize > 1;
 

@@ -18,7 +18,7 @@ namespace BlockoutRoguelike.Core.Inventory
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.I) && !IsInventoryShow())
+            if (Input.GetKeyDown(KeyCode.L) && !IsInventoryShow())
             {
                 _thirdPersonController.LockCameraPosition = true;
                 ShowUI(() =>

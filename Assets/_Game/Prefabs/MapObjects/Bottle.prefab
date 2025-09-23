@@ -4566,6 +4566,7 @@ GameObject:
   - component: {fileID: 2596049082590579647}
   - component: {fileID: 3964871827150625050}
   - component: {fileID: 4667566142561464311}
+  - component: {fileID: 4131289586495767654}
   m_Layer: 0
   m_Name: Bottle
   m_TagString: Untagged
@@ -4622,3 +4623,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e038a00b96a4eeb9f3266f0d720801c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _collectableItem: {fileID: 4131289586495767654}
+--- !u!114 &4131289586495767654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8724091423219708583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2dba0e73be94a4c81f1a6826643e430, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData: {fileID: 11400000, guid: 4b42e925731d0fd4ab43f721c8310f0d, type: 2}
+  stackAmount: 1
+  destroyOnCollect: 1
+  playerTag: Player
+  spriteRenderer: {fileID: 0}

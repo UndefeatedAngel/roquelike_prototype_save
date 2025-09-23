@@ -3,11 +3,14 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 using BlockoutRoguelike.Inventory.Containers;
+using BlockoutRoguelike.Inventory.Items;
+using BlockoutRoguelike.Inventory.Services;
 
 namespace BlockoutRoguelike.Inventory.UI
 {
     public class ItemSlotUI : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
+        [SerializeField] private InventoryItemSettings[] _inventoryItemSettings;
         [SerializeField] private Image itemIcon;
         [SerializeField] private TMP_Text stackText;
         [SerializeField] private Image backgroundImage;
@@ -31,11 +34,15 @@ namespace BlockoutRoguelike.Inventory.UI
             UpdateDisplay();
         }
         
-        public void UpdateDisplay() // ДЕЛАЕМ PUBLIC
+        public void UpdateDisplay()
         {
             if (Container.TryGetItem(SlotIndex, out var item))
             {
-                // TODO: Загрузка иконки предмета
+                // Загружаем иконку через ItemData
+                Sprite icon = LoadItemIcon(item.ItemId);
+                if (icon != null)
+                    itemIcon.sprite = icon;
+            
                 itemIcon.gameObject.SetActive(true);
                 stackText.text = item.IsStackable ? item.CurrentStack.ToString() : "";
                 backgroundImage.sprite = filledSlotSprite;
@@ -46,6 +53,19 @@ namespace BlockoutRoguelike.Inventory.UI
                 stackText.text = "";
                 backgroundImage.sprite = emptySlotSprite;
             }
+        }
+        
+        private Sprite LoadItemIcon(string itemId)
+        {
+            foreach (var settings in _inventoryItemSettings)
+            {
+                if (settings.itemId == itemId)
+                {
+                    return settings.icon;
+                }
+            }
+
+            return null;
         }
         
         private void OnContainerSlotChanged(IContainer container, int slotIndex)

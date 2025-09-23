@@ -5,6 +5,7 @@ using BlockoutRoguelike.Battle.Cards;
 using BlockoutRoguelike.Cards;
 using BlockoutRoguelike.Cards.Mobs;
 using BlockoutRoguelike.Core;
+using BlockoutRoguelike.Core.PlayerController;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -16,6 +17,7 @@ namespace BlockoutRoguelike.Battle.Controllers
 {
     public class BattleCardController: MonoBehaviour
     {
+        [SerializeField] private PlayerController _playerController;
         [SerializeField] private Transform _pointStartMob;
         [SerializeField] private HorizontalLayoutGroup _cardPlayerHorizontalLayoutGroup;
         [Header("Player")]
@@ -50,7 +52,8 @@ namespace BlockoutRoguelike.Battle.Controllers
         private Stats _stats;
         
         private Tweener _noAmountBloodTween;
-        
+        private int _maxGames = 2;
+
 
         private IEnumerator Start()
         {
@@ -70,8 +73,7 @@ namespace BlockoutRoguelike.Battle.Controllers
             {
                 _uiController.FlyCoin(rectTransform, () =>
                 {
-                    _playerStats.Coins += 1;
-                    _uiController.UpdateCoins(_playerStats.Coins);
+                    _playerController.AddCoins(1);
                     DestroyImmediate(rectTransform.GetComponentInParent<RectTransform>().gameObject);
                 });
             };
@@ -223,7 +225,6 @@ namespace BlockoutRoguelike.Battle.Controllers
 
         private void InitPlayerStats()
         {
-            _uiController.UpdateCoins(_playerStats.Coins);
             var stats = new[]
             {
                 PlayerCardType.Attack, PlayerCardType.Protection, PlayerCardType.Health, PlayerCardType.Mage
@@ -282,8 +283,18 @@ namespace BlockoutRoguelike.Battle.Controllers
         {
             _uiController.ShowLose(() =>
             {
-                PlayerPrefs.SetInt("Restart", 1);
+                var currentGame = PlayerPrefs.GetInt("Restart");
+                currentGame++;
+                PlayerPrefs.SetInt("Restart", currentGame);
                 PlayerPrefs.Save();
+                if (currentGame == _maxGames)
+                {
+                    PlayerPrefs.DeleteAll();
+                    GameController.Step = 0;
+                    _playerController.Restart();
+                    SceneLoader.Instance.LoadSceneAsync(SceneType.Main, () => { });
+                    return;
+                }
                 SceneLoader.Instance.LoadSceneAsync(SceneType.GamePlay, () => { });
             });
         }

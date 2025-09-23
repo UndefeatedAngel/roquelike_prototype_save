@@ -19,7 +19,11 @@ namespace BlockoutRoguelike.Core
         public void LoadStats()
         {
             var json = PlayerPrefs.GetString(_keySaveStats);
-            if (json == null) return;
+            if (json == null || string.IsNullOrEmpty(json))
+            {
+                SaveStats();
+                json = PlayerPrefs.GetString(_keySaveStats);
+            }
             
             var stats = JsonUtility.FromJson<Stats>(json);
             AllFights = stats.AllFights;

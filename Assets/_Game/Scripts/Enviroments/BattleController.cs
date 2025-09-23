@@ -168,7 +168,7 @@ namespace BlockoutRoguelike
         
         private void ButtonAttackClick()
         {
-            HP -= Player.Attack;
+            HP -= PlayerController.Attack;
             if (HP <= 0)
             {
                 HP = 0;

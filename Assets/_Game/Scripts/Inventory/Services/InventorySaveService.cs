@@ -9,7 +9,7 @@ namespace BlockoutRoguelike.Inventory.Services
 {
     public class InventorySaveService
     {
-        private const string SaveKey = "inventory";
+        private const string SaveKey = "roguelike.inventory";
         private IDataStorage _storage;
         
         public InventorySaveService(IDataStorage storage = null)
@@ -35,7 +35,7 @@ namespace BlockoutRoguelike.Inventory.Services
         {
             public string itemId;
             public int stackSize;
-            public string itemData; // Дополнительные данные предмета (JSON)
+            public string itemData;
         }
         
         [System.Serializable]
@@ -63,7 +63,6 @@ namespace BlockoutRoguelike.Inventory.Services
             {
                 var saveData = new InventorySaveData();
                 
-                // Сохраняем все контейнеры
                 SaveContainer(inventory.QuickSlotsWithKeys, saveData);
                 SaveContainer(inventory.QuickSlotsWithoutKeys, saveData);
                 SaveContainer(inventory.Backpack, saveData);
@@ -105,7 +104,6 @@ namespace BlockoutRoguelike.Inventory.Services
                     return false;
                 }
                 
-                // Загружаем все контейнеры
                 LoadContainer(inventory.QuickSlotsWithKeys, saveData);
                 LoadContainer(inventory.QuickSlotsWithoutKeys, saveData);
                 LoadContainer(inventory.Backpack, saveData);
@@ -155,13 +153,11 @@ namespace BlockoutRoguelike.Inventory.Services
             var containerData = saveData.containers.Find(c => c.containerId == container.ContainerId);
             if (containerData == null) return;
             
-            // Очищаем контейнер перед загрузкой
             for (int i = 0; i < container.SlotCount; i++)
             {
                 container.TryRemoveItem(i, out _);
             }
             
-            // Загружаем предметы
             for (int i = 0; i < Math.Min(containerData.slots.Count, container.SlotCount); i++)
             {
                 var slotData = containerData.slots[i];
@@ -208,7 +204,6 @@ namespace BlockoutRoguelike.Inventory.Services
         {
             try
             {
-                // Создаем базовый предмет по itemId
                 if (slotData.itemId.StartsWith("potion_"))
                 {
                     var data = string.IsNullOrEmpty(slotData.itemData) 

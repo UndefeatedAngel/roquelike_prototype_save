@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using BlockoutRoguelike.Cards;
 using BlockoutRoguelike.Cards.Mobs;
 using BlockoutRoguelike.Cards.Person;
+using BlockoutRoguelike.Core.PlayerController;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -19,6 +20,8 @@ namespace BlockoutRoguelike.Battle.Controllers
     
     public partial class StateMachineController: MonoBehaviour
     {
+        [SerializeField] private PlayerController _playerController;
+        
         [Header("Player")]
         [SerializeField] private PlayerBattle _player;
         [SerializeField] private List<Slot> _playerSlots;
@@ -38,22 +41,33 @@ namespace BlockoutRoguelike.Battle.Controllers
         
         public Action OnWin;
         public Action OnLose;
-        
+
+        private bool _isWin;
+        private bool _isLose;
+
+
+        private bool IsEndGame()
+        {
+            return _isWin || _isLose;
+        }
         
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.W))
+            if (Input.GetKeyDown(KeyCode.W) && !IsEndGame())
             {
                 WinGame();
             }
-            if (Input.GetKeyDown(KeyCode.L))
+            if (Input.GetKeyDown(KeyCode.L) && !IsEndGame())
             {
                 LoseGame();
             }
 
-            if (Input.GetKeyDown(KeyCode.KeypadEnter))
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
             {
-                EndMove();
+                if (!_blockUI.gameObject.activeSelf && !IsEndGame())
+                {
+                    EndMove();
+                }
             }
         }
 
@@ -241,7 +255,7 @@ namespace BlockoutRoguelike.Battle.Controllers
                 }
             }
 
-            if (_player.CurrentHp < 1)
+            if (_playerController.IsDead())
             {
                 LoseGame();
                 
@@ -295,14 +309,28 @@ namespace BlockoutRoguelike.Battle.Controllers
         {
             var mob = slot.ActiveMob;
             var person = IsPlayerMove() ? _enemy : _player as BasePerson;
-            if (person.CurrentHp < 1) return;
+            if (IsPlayerMove())
+            {
+                if (person.CurrentHp < 1) return;
+            }
+            else
+            {
+                if(_playerController.IsDead()) return;
+            }
             
             mob.AttackAnimation();
             var defaultPos = mob.transform.position;
             mob.transform.DOKill();
             mob.transform.DOMove(person.PersonTransform.position, 0.5f).OnComplete(() =>
             {
-                person.AddHp(-slot.ActiveMob.Attack);
+                if (IsPlayerMove())
+                {
+                    person.AddHp(-slot.ActiveMob.Attack);
+                }
+                else
+                {
+                    _playerController.TakeDamage(slot.ActiveMob.Attack);
+                }
                 mob.transform.DOMove(defaultPos, 0.5f);
             });
         }
@@ -347,7 +375,7 @@ namespace BlockoutRoguelike.Battle.Controllers
                 }
             }
 
-            yield return new WaitForSeconds(10f);
+            yield return new WaitForSeconds(7f);
 
             end?.Invoke();
             AudioController.Instance.HideWinSound();

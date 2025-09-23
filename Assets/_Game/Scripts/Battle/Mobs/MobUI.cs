@@ -12,6 +12,7 @@ namespace BlockoutRoguelike.Cards.Mobs
 {
     public class MobUI: MonoBehaviour
     {
+        [SerializeField] private Transform _attackPoint;
         [SerializeField] private AudioSource _audioSource;
         [SerializeField] private AnimatedTextTooltip _animatedTextTooltip;
         [SerializeField] private NavMeshAgent _navMeshAgent;
@@ -37,6 +38,8 @@ namespace BlockoutRoguelike.Cards.Mobs
         public int Hp { get; private set; }
         public int MaxHp { get; private set; }
         public int Protection { get; private set; }
+
+        public Transform AttackPoint => AttackPoint;
 
         private CardData _cardData;
 
