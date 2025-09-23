@@ -75,7 +75,10 @@ namespace BlockoutRoguelike
                     break;
                 case RoomEnum.Trade:
                     _narrativeText.text = "У торговца ты покупаешь что-то полезное!";
-                    _playerController.SpendCoins(50);
+                    if (_playerController.TrySpendCoins(50))
+                    {
+                        
+                    }
                     TradeStart();
                     break;
                 case RoomEnum.Boss:
@@ -168,7 +171,7 @@ namespace BlockoutRoguelike
         
         private void ButtonAttackClick()
         {
-            HP -= PlayerController.Attack;
+            HP -= 3;
             if (HP <= 0)
             {
                 HP = 0;

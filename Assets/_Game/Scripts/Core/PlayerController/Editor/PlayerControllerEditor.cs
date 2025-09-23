@@ -1,13 +1,11 @@
 ﻿#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
-using BlockoutRoguelike.Adapters;
-using BlockoutRoguelike.Core.Person.Controllers.PlayerController;
 
-namespace BlockoutRoguelike.Core.PlayerController
+namespace BlockoutRoguelike.Core.PlayerController.Editor
 {
     [CustomEditor(typeof(PlayerController))]
-    public class PlayerControllerEditor : Editor
+    public class PlayerControllerEditor : UnityEditor.Editor
     {
         private bool _showHealthTests = true;
         private bool _showCoinsTests = true;
@@ -91,10 +89,14 @@ namespace BlockoutRoguelike.Core.PlayerController
         {
             if (playerController.PlayerModel != null)
             {
-                int currentCoins = playerController.PlayerModel.Coins.Current;
+                int currentCoins = playerController.PlayerModel.Coins.Amount;
                 bool success = playerController.PlayerModel.Coins.TrySpend(currentCoins + 100);
-                Debug.Log($"Spend attempt: {success}, Coins remain: {playerController.PlayerModel.Coins.Current}");
-                playerController.PlayerModel.Coins.Increase(currentCoins - playerController.PlayerModel.Coins.Current);
+                Debug.Log($"Spend attempt: {success}, Coins remain: {playerController.PlayerModel.Coins.Amount}");
+                
+                if (success)
+                {
+                    playerController.PlayerModel.Coins.Add(currentCoins - playerController.PlayerModel.Coins.Amount);
+                }
             }
         }
         
@@ -105,16 +107,22 @@ namespace BlockoutRoguelike.Core.PlayerController
                 var dataManagerField = typeof(PlayerController).GetField("_dataManager", 
                     System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
                 var dataManager = dataManagerField?.GetValue(playerController) as PlayerDataManager;
-                dataManager?.LoadData();
+                dataManager?.Load();
                 Debug.Log("Player data loaded!");
             }
         }
         
         private void DeleteSaveData()
         {
-            var dataService = new CoreDataServiceAdapter();
-            dataService.DeletePlayerData();
-            Debug.Log("Save data deleted!");
+            var playerController = (PlayerController)target;
+            if (playerController.PlayerModel != null)
+            {
+                var dataManagerField = typeof(PlayerController).GetField("_dataManager", 
+                    System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                var dataManager = dataManagerField?.GetValue(playerController) as PlayerDataManager;
+                dataManager?.Delete();
+                Debug.Log("Save data deleted!");
+            }
         }
     }
 }

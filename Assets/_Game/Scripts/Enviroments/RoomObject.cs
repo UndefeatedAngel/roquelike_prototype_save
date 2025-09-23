@@ -1,5 +1,4 @@
 using System;
-using BlockoutRoguelike.Core.PlayerController;
 using BlockoutRoguelike.Enviroments;
 using BlockoutRoguelike.Inventory.Services;
 using TMPro;
@@ -76,7 +75,7 @@ namespace BlockoutRoguelike.Modules
         {
             if (_inventoryService!=null && _inventoryService.HasItem(_itemIdLock))
             {
-                return _inventoryService.GetTotalItemCount(_itemIdLock);
+                return _inventoryService.GetItemCount(_itemIdLock);
             }
             return 0;
         }

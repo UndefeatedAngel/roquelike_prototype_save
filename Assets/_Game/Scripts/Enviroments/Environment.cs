@@ -26,7 +26,7 @@ namespace BlockoutRoguelike
                     room.Setup(RoomEnum.Enemy, maxBottles, inventoryService);
                 }
             }
-            else if (testRoom != RoomEnum.Unknown)
+            else if (GameController.Step == 1 && testRoom != RoomEnum.Unknown)
             {
                 foreach (var room in _roomEnds)
                 {

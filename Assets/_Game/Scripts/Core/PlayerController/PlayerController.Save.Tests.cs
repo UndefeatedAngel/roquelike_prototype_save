@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using BlockoutRoguelike.Adapters;
 
 namespace BlockoutRoguelike.Core.PlayerController
 {
@@ -16,15 +15,14 @@ namespace BlockoutRoguelike.Core.PlayerController
         [ContextMenu("Save/Force Load")]
         private void ForceLoad()
         {
-            _dataManager.LoadData();
+            _dataManager?.Load();
             Debug.Log("Player data loaded!");
         }
         
         [ContextMenu("Save/Delete Save Data")]
         private void DeleteSaveData()
         {
-            var dataService = new CoreDataServiceAdapter();
-            dataService.DeletePlayerData();
+            _dataManager?.Delete();
             Debug.Log("Save data deleted!");
         }
 #endif

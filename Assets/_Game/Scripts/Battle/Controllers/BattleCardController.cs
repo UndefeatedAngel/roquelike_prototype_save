@@ -291,7 +291,7 @@ namespace BlockoutRoguelike.Battle.Controllers
                 {
                     PlayerPrefs.DeleteAll();
                     GameController.Step = 0;
-                    _playerController.Restart();
+                    _playerController.Reset();
                     SceneLoader.Instance.LoadSceneAsync(SceneType.Main, () => { });
                     return;
                 }

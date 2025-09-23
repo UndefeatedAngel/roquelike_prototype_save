@@ -1,67 +1,47 @@
-﻿using System;
+﻿using BlockoutRoguelike.Core.Actor.Models;
 using UnityEngine;
-using BlockoutRoguelike.Core.Person.Models;
 using BlockoutRoguelike.Core.UI;
-using BlockoutRoguelike.Adapters;
-using BlockoutRoguelike.Core.Person.Controllers.PlayerController;
-using BlockoutRoguelike.Core.Person.Models.Items;
-using BlockoutRoguelike.Inventory.Items;
-using BlockoutRoguelike.Inventory.Services;
+using BlockoutRoguelike.Core.Actor.Models.Items;
 
 namespace BlockoutRoguelike.Core.PlayerController
 {
     public partial class PlayerController : MonoBehaviour
     {
-        private static int _attack = 3;
-        public static int Attack => _attack;
-        
         [SerializeField] private HUDController _hudController;
-        [SerializeField] private bool _playOnAwake = true;
+        [SerializeField] private PlayerConfig _playerConfig;
+        [SerializeField] private bool _playOnStart = true;
         [SerializeField] private bool _skipInitialHealthAnimation = true;
         [SerializeField] private bool _autoSave = true;
         
         #if UNITY_EDITOR
         [SerializeField] private bool _showTests = false;
-        #endif
-        
-        private PlayerModel _playerModel;
-        private PlayerDataManager _dataManager;
-        private InventoryService _inventoryService;
-        private InventoryToCoreAdapter _inventoryAdapter;
-
-        #if UNITY_EDITOR
         public PlayerModel PlayerModel => _playerModel;
         #endif
 
+        private PlayerModel _playerModel;
+        private PlayerDataManager _dataManager;
+
         private void Start()
         {
-            if (_playOnAwake)
-            {
-                Setup();
-            }
+            if (_playOnStart) Setup();
         }
 
         public void Setup()
         {
-            var health = new Health(30, 30);
-            var coins = new Coins(0);
+            if (_playerModel != null)
+            {
+                _playerModel.Health.OnChanged -= OnHealthChanged;
+                _playerModel.Coins.OnChanged -= OnCoinsChanged;
+            }
+
+            var health = new Health(_playerConfig.StartHealth, _playerConfig.MaxHealth);
+            var coins = new Coins(_playerConfig.StartCoins);
             _playerModel = new PlayerModel(health, coins);
             
-            // Инициализация инвентаря
-            _inventoryService = new InventoryService(
-                quickSlotsCount: 3,
-                backpackSlotsCount: 20,
-                sacrificeSlotsCount: 3,
-                benchSlotsCount: 6
-            );
-            _inventoryAdapter = new InventoryToCoreAdapter(_inventoryService);
-            
-            // Замена адаптера данных на новый с поддержкой инвентаря
-            _dataManager = new PlayerDataManager(_playerModel, new CoreToInventoryAdapter(_inventoryService));
-            _dataManager.LoadData();
+            _dataManager = new PlayerDataManager(_playerModel);
+            _dataManager.Load();
             
             _hudController.Initialize(_playerModel, _skipInitialHealthAnimation);
-            _hudController.InitializeInventory(_inventoryService);
             
             if (_autoSave)
             {
@@ -69,48 +49,29 @@ namespace BlockoutRoguelike.Core.PlayerController
                 _playerModel.Coins.OnChanged += OnCoinsChanged;
             }
         }
-        
+
         private void OnHealthChanged(int health) => SaveData();
         private void OnCoinsChanged(int coins) => SaveData();
         
-        public void SaveData() => _dataManager?.SaveData();
+        public void SaveData() => _dataManager?.Save();
         
-        public void TakeDamage(int damage) => _playerModel.Health.Decrease(damage);
-        public void Heal(int amount) => _playerModel.Health.Increase(amount);
-
+        public void TakeDamage(int damage) => _playerModel.Health.TakeDamage(damage);
+        public void Heal(int amount) => _playerModel.Health.Heal(amount);
         public bool IsDead() => _playerModel.Health.IsDead;
         
-        public void AddCoins(int amount) => _playerModel.Coins.Increase(amount);
-        
-        public void SpendCoins(int amount) => _playerModel.Coins.Decrease(amount);
-        
-        // Методы для работы с инвентарем
-        public bool TryUseInventoryItem(int quickSlotIndex, bool useKeysContainer = true)
-        {
-            return _inventoryService.TryUseQuickSlot(quickSlotIndex, useKeysContainer);
-        }
-        
-        public bool AddItemToInventory(IInventoryItem item)
-        {
-            return _inventoryService.TryAddItemToAnyContainer(item);
-        }
-        
-        public InventoryService GetInventoryService() => _inventoryService;
-        
+        public void AddCoins(int amount) => _playerModel.Coins.Add(amount);
+        public bool TrySpendCoins(int amount) => _playerModel.Coins.TrySpend(amount);
+
         private void OnApplicationPause(bool pauseStatus)
         {
             if (pauseStatus) SaveData();
         }
         
-        private void OnApplicationQuit()
-        {
-            SaveData();
-        }
+        private void OnApplicationQuit() => SaveData();
 
-        public void Restart()
+        public void Reset()
         {
-            var healAmount = PlayerModel.Health.Max - PlayerModel.Health.Current;
-            Heal(healAmount);
+            Setup();
         }
     }
 }

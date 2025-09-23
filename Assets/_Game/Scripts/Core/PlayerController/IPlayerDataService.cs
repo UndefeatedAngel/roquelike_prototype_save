@@ -1,9 +1,16 @@
-﻿namespace BlockoutRoguelike.Core
+﻿namespace BlockoutRoguelike.Core.PlayerController
 {
     public interface IPlayerDataService
     {
-        void SavePlayerData(int health, int maxHealth, int coins);
-        (int health, int maxHealth, int coins) LoadPlayerData();
-        void DeletePlayerData();
+        PlayerData Load();
+        void Save(PlayerData data);
+        void Delete();
+    }
+
+    public struct PlayerData
+    {
+        public int health;
+        public int maxHealth;
+        public int coins;
     }
 }

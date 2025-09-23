@@ -11,17 +11,17 @@ namespace BlockoutRoguelike.Core.PlayerController
         public void TestAddCoins()
         {
             if (_playerModel == null) return;
-            Debug.Log($"Before add coins: {_playerModel.Coins.Current}");
-            _playerModel.Coins.Increase(_testCoinAddAmount);
-            Debug.Log($"After add coins: {_playerModel.Coins.Current}");
+            Debug.Log($"Before add coins: {_playerModel.Coins.Amount}");
+            AddCoins(_testCoinAddAmount);
+            Debug.Log($"After add coins: {_playerModel.Coins.Amount}");
         }
 
         public void TestSpendCoins()
         {
             if (_playerModel == null) return;
-            Debug.Log($"Before spend coins: {_playerModel.Coins.Current}");
-            bool success = _playerModel.Coins.TrySpend(_testCoinSpendAmount);
-            Debug.Log($"Spend result: {success}, After spend: {_playerModel.Coins.Current}");
+            Debug.Log($"Before spend coins: {_playerModel.Coins.Amount}");
+            bool success = TrySpendCoins(_testCoinSpendAmount);
+            Debug.Log($"Spend result: {success}, After spend: {_playerModel.Coins.Amount}");
         }
 #endif
     }

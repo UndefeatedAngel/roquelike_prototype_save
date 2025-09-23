@@ -1,30 +1,74 @@
-﻿using BlockoutRoguelike.Core.Person.Models;
+﻿using BlockoutRoguelike.Core.Actor.Models;
+using BlockoutRoguelike.DataStorage;
 
-namespace BlockoutRoguelike.Core.Person.Controllers.PlayerController
+namespace BlockoutRoguelike.Core.PlayerController
 {
-    public class PlayerDataManager
+    public class PlayerDataManager : IPlayerDataService
     {
+        private const string SaveKey = "roguelike.player";
+        private const string HealthKey = "health";
+        private const string MaxHealthKey = "maxHealth";
+        private const string CoinsKey = "coins";
+
         private readonly PlayerModel _playerModel;
-        private readonly IPlayerDataService _playerDataService;
-        
-        public PlayerDataManager(PlayerModel playerModel, IPlayerDataService playerDataService)
+        private readonly IDataStorage _storage;
+
+        public PlayerDataManager(PlayerModel playerModel)
         {
             _playerModel = playerModel;
-            _playerDataService = playerDataService;
+            _storage = StorageManager.Storage;
         }
-        
-        public void SaveData()
+
+        public PlayerData Load()
         {
-            _playerDataService.SavePlayerData(_playerModel.Health.Current, _playerModel.Health.Max, _playerModel.Coins.Current);
+            var data = new PlayerData
+            {
+                health = _storage.LoadInt($"{SaveKey}_{HealthKey}", -1),    // ← Исправлено на LoadInt
+                maxHealth = _storage.LoadInt($"{SaveKey}_{MaxHealthKey}", -1), // ← Исправлено на LoadInt
+                coins = _storage.LoadInt($"{SaveKey}_{CoinsKey}", -1)          // ← Исправлено на LoadInt
+            };
+
+            if (data.health != -1)
+            {
+                int healthDifference = data.health - _playerModel.Health.Current;
+                if (healthDifference > 0)
+                    _playerModel.Health.Heal(healthDifference);
+                else if (healthDifference < 0)
+                    _playerModel.Health.TakeDamage(-healthDifference);
+            }
+
+            if (data.coins != -1)
+            {
+                int coinsDifference = data.coins - _playerModel.Coins.Amount;
+                if (coinsDifference > 0)
+                    _playerModel.Coins.Add(coinsDifference);
+            }
+
+            return data;
         }
-        
-        public void LoadData()
+
+        public void Save(PlayerData data)
         {
-            var (health, maxHealth, coins) = _playerDataService.LoadPlayerData();
-            
-            _playerModel.Health.UpdateMax(maxHealth);
-            _playerModel.Health.Increase(health - _playerModel.Health.Current);
-            _playerModel.Coins.Increase(coins - _playerModel.Coins.Current);
+            _storage.SaveInt($"{SaveKey}_{HealthKey}", data.health);        // ← Исправлено на SaveInt
+            _storage.SaveInt($"{SaveKey}_{MaxHealthKey}", data.maxHealth);   // ← Исправлено на SaveInt
+            _storage.SaveInt($"{SaveKey}_{CoinsKey}", data.coins);           // ← Исправлено на SaveInt
+        }
+
+        public void Save()
+        {
+            Save(new PlayerData
+            {
+                health = _playerModel.Health.Current,
+                maxHealth = _playerModel.Health.Max,
+                coins = _playerModel.Coins.Amount
+            });
+        }
+
+        public void Delete()
+        {
+            _storage.DeleteKey($"{SaveKey}_{HealthKey}");
+            _storage.DeleteKey($"{SaveKey}_{MaxHealthKey}");
+            _storage.DeleteKey($"{SaveKey}_{CoinsKey}");
         }
     }
 }

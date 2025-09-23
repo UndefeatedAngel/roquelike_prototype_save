@@ -1,5 +1,6 @@
 ﻿using BlockoutRoguelike.Core.Inventory;
 using BlockoutRoguelike.Core.PlayerController;
+using BlockoutRoguelike.Inventory.Services;
 using BlockoutRoguelike.Modules;
 using StarterAssets;
 using TMPro;
@@ -25,6 +26,7 @@ namespace BlockoutRoguelike
         
         public static int Step = 0;
 
+        private InventoryService _inventoryService;
         private void Start()
         {
             Cursor.lockState = CursorLockMode.Locked;
@@ -52,7 +54,7 @@ namespace BlockoutRoguelike
 
         private void Restart()
         {
-            _playerController.Restart();
+            _playerController.Reset();
         }
 
         private void SetupSkin()
@@ -106,7 +108,7 @@ namespace BlockoutRoguelike
         private void CreateEnvironment(int number, bool isStart, bool isEnd, int maxBottles)
         {
             var env = Instantiate(_enviroments[number], _enviromentsContainer, true);
-            env.Setup(_playerController.GetInventoryService(), isStart, _testRoom, isEnd, maxBottles, objects =>
+            env.Setup(_inventoryService, isStart, _testRoom, isEnd, maxBottles, objects =>
             {
                 for (int i = 0; i < objects.Length; i++)
                 {
