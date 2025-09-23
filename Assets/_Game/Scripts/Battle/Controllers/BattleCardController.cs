@@ -7,6 +7,7 @@ using BlockoutRoguelike.Cards.Mobs;
 using BlockoutRoguelike.Core;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using Math = System.Math;
 using Random = UnityEngine.Random;

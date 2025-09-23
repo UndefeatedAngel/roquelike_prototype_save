@@ -551,7 +551,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.9900295
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -761,7 +761,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbcf13d47e354efb86f5dc6de5486a7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _graphicRaycaster: {fileID: 0}
+  _graphicRaycaster: {fileID: 7656347631899639628}
   _canvasGroup: {fileID: 6371821016255664451}
   _slider: {fileID: 90563111252543024}
   sliderSpeed: 2

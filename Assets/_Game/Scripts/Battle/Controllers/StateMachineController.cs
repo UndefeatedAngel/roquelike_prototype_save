@@ -38,6 +38,24 @@ namespace BlockoutRoguelike.Battle.Controllers
         
         public Action OnWin;
         public Action OnLose;
+        
+        
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                WinGame();
+            }
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                LoseGame();
+            }
+
+            if (Input.GetKeyDown(KeyCode.KeypadEnter))
+            {
+                EndMove();
+            }
+        }
 
         public void Setup(Action<QueueMove> nextMoveAction)
         {
@@ -77,17 +95,30 @@ namespace BlockoutRoguelike.Battle.Controllers
 
             if (_enemy.CurrentHp < 1)
             {
-                StartCoroutine(AnimationDance(true, () =>
-                {
-                    OnWin?.Invoke();
-
-                }));
+                WinGame();
                 yield break;
             }
             
             _currentMoveType = QueueMove.Enemy;
             _movesButtonText.text = "Ход противника...";
             _nextMoveAction?.Invoke(_currentMoveType);
+        }
+
+        private void WinGame()
+        {
+            StartCoroutine(AnimationDance(true, () =>
+            {
+                OnWin?.Invoke();
+
+            }));
+        }
+
+        private void LoseGame()
+        {
+            StartCoroutine(AnimationDance(false, () =>
+            {
+                OnLose?.Invoke();
+            }));
         }
 
         private IEnumerator PlayerAttack()
@@ -212,10 +243,7 @@ namespace BlockoutRoguelike.Battle.Controllers
 
             if (_player.CurrentHp < 1)
             {
-                StartCoroutine(AnimationDance(false, () =>
-                {
-                    OnLose?.Invoke();
-                }));
+                LoseGame();
                 
                 yield break;
             }

@@ -6,6 +6,7 @@ using _Game.Scripts.Modules.SceneLoader;
 
 public enum SceneType
 {
+    Main,
     GamePlay,
     Battle,
     Cards,
