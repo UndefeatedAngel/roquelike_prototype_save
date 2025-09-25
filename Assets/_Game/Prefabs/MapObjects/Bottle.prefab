@@ -4565,8 +4565,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2596049082590579647}
   - component: {fileID: 3964871827150625050}
-  - component: {fileID: 4667566142561464311}
-  - component: {fileID: 4131289586495767654}
+  - component: {fileID: 5000566577857477887}
   m_Layer: 0
   m_Name: Bottle
   m_TagString: Untagged
@@ -4611,7 +4610,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 2
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4667566142561464311
+--- !u!114 &5000566577857477887
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4620,24 +4619,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 8724091423219708583}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e038a00b96a4eeb9f3266f0d720801c, type: 3}
+  m_Script: {fileID: 11500000, guid: a48a15560cc744aaa31aab5438e8c7b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _collectableItem: {fileID: 4131289586495767654}
---- !u!114 &4131289586495767654
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8724091423219708583}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2dba0e73be94a4c81f1a6826643e430, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: 4b42e925731d0fd4ab43f721c8310f0d, type: 2}
-  stackAmount: 1
-  destroyOnCollect: 1
-  playerTag: Player
-  spriteRenderer: {fileID: 0}
+  item:
+    Id: 
+    Name: "\u0411\u0443\u0442\u044B\u043B\u043A\u0430"
+    Description: "\u0414\u043B\u044F \u043E\u0442\u043A\u0440\u044B\u0442\u0438\u044F
+      \u0434\u0432\u0435\u0440\u0435\u0439"
+    Icon: {fileID: 21300000, guid: 5d09851267e75d149bbbda63c2cd091b, type: 3}
+    MaxStack: 3
+    CurrentStack: 1
+    KeyId: 2
+    DoorId: 2
+  tooltipPrefab: {fileID: 5818493271682088745, guid: d726640ea11645244a5bba85d275cdb5, type: 3}
+  tooltipOffset: {x: 0, y: 2, z: 0}

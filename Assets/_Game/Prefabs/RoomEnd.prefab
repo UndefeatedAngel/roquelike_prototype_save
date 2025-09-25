@@ -623,6 +623,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac89ea9ec1ecc874fad7e86fba30bcf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  requiredKeyIds:
+  - 2
+  doorId: 2
+  requiredKeyCounts: 
   _nameTexts:
   - {fileID: 890889747000635076}
   - {fileID: 5524062732689264110}
