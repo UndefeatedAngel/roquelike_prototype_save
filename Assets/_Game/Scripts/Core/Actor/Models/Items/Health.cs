@@ -12,6 +12,11 @@ namespace BlockoutRoguelike.Core.Actor.Models.Items
 
         public Health(int current, int max)
         {
+            SetHealth(current, max);
+        }
+
+        public void SetHealth(int current, int max)
+        {
             Current = Math.Clamp(current, 0, max);
             Max = Math.Max(1, max);
         }
@@ -29,6 +34,12 @@ namespace BlockoutRoguelike.Core.Actor.Models.Items
             if (amount <= 0 || IsDead) return;
             
             Current = Math.Min(Max, Current + amount);
+            OnChanged?.Invoke(Current);
+        }
+
+        public void FullHeal()
+        {
+            Current = Max;
             OnChanged?.Invoke(Current);
         }
 

@@ -10,6 +10,7 @@ namespace BlockoutRoguelike
         {
             if (_instance == null)
             {
+                PlayerPrefs.DeleteAll();
                 _instance = this;
                 DontDestroyOnLoad(gameObject);
             }

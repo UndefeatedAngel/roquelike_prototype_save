@@ -6,7 +6,6 @@ using BlockoutRoguelike.Modules;
 using StarterAssets;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 namespace BlockoutRoguelike

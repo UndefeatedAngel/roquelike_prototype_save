@@ -292,4 +292,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _coinsText: {fileID: 4060862799942404653}
-  _animationDuration: 0.5
+  _animationSpeed: 50
+  _useAnimation: 1

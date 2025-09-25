@@ -23,25 +23,19 @@ namespace BlockoutRoguelike.Core.PlayerController
         {
             var data = new PlayerData
             {
-                health = _storage.LoadInt($"{SaveKey}_{HealthKey}", -1),    // ← Исправлено на LoadInt
-                maxHealth = _storage.LoadInt($"{SaveKey}_{MaxHealthKey}", -1), // ← Исправлено на LoadInt
-                coins = _storage.LoadInt($"{SaveKey}_{CoinsKey}", -1)          // ← Исправлено на LoadInt
+                health = _storage.LoadInt($"{SaveKey}_{HealthKey}", -1),
+                maxHealth = _storage.LoadInt($"{SaveKey}_{MaxHealthKey}", -1),
+                coins = _storage.LoadInt($"{SaveKey}_{CoinsKey}", -1) 
             };
 
-            if (data.health != -1)
+            if (data.health != -1 && data.maxHealth != -1)
             {
-                int healthDifference = data.health - _playerModel.Health.Current;
-                if (healthDifference > 0)
-                    _playerModel.Health.Heal(healthDifference);
-                else if (healthDifference < 0)
-                    _playerModel.Health.TakeDamage(-healthDifference);
+                _playerModel.Health.SetHealth(data.health, data.maxHealth);
             }
 
             if (data.coins != -1)
             {
-                int coinsDifference = data.coins - _playerModel.Coins.Amount;
-                if (coinsDifference > 0)
-                    _playerModel.Coins.Add(coinsDifference);
+                _playerModel.Coins.SetAmount(data.coins);
             }
 
             return data;

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using BlockoutRoguelike.Core.PlayerController;
 using TMPro;
 using UnityEngine;
@@ -77,7 +78,7 @@ namespace BlockoutRoguelike
                     _narrativeText.text = "У торговца ты покупаешь что-то полезное!";
                     if (_playerController.TrySpendCoins(50))
                     {
-                        
+                        _playerController.SaveData();
                     }
                     TradeStart();
                     break;
@@ -107,6 +108,7 @@ namespace BlockoutRoguelike
             {
                 _narrativeText.text = "В сундуке ты получаешь сокровища!";
                 _playerController.AddCoins(50);
+                _playerController.SaveData();
                 ChestStart();
             }
         }
@@ -182,6 +184,10 @@ namespace BlockoutRoguelike
                 StartEnemyGame();
             }
         }
-        
+
+        private void OnDestroy()
+        {
+            _playerController.SaveData();
+        }
     }
 }

@@ -10,7 +10,12 @@ namespace BlockoutRoguelike.Core.Actor.Models.Items
 
         public Coins(int initialAmount = 0)
         {
-            Amount = Math.Max(0, initialAmount);
+            SetAmount(initialAmount);
+        }
+
+        public void SetAmount(int amount)
+        {
+            Amount = Math.Max(0, amount);
         }
 
         public void Add(int amount)

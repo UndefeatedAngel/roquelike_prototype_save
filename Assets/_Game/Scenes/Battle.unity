@@ -2304,6 +2304,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 197322254}
     m_Modifications:
     - target: {fileID: 3221192496234443605, guid: 35d029e5bf477634eb0e0f71c04d0f6a, type: 3}
+      propertyPath: _animationSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3221192496234443605, guid: 35d029e5bf477634eb0e0f71c04d0f6a, type: 3}
       propertyPath: _fillAnimationSpeed
       value: 1
       objectReference: {fileID: 0}
@@ -3146,9 +3150,11 @@ MonoBehaviour:
   _testCoinAddAmount: 50
   _testCoinSpendAmount: 30
   _hudController: {fileID: 2122419431}
+  _playerConfig: {fileID: 11400000, guid: 16b3eb805f9c6ff4689dddbb7d3120ff, type: 2}
+  _playOnStart: 1
   _skipInitialHealthAnimation: 1
   _autoSave: 1
-  _showTests: 1
+  _showTests: 0
   _testDamageAmount: 10
   _testHealAmount: 5
 --- !u!1 &964056784
@@ -6907,6 +6913,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CoinsUI
       objectReference: {fileID: 0}
+    - target: {fileID: 8011306837451492316, guid: 1889281e8857545448f25937e4c6e619, type: 3}
+      propertyPath: _animationSpeed
+      value: 50
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6957,9 +6967,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d7dde82e9b24feba30774c65d24aadc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healthUI:
+  _healthViews:
   - {fileID: 608519523}
-  _coinsUI:
+  _coinsViews:
   - {fileID: 2097095907}
 --- !u!4 &2122419432
 Transform:

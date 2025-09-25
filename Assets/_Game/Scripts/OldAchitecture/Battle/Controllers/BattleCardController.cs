@@ -289,6 +289,8 @@ namespace BlockoutRoguelike.Battle.Controllers
             {
                 var currentGame = PlayerPrefs.GetInt("Restart");
                 currentGame++;
+                _playerController.FullHeal();
+                _playerController.SaveData();
                 PlayerPrefs.SetInt("Restart", currentGame);
                 PlayerPrefs.Save();
                 if (currentGame == _maxGames)

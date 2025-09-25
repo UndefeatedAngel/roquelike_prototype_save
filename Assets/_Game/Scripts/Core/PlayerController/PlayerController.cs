@@ -28,16 +28,9 @@ namespace BlockoutRoguelike.Core.PlayerController
 
         public void Setup()
         {
-            if (_playerModel != null)
-            {
-                _playerModel.Health.OnChanged -= OnHealthChanged;
-                _playerModel.Coins.OnChanged -= OnCoinsChanged;
-            }
-
             var health = new Health(_playerConfig.StartHealth, _playerConfig.MaxHealth);
             var coins = new Coins(_playerConfig.StartCoins);
             _playerModel = new PlayerModel(health, coins);
-            
             _dataManager = new PlayerDataManager(_playerModel);
             _dataManager.Load();
             
@@ -57,6 +50,7 @@ namespace BlockoutRoguelike.Core.PlayerController
         
         public void TakeDamage(int damage) => _playerModel.Health.TakeDamage(damage);
         public void Heal(int amount) => _playerModel.Health.Heal(amount);
+        public void FullHeal() => _playerModel.Health.FullHeal();
         public bool IsDead() => _playerModel.Health.IsDead;
         
         public void AddCoins(int amount) => _playerModel.Coins.Add(amount);
@@ -71,7 +65,7 @@ namespace BlockoutRoguelike.Core.PlayerController
 
         public void Reset()
         {
-            Setup();
+            //Setup();
         }
     }
 }

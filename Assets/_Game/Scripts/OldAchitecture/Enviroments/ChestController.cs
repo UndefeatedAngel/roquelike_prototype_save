@@ -30,6 +30,7 @@ namespace _Game.Scripts.Enviroments
         {
             SceneLoader.Instance.LoadSceneAsync(SceneType.GamePlay, () =>
             {
+                _playerController.SaveData();
                 Debug.Log("Загружен!");
             });
         }
