@@ -2414,6 +2414,7 @@ MonoBehaviour:
   _nameText: {fileID: 6696312713305651638}
   _hpText: {fileID: 6571679771688251971}
   _attackText: {fileID: 3610546652720318820}
+  _abilityText: {fileID: 1117959934868196966}
   _protectionText: {fileID: 74679450469501582}
   _animator: {fileID: 0}
   _highlight: {fileID: 406561293024049532}
@@ -2729,6 +2730,7 @@ MonoBehaviour:
   _icons:
   - {fileID: 548449790318575713}
   - {fileID: 917839815254221710}
+  - {fileID: 338621038143147460}
   _canvasGroup: {fileID: 5485287899952571563}
   _text: {fileID: 4196812836934562122}
 --- !u!1 &5239449810084149332

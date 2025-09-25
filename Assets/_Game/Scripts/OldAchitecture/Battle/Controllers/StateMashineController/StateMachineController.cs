@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using BlockoutRoguelike.Cards;
 using BlockoutRoguelike.Cards.Mobs;
 using BlockoutRoguelike.Cards.Person;
@@ -9,6 +10,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 namespace BlockoutRoguelike.Battle.Controllers
 {
@@ -134,30 +136,52 @@ namespace BlockoutRoguelike.Battle.Controllers
 
         }
 
-        private IEnumerator Mage(bool isEnemy)
+        private IEnumerator Mage(bool isPlayer)
         {
+            var friendSlots = isPlayer?  _playerSlots : _enemySlots;
+            var enemySlots = isPlayer ? _enemySlots : _playerSlots;
+            var mageMobs = GetTypeMobs(friendSlots, PlayerCardType.Mage);
+            
+            var bufMobs = GetTypeMobsForMage(friendSlots);
+            var deBufMobs = GetTypeMobsForMage(enemySlots);
+            
+            foreach (var mageMob in mageMobs)
+            {
+                var buf = Random.Range(0, 2) == 1;
+                if (buf && bufMobs.Count>0)
+                {
+                    //buf
+                    var mob = bufMobs[Random.Range(0, bufMobs.Count)];
+                    mageMob.PlayHealEffect(mob);
+                    mob.Buf();
+                    bufMobs.Remove(mob);
+                    //TODO: Animation
+                    yield return new WaitForSeconds(2.5f);
+                }
+                else if (deBufMobs.Count>0)
+                {
+                    //debuf
+                    var mob = deBufMobs[Random.Range(0, deBufMobs.Count)];
+                    mageMob.PlayHealEffect(mob);
+                    mob.DeBuf();
+                    deBufMobs.Remove(mob);
+                    //TODO: Animation
+                    yield return new WaitForSeconds(2.5f);
+                }
+            }
+            
             yield break;
         }
 
 
         private IEnumerator Defends(bool isPlayer)
         {
-            var addProtection = 2;
             var protectionSlots = isPlayer?  _playerSlots : _enemySlots;
             var attackSlots = isPlayer ? _enemySlots : _playerSlots;
             
-            var protectionMobs = new List<MobUI>();
-            
-            foreach (var slot in protectionSlots)
-            {
-                var activeMob = slot.ActiveMob;
-                if (activeMob != null && activeMob.MobType == PlayerCardType.Protection)
-                {
-                    protectionMobs.Add(activeMob);
-                }
-            }
+            var protectionMobs = GetTypeMobs(protectionSlots, PlayerCardType.Protection);
 
-            foreach (var _ in protectionMobs)
+            foreach (var protectionMob in protectionMobs)
             {
                 var length = protectionSlots.Count;
                 var allhs = new int[length];
@@ -168,11 +192,12 @@ namespace BlockoutRoguelike.Battle.Controllers
                     at[i] = attackSlots[i].ActiveMob?.Attack ?? 0;
                 }
 
-                var numberSlot = FindBestSlotForProtection(allhs, at, addProtection);
+                var numberSlot = FindBestSlotForProtection(allhs, at, protectionMob.AbilityCount);
                 if (numberSlot == -1) yield break;
                     
                 var mob =  protectionSlots[numberSlot].ActiveMob;
-                mob.AddProtection(addProtection);
+                protectionMob.PlayHealEffect(mob);
+                mob.AddProtection(protectionMob.AbilityCount);
                 
                 //TODO: Animation
                 yield return new WaitForSeconds(2.5f);
@@ -181,21 +206,12 @@ namespace BlockoutRoguelike.Battle.Controllers
         
         private IEnumerator Healths(bool isPlayer)
         {
-            var addHealth = 2;
             var healthSlots = isPlayer? _playerSlots : _enemySlots;
             var attackSlots = isPlayer ?  _enemySlots : _playerSlots;
             
-            var healthMobs = new List<MobUI>();
-            foreach (var slot in healthSlots)
-            {
-                var activeMob = slot.ActiveMob;
-                if (activeMob != null && activeMob.MobType == PlayerCardType.Health)
-                {
-                    healthMobs.Add(activeMob);
-                }
-            }
+            var healthMobs = GetTypeMobs(healthSlots, PlayerCardType.Health);
 
-            foreach (var _ in healthMobs)
+            foreach (var healthMob in healthMobs)
             {
                 var length = healthSlots.Count;
                 var allhs = new int[length];
@@ -212,15 +228,32 @@ namespace BlockoutRoguelike.Battle.Controllers
 
                 }
 
-                var numberSlot = FindBestSlotForHP(allhs, curhs, maxhs, ps, addHealth);
+                var numberSlot = FindBestSlotForHP(allhs, curhs, maxhs, ps, healthMob.AbilityCount);
                 if (numberSlot == -1) yield break; // не лечим если все на максимуме
-                
+
+
                 var mob =  healthSlots[numberSlot].ActiveMob;
-                mob.AddHp(addHealth);
+                healthMob.PlayHealEffect(mob);
+                mob.AddHp(healthMob.AbilityCount);
                 
                 //TODO: Animation
-                yield return new WaitForSeconds(2f);
+                yield return new WaitForSeconds(2.5f);
             }
+        }
+
+        private List<MobUI> GetTypeMobs(List<Slot> slots, PlayerCardType playerCardType)
+        {
+            return slots.Select(slot => slot.ActiveMob)
+                .Where(activeMob => activeMob != null && activeMob.MobType == playerCardType)
+                .ToList();
+        }
+        
+        private List<MobUI> GetTypeMobsForMage(List<Slot> slots)
+        {
+            return slots.Select(slot => slot.ActiveMob)
+                .Where(activeMob => activeMob != null 
+                                    && activeMob.MobType !=PlayerCardType.Mage)
+                .ToList();
         }
         
         private IEnumerator SlotAttack(bool isPlayer)
@@ -306,14 +339,20 @@ namespace BlockoutRoguelike.Battle.Controllers
             });
         }
         
-        private void AttackSlot(Slot slot1, Slot slot2)
+        private void AttackSlot(Slot slot1, Slot slot2, float stopDistance = 1f)
         {
             var mob1 = slot1.ActiveMob;
             var mob2 = slot2.ActiveMob;
             var defaultPos = mob1.GetMobTransform().position;
+            // Направление к цели
+            Vector3 directionToTarget = (mob2.GetMobTransform().position - mob1.GetMobTransform().position).normalized;
+    
+            // Позиция остановки перед целью
+            Vector3 attackPosition = mob2.GetMobTransform().position - directionToTarget * stopDistance;
+            
             mob1.AttackAnimation();
             mob1.GetMobTransform().DOKill();
-            mob1.GetMobTransform().DOMove(mob2.GetMobTransform().position, 0.5f).OnComplete(() =>
+            mob1.GetMobTransform().DOMove(attackPosition, 0.5f).OnComplete(() =>
             {
                 mob2.GiveDamage(mob1.Attack);
                 if (mob2.Hp < 1)

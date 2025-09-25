@@ -143,7 +143,6 @@ public class DragAndHoverUI : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     public void EndDrag()
     {
-        transform.DOKill();
         isDragging = false;
         canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = true;

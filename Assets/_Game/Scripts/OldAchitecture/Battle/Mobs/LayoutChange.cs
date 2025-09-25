@@ -8,7 +8,8 @@ namespace BlockoutRoguelike.Cards.Mobs
     public enum TypeChange
     {
         Hp,
-        Protection
+        Protection,
+        Attack
     }
     
     public class LayoutChange: MonoBehaviour

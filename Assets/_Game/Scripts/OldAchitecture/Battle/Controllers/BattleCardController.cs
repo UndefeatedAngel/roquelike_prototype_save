@@ -156,7 +156,7 @@ namespace BlockoutRoguelike.Battle.Controllers
             _stateMachineController.EndMove();
         }
         
-        private void FlyCardToPlayer(CardUI cardUI = null)
+        private void FlyCardToPlayer(CardUI cardUI = null, Action endAction = null)
         {
             var card = cardUI != null ? cardUI : _playerDeckController.GetCard();
             card.DisableDeckAnimated(_timeAnimation);
@@ -168,7 +168,7 @@ namespace BlockoutRoguelike.Battle.Controllers
                 card.GetComponent<DragAndHoverUI>().Setup();
                 card.transform.localScale = Vector3.one;
                 _cardsInDeck.Add(card);
-                UpdateDragState();
+                endAction?.Invoke();
             });
         }
 
@@ -204,7 +204,7 @@ namespace BlockoutRoguelike.Battle.Controllers
         {
             _playerStats.AddBlood(-cardUI.BloodCost());
             _uiController.UpdateBlood(_playerStats.BloodCurrent, _playerStats.BloodMax);
-            UpdateDragState();
+            StartCoroutine(UpdateDragState());
         }
 
         private IEnumerator EnableLayoutGroup()
@@ -252,17 +252,21 @@ namespace BlockoutRoguelike.Battle.Controllers
         {
             var add = Math.Min(count, _playerStats.BloodMax-_playerStats.BloodCurrent);
             _playerStats.AddBlood(add);
-            UpdateDragState();
+            StartCoroutine(UpdateDragState());
             _uiController.UpdateBlood(_playerStats.BloodCurrent, _playerStats.BloodMax);
         }
 
-        private void UpdateDragState()
+        private IEnumerator UpdateDragState()
         {
+            yield return new WaitForEndOfFrame();
             foreach (var card in _cardsInDeck)
             {
                 var drag = card.GetComponent<DragAndHoverUI>();
                 drag.UpdateInput(card.BloodCost()<=_playerStats.BloodCurrent);
-                drag.ForceReturnToPosition();
+                _cardPlayerHorizontalLayoutGroup.enabled = false;
+                yield return new WaitForEndOfFrame();
+                _cardPlayerHorizontalLayoutGroup.enabled = true;
+                //drag.EndDrag();
             }
         }
 
