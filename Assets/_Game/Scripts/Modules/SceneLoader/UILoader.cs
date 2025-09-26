@@ -1,24 +1,45 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace _Game.Scripts.Modules.SceneLoader
+namespace Modules.SceneLoader
 {
     public class UILoader: MonoBehaviour
     {
+        [SerializeField] private CanvasGroup _spaceCanvas;
         [SerializeField] private GraphicRaycaster _graphicRaycaster;
         [SerializeField] private CanvasGroup _canvasGroup;
         [SerializeField] private Slider _slider;
         [SerializeField] private float sliderSpeed;
         [SerializeField] private float fadeSpeed;
 
-        private float _startProgress = 0f;
-        private float _targetProgress = 0f;
+        private float _startProgress;
+        private float _targetProgress;
+
+        private bool _isActiveSpace;
+        private bool _isSpaceClick;
 
         private void Awake()
         {
             gameObject.SetActive(false);
+        }
+
+        private void Update()
+        {
+            if (_isActiveSpace && Input.GetKeyDown(KeyCode.Space))
+            {
+                _isActiveSpace = false;
+                _isSpaceClick = true;
+            }
+        }
+
+        public void ActivateSpace()
+        {
+            _spaceCanvas.DOFade(1f, 0.5f).OnComplete(() =>
+            {
+                _isActiveSpace = true;
+            });
         }
 
         public void ClearProgress()
@@ -36,6 +57,13 @@ namespace _Game.Scripts.Modules.SceneLoader
                 UpdateUIElements();
                 yield return new WaitForEndOfFrame();
             }
+        }
+        
+        public IEnumerator FullSlider()
+        {
+            _startProgress = _targetProgress;
+            UpdateUIElements();
+            yield return new WaitForEndOfFrame();
         }
     
         private void UpdateUIElements()
@@ -65,6 +93,11 @@ namespace _Game.Scripts.Modules.SceneLoader
             }
             
             _canvasGroup.gameObject.SetActive(false);
+        }
+
+        public IEnumerator SpaceCondition()
+        {
+            yield return new WaitUntil(() => _isSpaceClick);
         }
     }
 }

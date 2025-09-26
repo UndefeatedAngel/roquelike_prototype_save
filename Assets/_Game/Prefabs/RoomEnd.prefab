@@ -585,6 +585,7 @@ GameObject:
   - component: {fileID: 8247555445668123380}
   - component: {fileID: 10070128550812554}
   - component: {fileID: 8432495647714007253}
+  - component: {fileID: 241485811238280633}
   m_Layer: 0
   m_Name: RoomEnd
   m_TagString: Untagged
@@ -686,6 +687,19 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 3
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &241485811238280633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6132333822331033558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30fbd7a338664101997b35649fdb3df3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targetId: grave
 --- !u!1 &6940024236575835295
 GameObject:
   m_ObjectHideFlags: 0

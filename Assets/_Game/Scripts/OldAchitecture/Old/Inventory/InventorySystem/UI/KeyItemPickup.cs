@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 namespace BlockoutRoguelike.Core.Inventory.InventorySystem.UI
 {
@@ -13,6 +14,8 @@ namespace BlockoutRoguelike.Core.Inventory.InventorySystem.UI
         
         private GameObject tooltipInstance;
         private bool playerInRange = false;
+        
+        public UnityEvent OnPickup;
         
         private void Start()
         {
@@ -89,6 +92,8 @@ namespace BlockoutRoguelike.Core.Inventory.InventorySystem.UI
                 {
                     Destroy(tooltipInstance);
                 }
+                
+                OnPickup?.Invoke();
                 Destroy(gameObject);
             }
             else

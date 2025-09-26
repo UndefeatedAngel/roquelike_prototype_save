@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using BlockoutRoguelike.Core.PlayerController;
+using Modules.SceneLoader;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -90,6 +90,7 @@ namespace BlockoutRoguelike
 
         private void EndGame()
         {
+            _playerController.FullHeal();
             SceneLoader.Instance.LoadSceneAsync(SceneType.GamePlay, () =>
             {
                 

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Modules.SceneLoader;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace BlockoutRoguelike

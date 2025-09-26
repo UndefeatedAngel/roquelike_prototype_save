@@ -4566,6 +4566,7 @@ GameObject:
   - component: {fileID: 2596049082590579647}
   - component: {fileID: 3964871827150625050}
   - component: {fileID: 5000566577857477887}
+  - component: {fileID: 8392089247445256006}
   m_Layer: 0
   m_Name: Bottle
   m_TagString: Untagged
@@ -4634,3 +4635,31 @@ MonoBehaviour:
     DoorId: 2
   tooltipPrefab: {fileID: 5818493271682088745, guid: d726640ea11645244a5bba85d275cdb5, type: 3}
   tooltipOffset: {x: 0, y: 2, z: 0}
+  OnPickup:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8392089247445256006}
+        m_TargetAssemblyTypeName: BlockoutRoguelike.Quests.QuestTarget, Assembly-CSharp
+        m_MethodName: Collect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &8392089247445256006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8724091423219708583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30fbd7a338664101997b35649fdb3df3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targetId: bottle_red

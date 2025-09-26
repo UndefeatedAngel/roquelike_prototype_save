@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using _Game.Scripts.Modules;
 using BlockoutRoguelike.Modules;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace BlockoutRoguelike.Core.Inventory.InventorySystem.UI
 {
@@ -35,6 +36,8 @@ namespace BlockoutRoguelike.Core.Inventory.InventorySystem.UI
         private Dictionary<string, int> foundKeyCounts = new();
         
         public Action OnCoinEject;
+
+        public UnityEvent OnOpenChest;
         
         private void Start()
         {
@@ -214,6 +217,7 @@ namespace BlockoutRoguelike.Core.Inventory.InventorySystem.UI
             UpdateTooltip();
             HideTooltip();
             Debug.Log("Сундук открыт!");
+            OnOpenChest?.Invoke();
             foreach (var disableObject in _disableObjects)
             {
                 disableObject.SetActive(false);

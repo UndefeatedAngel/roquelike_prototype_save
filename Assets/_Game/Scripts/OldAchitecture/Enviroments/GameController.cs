@@ -1,8 +1,11 @@
-﻿using BlockoutRoguelike.Core.Inventory;
+﻿using System;
+using BlockoutRoguelike.Core.Inventory;
 using BlockoutRoguelike.Core.Inventory.Controllers;
 using BlockoutRoguelike.Core.Inventory.Services;
 using BlockoutRoguelike.Core.PlayerController;
 using BlockoutRoguelike.Modules;
+using BlockoutRoguelike.Quests;
+using Modules.SceneLoader;
 using StarterAssets;
 using TMPro;
 using UnityEngine;
@@ -24,6 +27,7 @@ namespace BlockoutRoguelike
         [SerializeField] private ThirdPersonController _thirdPersonController;
         [SerializeField] private PlayerController _playerController;
         [SerializeField] private PlayerInventoryController _playerInventoryController;
+        [SerializeField] private QuestController _questController;
         
         public static int Step = 0;
 
@@ -41,6 +45,14 @@ namespace BlockoutRoguelike
             SetupSkin();
             GenerateRoomsRandom();
             _inventoryController.Init();
+            _questController.Setup();
+            _questController.OnCurrentQuestTargets += OnCurrentQuestTargets;
+            _questController.StartQuest();
+        }
+
+        private void OnDestroy()
+        {
+            _questController.OnCurrentQuestTargets -= OnCurrentQuestTargets;
         }
 
         private void Update()
@@ -111,11 +123,7 @@ namespace BlockoutRoguelike
             var env = Instantiate(_enviroments[number], _enviromentsContainer, true);
             env.Setup(_playerInventoryController, isStart, _testRoom, isEnd, maxBottles, objects =>
             {
-                for (int i = 0; i < objects.Length; i++)
-                {
-                    var indicator = _atomicStyleIndicators[i];
-                    indicator.target = objects[i].transform;
-                }
+                Debug.Log($"Bottles {objects.Length}");
             });
             var post = maxBottles switch
             {
@@ -124,6 +132,21 @@ namespace BlockoutRoguelike
                 _ => "ок"
             };
             _targetText.text = $"Найди {maxBottles} бутыл{post} чтобы пройти дальше!";
+        }
+
+        private void OnCurrentQuestTargets(int goalNumber, Transform[] objects)
+        {
+            //Clear
+            foreach (var indicator in _atomicStyleIndicators)
+            {
+                indicator.target = null;
+            }
+            
+            for (int i = 0; i < objects.Length; i++)
+            {
+                var indicator = _atomicStyleIndicators[i];
+                indicator.target = objects[i].transform;
+            }
         }
     }
 }

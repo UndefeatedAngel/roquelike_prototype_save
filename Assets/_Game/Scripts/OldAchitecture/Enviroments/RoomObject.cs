@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BlockoutRoguelike.Core.Inventory.Controllers;
 using BlockoutRoguelike.Core.Inventory.InventorySystem;
 using BlockoutRoguelike.Enviroments;
+using Modules.SceneLoader;
 using TMPro;
 using UnityEngine;
 
