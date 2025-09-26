@@ -17,7 +17,7 @@ namespace BlockoutRoguelike.Quests
         private QuestPresenter _presenter;
         private Quest _currentQuest;
 
-        public event Action<int, Transform[]> OnCurrentQuestTargets;
+        public event Action<QuestGoal, Transform[]> OnCurrentQuestTargets;
 
         private void Start()
         {
@@ -65,7 +65,8 @@ namespace BlockoutRoguelike.Quests
                         Count = targets.Count,
                         Progress = 0,
                         IsCompleted = false,
-                        IsProgressShow = goalConfig.IsProgressShow
+                        IsProgressShow = goalConfig.IsProgressShow,
+                        HideMarkers = goalConfig.HideMarkers
                     };
                     
                     _currentQuest.Goals.Add(goal);
@@ -100,17 +101,17 @@ namespace BlockoutRoguelike.Quests
         {
             if (_currentQuest == null || _currentQuest.State != QuestState.InProgress)
             {
-                OnCurrentQuestTargets?.Invoke(0, Array.Empty<Transform>());
+                OnCurrentQuestTargets?.Invoke(null, Array.Empty<Transform>());
                 return;
             }
 
             var activeTargets = new List<Transform>();
             var allTargets = FindObjectsOfType<QuestTarget>();
 
-            var goalNumber = 0;
+            QuestGoal activeGoal = null;
             foreach (var goal in _currentQuest.Goals)
             {
-                goalNumber++;
+                activeGoal = goal;
                 if (goal.IsCompleted) continue;
 
                 var targetsForGoal = allTargets
@@ -122,7 +123,7 @@ namespace BlockoutRoguelike.Quests
                 break;
             }
 
-            OnCurrentQuestTargets?.Invoke(goalNumber, activeTargets.ToArray());
+            OnCurrentQuestTargets?.Invoke(activeGoal, activeTargets.ToArray());
         }
     }
 }

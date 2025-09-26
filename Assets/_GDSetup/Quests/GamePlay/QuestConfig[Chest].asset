@@ -24,15 +24,18 @@ MonoBehaviour:
     Progress: 0
     IsCompleted: 0
     IsProgressShow: 1
+    HideMarkers: 1
   - Description: "\u041E\u0442\u043A\u0440\u043E\u0439 \u0441\u0443\u043D\u0434\u0443\u043A"
     TargetId: chest
     Count: 0
     Progress: 0
     IsCompleted: 0
     IsProgressShow: 0
+    HideMarkers: 0
   - Description: "\u0412\u044B\u0439\u0434\u0438 \u0438\u0437 \u043A\u043E\u043C\u043D\u0430\u0442\u044B"
     TargetId: chest_exit
     Count: 0
     Progress: 0
     IsCompleted: 0
     IsProgressShow: 0
+    HideMarkers: 0

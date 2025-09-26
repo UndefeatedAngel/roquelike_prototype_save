@@ -44,14 +44,15 @@ namespace _Game.Scripts.Enviroments
             });
         }
         
-        private void OnCurrentQuestTargets(int goalNumber, Transform[] objects)
+        private void OnCurrentQuestTargets(QuestGoal goal, Transform[] objects)
         {
-            if (goalNumber != 3) return;
             //Clear
             foreach (var indicator in _atomicStyleIndicators)
             {
                 indicator.target = null;
             }
+            
+            if (goal == null || goal.HideMarkers) return;
             
             for (int i = 0; i < objects.Length; i++)
             {

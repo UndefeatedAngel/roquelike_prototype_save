@@ -11,5 +11,6 @@ namespace BlockoutRoguelike.Quests
         [HideInInspector] public int Progress;
         [HideInInspector] public bool IsCompleted;
         public bool IsProgressShow;
+        public bool HideMarkers;
     }
 }
