@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace NothingAwaits.Cards.Mobs
 {
-    public class SacrificeBattle: MonoBehaviour
+    public class SacrificeBattle: BaseSacrifice
     {
         [SerializeField] private Image[] _bloodObject;
         [SerializeField] private TMP_Text _nameText;

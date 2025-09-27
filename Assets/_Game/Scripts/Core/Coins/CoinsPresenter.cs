@@ -1,11 +1,10 @@
-﻿using NothingAwaits.Core.Actor.Models.Items;
-using NothingAwaits.Core.Actor.UI.Views;
+﻿using NothingAwaits.Core.Actor.UI.Presenters;
 
-namespace NothingAwaits.Core.Actor.UI.Presenters
+namespace NothingAwaits.Core.Coins
 {
-    public class CoinsPresenter : BasePresenter<Coins, CoinsView>
+    public class CoinsPresenter : BasePresenter<CoinsModel, CoinsView>
     {
-        public CoinsPresenter(Coins model, CoinsView view) 
+        public CoinsPresenter(CoinsModel model, CoinsView view) 
             : base(model, view, () => view.UpdateCoinsDisplay(model.Amount))
         {
         }

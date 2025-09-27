@@ -3,10 +3,8 @@ using UnityEngine.UI;
 using TMPro;
 using Cysharp.Threading.Tasks;
 using System.Threading;
-using NothingAwaits.Core.Actor.Models.Items;
-using NothingAwaits.Core.Actor.UI.Presenters;
 
-namespace NothingAwaits.Core.Actor.UI.Views
+namespace NothingAwaits.Core.Health
 {
     public class HealthView : MonoBehaviour
     {
@@ -23,7 +21,7 @@ namespace NothingAwaits.Core.Actor.UI.Views
         private int _currentDisplayHealth;
         private int _currentDisplayMaxHealth;
 
-        public void Initialize(Health healthModel, bool skipInitialAnimation = true)
+        public void Initialize(HealthModel healthModel, bool skipInitialAnimation = true)
         {
             _presenter?.Disable();
             _presenter = new HealthPresenter(healthModel, this);

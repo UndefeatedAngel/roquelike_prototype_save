@@ -1,11 +1,10 @@
-﻿using NothingAwaits.Core.Actor.Models.Items;
-using NothingAwaits.Core.Actor.UI.Views;
+﻿using NothingAwaits.Core.Actor.UI.Presenters;
 
-namespace NothingAwaits.Core.Actor.UI.Presenters
+namespace NothingAwaits.Core.Health
 {
-    public class HealthPresenter : BasePresenter<Health, HealthView>
+    public class HealthPresenter : BasePresenter<HealthModel, HealthView>
     {
-        public HealthPresenter(Health model, HealthView view) 
+        public HealthPresenter(HealthModel model, HealthView view) 
             : base(model, view, () => view.UpdateHealthDisplay(model.Current, model.Max))
         {
         }

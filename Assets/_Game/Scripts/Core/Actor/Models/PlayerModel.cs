@@ -1,10 +1,11 @@
-﻿using NothingAwaits.Core.Actor.Models.Items;
+﻿using NothingAwaits.Core.Coins;
+using NothingAwaits.Core.Health;
 
 namespace NothingAwaits.Core.Actor.Models
 {
     public class PlayerModel : BaseActorModel
     {
-        public Coins Coins { get; private set; }
-        public PlayerModel(Health health, Coins coins) : base(health) => Coins = coins;
+        public CoinsModel Coins { get; private set; }
+        public PlayerModel(HealthModel health, CoinsModel coins) : base(health) => Coins = coins;
     }
 }

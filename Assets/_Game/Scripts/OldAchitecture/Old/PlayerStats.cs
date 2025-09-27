@@ -5,7 +5,6 @@ namespace NothingAwaits.Core
 {
     public class PlayerStats
     {
-        public int Coins;
         private Dictionary<PlayerCardType, int> _stats = new();
         private int _bloodCurrent = 3;
         private int _bloodMax = 3;

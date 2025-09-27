@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using NothingAwaits.Core.Actor.Models;
-using NothingAwaits.Core.Actor.Models.Items;
+using NothingAwaits.Core.Coins;
+using NothingAwaits.Core.Health;
 using NothingAwaits.Core.UI;
 
 namespace NothingAwaits.Core.PlayerController
@@ -28,8 +29,8 @@ namespace NothingAwaits.Core.PlayerController
 
         public void Setup()
         {
-            var health = new Health(_playerConfig.StartHealth, _playerConfig.MaxHealth);
-            var coins = new Coins(_playerConfig.StartCoins);
+            var health = new HealthModel(_playerConfig.StartHealth, _playerConfig.MaxHealth);
+            var coins = new CoinsModel(_playerConfig.StartCoins);
             _playerModel = new PlayerModel(health, coins);
             _dataManager = new PlayerDataManager(_playerModel);
             _dataManager.Load();

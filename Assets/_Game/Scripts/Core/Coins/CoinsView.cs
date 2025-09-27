@@ -2,10 +2,8 @@
 using TMPro;
 using Cysharp.Threading.Tasks;
 using System.Threading;
-using NothingAwaits.Core.Actor.Models.Items;
-using NothingAwaits.Core.Actor.UI.Presenters;
 
-namespace NothingAwaits.Core.Actor.UI.Views
+namespace NothingAwaits.Core.Coins
 {
     public class CoinsView : MonoBehaviour
     {
@@ -20,7 +18,7 @@ namespace NothingAwaits.Core.Actor.UI.Views
         private CancellationTokenSource _animationCts;
         private int _currentDisplayCoins;
 
-        public void Initialize(Coins coinsModel, bool skipInitialAnimation = true)
+        public void Initialize(CoinsModel coinsModel, bool skipInitialAnimation = true)
         {
             _presenter?.Disable();
             _presenter = new CoinsPresenter(coinsModel, this);

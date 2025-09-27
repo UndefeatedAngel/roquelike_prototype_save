@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace NothingAwaits.Core.Actor.Models.Items
+namespace NothingAwaits.Core.Health
 {
-    public class Health
+    public class HealthModel
     {
         public int Current { get; private set; }
         public int Max { get; private set; }
@@ -10,7 +10,7 @@ namespace NothingAwaits.Core.Actor.Models.Items
         
         public event Action<int> OnChanged;
 
-        public Health(int current, int max)
+        public HealthModel(int current, int max)
         {
             SetHealth(current, max);
         }

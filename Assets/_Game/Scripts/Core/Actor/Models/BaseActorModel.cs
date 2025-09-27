@@ -1,10 +1,10 @@
-﻿using NothingAwaits.Core.Actor.Models.Items;
+﻿using NothingAwaits.Core.Health;
 
 namespace NothingAwaits.Core.Actor.Models
 {
     public class BaseActorModel
     {
-        public Health Health { get; private set; }
-        protected BaseActorModel(Health health) => Health = health;
+        public HealthModel Health { get; private set; }
+        protected BaseActorModel(HealthModel health) => Health = health;
     }
 }

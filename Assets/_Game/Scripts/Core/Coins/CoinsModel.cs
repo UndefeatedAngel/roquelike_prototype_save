@@ -1,14 +1,14 @@
 ﻿using System;
 
-namespace NothingAwaits.Core.Actor.Models.Items
+namespace NothingAwaits.Core.Coins
 {
-    public class Coins
+    public class CoinsModel
     {
         public int Amount { get; private set; }
         
         public event Action<int> OnChanged;
 
-        public Coins(int initialAmount = 0)
+        public CoinsModel(int initialAmount = 0)
         {
             SetAmount(initialAmount);
         }
