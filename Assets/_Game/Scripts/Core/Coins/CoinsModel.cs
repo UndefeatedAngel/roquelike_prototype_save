@@ -35,7 +35,5 @@ namespace NothingAwaits.Core.Coins
             OnChanged?.Invoke(Amount);
             return true;
         }
-
-        public bool CanSpend(int amount) => amount > 0 && amount <= Amount;
     }
 }
