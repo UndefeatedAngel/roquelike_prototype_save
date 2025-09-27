@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace NothingAwaits.Core.PlayerController.Editor
+namespace NothingAwaits.Core.Player.Editor
 {
     [CustomEditor(typeof(PlayerController))]
     public class PlayerControllerEditor : UnityEditor.Editor

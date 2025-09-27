@@ -1,4 +1,4 @@
-﻿namespace NothingAwaits.Core.PlayerController
+﻿namespace NothingAwaits.Core.Player
 {
     public interface IPlayerDataService
     {

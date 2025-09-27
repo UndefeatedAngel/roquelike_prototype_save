@@ -43,13 +43,6 @@ namespace NothingAwaits.Core.Health
             OnChanged?.Invoke(Current);
         }
 
-        public void HealMax(int additionalMax)
-        {
-            Max += Math.Max(0, additionalMax);
-            Current = Math.Min(Max, Current + additionalMax);
-            OnChanged?.Invoke(Current);
-        }
-
         public override string ToString() => $"{Current}/{Max}";
     }
 }

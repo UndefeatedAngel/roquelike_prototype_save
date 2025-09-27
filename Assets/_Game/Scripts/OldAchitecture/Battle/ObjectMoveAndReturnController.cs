@@ -1,6 +1,6 @@
 ﻿using NothingAwaits.Cards.Mobs;
+using NothingAwaits.Core.Actor.Views;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 

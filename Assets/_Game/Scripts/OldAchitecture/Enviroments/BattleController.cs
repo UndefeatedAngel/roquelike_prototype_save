@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using Modules.SceneLoader;
-using NothingAwaits.Core.PlayerController;
+using NothingAwaits.Core.Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

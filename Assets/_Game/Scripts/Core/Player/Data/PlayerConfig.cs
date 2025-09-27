@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace NothingAwaits.Core.PlayerController
+namespace NothingAwaits.Core.Player
 {
     [CreateAssetMenu(fileName = "PlayerConfig", menuName = "Roguelike/Player Config")]
     public class PlayerConfig : ScriptableObject

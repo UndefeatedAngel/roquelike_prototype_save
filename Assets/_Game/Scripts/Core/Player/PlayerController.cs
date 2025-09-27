@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
-using NothingAwaits.Core.Actor.Models;
 using NothingAwaits.Core.Coins;
 using NothingAwaits.Core.Health;
 using NothingAwaits.Core.UI;
 
-namespace NothingAwaits.Core.PlayerController
+namespace NothingAwaits.Core.Player
 {
     public partial class PlayerController : MonoBehaviour
     {

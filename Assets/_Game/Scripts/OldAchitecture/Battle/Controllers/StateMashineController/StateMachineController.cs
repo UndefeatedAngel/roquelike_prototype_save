@@ -6,7 +6,7 @@ using DG.Tweening;
 using NothingAwaits.Cards;
 using NothingAwaits.Cards.Mobs;
 using NothingAwaits.Cards.Person;
-using NothingAwaits.Core.PlayerController;
+using NothingAwaits.Core.Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

@@ -1,7 +1,6 @@
-﻿using NothingAwaits.Core.Actor.Models;
-using NothingAwaits.DataStorage;
+﻿using NothingAwaits.Storage;
 
-namespace NothingAwaits.Core.PlayerController
+namespace NothingAwaits.Core.Player
 {
     public class PlayerDataManager : IPlayerDataService
     {
@@ -11,7 +10,7 @@ namespace NothingAwaits.Core.PlayerController
         private const string CoinsKey = "coins";
 
         private readonly PlayerModel _playerModel;
-        private readonly IDataStorage _storage;
+        private readonly IStorage _storage;
 
         public PlayerDataManager(PlayerModel playerModel)
         {

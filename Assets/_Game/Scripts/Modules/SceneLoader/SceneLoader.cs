@@ -2,7 +2,6 @@
 using UnityEngine.SceneManagement;
 using System.Collections;
 using System;
-using UnityEngine.Serialization;
 
 namespace Modules.SceneLoader
 {

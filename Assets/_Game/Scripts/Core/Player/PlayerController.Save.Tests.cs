@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace NothingAwaits.Core.PlayerController
+namespace NothingAwaits.Core.Player
 {
     public partial class PlayerController
     {

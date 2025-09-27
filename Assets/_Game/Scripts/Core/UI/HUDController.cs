@@ -1,6 +1,6 @@
-﻿using NothingAwaits.Core.Actor.Models;
-using NothingAwaits.Core.Coins;
+﻿using NothingAwaits.Core.Coins;
 using NothingAwaits.Core.Health;
+using NothingAwaits.Core.Player;
 using UnityEngine;
 
 namespace NothingAwaits.Core.UI

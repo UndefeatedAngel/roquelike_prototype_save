@@ -1,7 +1,8 @@
-﻿using NothingAwaits.Core.Coins;
+﻿using NothingAwaits.Core.Actor.Models;
+using NothingAwaits.Core.Coins;
 using NothingAwaits.Core.Health;
 
-namespace NothingAwaits.Core.Actor.Models
+namespace NothingAwaits.Core.Player
 {
     public class PlayerModel : BaseActorModel
     {

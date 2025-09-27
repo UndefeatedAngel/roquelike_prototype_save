@@ -1,34 +1,20 @@
 ﻿using System;
 using DG.Tweening;
-using NothingAwaits.Core;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
-namespace NothingAwaits.Cards.Mobs
+namespace NothingAwaits.Core.Actor.Views
 {
     public class SacrificeBattle: BaseSacrifice
     {
-        [SerializeField] private Image[] _bloodObject;
-        [SerializeField] private TMP_Text _nameText;
         [SerializeField] private Transform[] _knifes;
         [SerializeField] private ParticleSystem[] _bloodParticles;
         [SerializeField] private GameObject _lightObj;
-        [SerializeField] private Animator _animator;
         
         private PlayerStats _playerStats;
-        private int _hp = 3;
-
         private Tweener _knifeTween;
-
+        
         public Action OnGetBlood;
         
-        private bool _isDead;
-
-        private void Start()
-        {
-            _animator.SetTrigger("sacrifice");
-        }
 
         public void Set(PlayerStats stats)
         {
@@ -37,7 +23,7 @@ namespace NothingAwaits.Cards.Mobs
 
         public void Highlight(bool state)
         {
-            if (_isDead) return;
+            if (_isDeath) return;
             
             Debug.Log(state);
             _lightObj.SetActive(state);
@@ -45,7 +31,7 @@ namespace NothingAwaits.Cards.Mobs
 
         public void Attack()
         {
-            if (_isDead) return;
+            if (_isDeath) return;
             
             if (!_playerStats.IsNeedBlood())
             {
@@ -81,8 +67,7 @@ namespace NothingAwaits.Cards.Mobs
             OnGetBlood?.Invoke();
             if (_hp < 1)
             {
-                _isDead = true;
-                _animator.SetTrigger("death");
+                Death();
             }
         }
     }

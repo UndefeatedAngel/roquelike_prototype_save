@@ -1,5 +1,6 @@
 ﻿using NothingAwaits.Battle.Controllers;
 using NothingAwaits.Cards.Mobs;
+using NothingAwaits.Core.Actor.Views;
 using UnityEngine;
 
 namespace NothingAwaits.Cards
