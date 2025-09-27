@@ -1,7 +1,4 @@
-﻿using System;
-using BlockoutRoguelike.Core.Inventory;
-using BlockoutRoguelike.Core.Inventory.Controllers;
-using BlockoutRoguelike.Core.Inventory.Services;
+﻿using BlockoutRoguelike.Core.Inventory;
 using BlockoutRoguelike.Core.PlayerController;
 using BlockoutRoguelike.Modules;
 using BlockoutRoguelike.Quests;
@@ -26,12 +23,10 @@ namespace BlockoutRoguelike
         [SerializeField] private InventoryController _inventoryController;
         [SerializeField] private ThirdPersonController _thirdPersonController;
         [SerializeField] private PlayerController _playerController;
-        [SerializeField] private PlayerInventoryController _playerInventoryController;
         [SerializeField] private QuestController _questController;
         
         public static int Step = 0;
 
-        private InventoryService _inventoryService;
         private void Start()
         {
             Cursor.lockState = CursorLockMode.Locked;
@@ -121,7 +116,7 @@ namespace BlockoutRoguelike
         private void CreateEnvironment(int number, bool isStart, bool isEnd, int maxBottles)
         {
             var env = Instantiate(_enviroments[number], _enviromentsContainer, true);
-            env.Setup(_playerInventoryController, isStart, _testRoom, isEnd, maxBottles, objects =>
+            env.Setup(isStart, _testRoom, isEnd, maxBottles, objects =>
             {
                 Debug.Log($"Bottles {objects.Length}");
             });

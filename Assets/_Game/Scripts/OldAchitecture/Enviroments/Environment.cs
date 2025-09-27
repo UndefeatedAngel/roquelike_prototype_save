@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using BlockoutRoguelike.Core.Inventory.Controllers;
-using BlockoutRoguelike.Core.Inventory.Services;
 using BlockoutRoguelike.Modules;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -14,7 +12,7 @@ namespace BlockoutRoguelike
         [SerializeField] private GameObject _bottlePrefab;
         [SerializeField] private Transform[] _bottlePoints;
         [SerializeField] private RoomObject[] _roomEnds;
-        public void Setup(PlayerInventoryController playerInventoryController, bool isStart, RoomEnum testRoom, bool isEnd, int maxBottles, Action<GameObject[]> OnBottles)
+        public void Setup(bool isStart, RoomEnum testRoom, bool isEnd, int maxBottles, Action<GameObject[]> OnBottles)
         {
             gameObject.SetActive(true);
             var bottles = GenerateBottle(maxBottles);
@@ -24,21 +22,21 @@ namespace BlockoutRoguelike
             {
                 foreach (var room in _roomEnds)
                 {
-                    room.Setup(RoomEnum.Enemy, maxBottles, playerInventoryController);
+                    room.Setup(RoomEnum.Enemy, maxBottles);
                 }
             }
             else if (GameController.Step == 1 && testRoom != RoomEnum.Unknown)
             {
                 foreach (var room in _roomEnds)
                 {
-                    room.Setup(testRoom, maxBottles, playerInventoryController);
+                    room.Setup(testRoom, maxBottles);
                 }
             }
             else if (isEnd)
             {
                 foreach (var room in _roomEnds)
                 {
-                    room.Setup(RoomEnum.Boss, maxBottles, playerInventoryController);
+                    room.Setup(RoomEnum.Boss, maxBottles);
                 }
             }
             else
@@ -47,7 +45,7 @@ namespace BlockoutRoguelike
                 {
                     var maxCount = Enum.GetValues(typeof(RoomEnum)).Length - 1;
                     var type = Random.Range(0, maxCount);
-                    room.Setup((RoomEnum)type, maxBottles, playerInventoryController);
+                    room.Setup((RoomEnum)type, maxBottles);
                 }
             }
         }

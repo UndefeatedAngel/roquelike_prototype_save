@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using BlockoutRoguelike.Core.Inventory.Controllers;
 using BlockoutRoguelike.Core.Inventory.InventorySystem;
 using BlockoutRoguelike.Enviroments;
 using Modules.SceneLoader;
@@ -22,9 +21,6 @@ namespace BlockoutRoguelike.Modules
         private int _maxBottle;
 
         private Action<SceneType> _sceneLoadAction;
-        
-        private PlayerInventoryController _playerInventoryController;
-        
         private Dictionary<string, int> foundKeyCounts = new();
         protected override void TriggerEnter()
         {
@@ -116,9 +112,8 @@ namespace BlockoutRoguelike.Modules
             }
         }
 
-        public void Setup(RoomEnum type, int maxBottle, PlayerInventoryController playerInventoryController)
+        public void Setup(RoomEnum type, int maxBottle)
         {
-            _playerInventoryController = playerInventoryController;
             foreach (var nameText in _nameTexts)
             {
                 nameText.text = type.ToString();
