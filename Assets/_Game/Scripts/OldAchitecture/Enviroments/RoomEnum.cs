@@ -1,4 +1,4 @@
-﻿namespace BlockoutRoguelike
+﻿namespace NothingAwaits
 {
     public enum RoomEnum
     {

@@ -1,4 +1,4 @@
-﻿namespace BlockoutRoguelike.DataStorage
+﻿namespace NothingAwaits.DataStorage
 {
     public interface IDataStorage
     {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace BlockoutRoguelike
+namespace NothingAwaits
 {
     [CreateAssetMenu(fileName = "SkinObject", menuName = "BlockoutRoguelike/SkinObject")]
     public class SkinObjectEnv: ScriptableObject

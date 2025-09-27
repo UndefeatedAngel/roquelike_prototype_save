@@ -1,9 +1,9 @@
-﻿using BlockoutRoguelike.Enviroments;
-using DG.Tweening;
+﻿using DG.Tweening;
+using NothingAwaits.Enviroments;
 using TMPro;
 using UnityEngine;
 
-namespace BlockoutRoguelike.Modules
+namespace NothingAwaits.Modules
 {
     public class ChangeColorTextTrigger: BaseInteractObject
     {

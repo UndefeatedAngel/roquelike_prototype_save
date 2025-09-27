@@ -1,8 +1,8 @@
-﻿using BlockoutRoguelike.Battle.Controllers;
-using BlockoutRoguelike.Cards.Mobs;
+﻿using NothingAwaits.Battle.Controllers;
+using NothingAwaits.Cards.Mobs;
 using UnityEngine;
 
-namespace BlockoutRoguelike.Cards
+namespace NothingAwaits.Cards
 {
     public class KnifeController: ObjectMoveAndReturnController
     {
@@ -16,7 +16,7 @@ namespace BlockoutRoguelike.Cards
         {
             base.Action3D(hit);
             
-            var sacrifice = hit.transform.GetComponent<Sacrifice>();
+            var sacrifice = hit.transform.GetComponent<SacrificeBattle>();
             if (sacrifice!=null && !sacrifice.Equals(highlightedObject))
             {
                 RemoveHighlight();

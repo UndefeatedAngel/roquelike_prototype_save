@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace BlockoutRoguelike
+namespace NothingAwaits
 {
     public class UIMain: MonoBehaviour
     {

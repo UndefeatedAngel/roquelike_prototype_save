@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using _Game.Scripts.Modules;
-using BlockoutRoguelike.Modules;
+using NothingAwaits.Modules;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace BlockoutRoguelike.Core.Inventory.InventorySystem.UI
+namespace NothingAwaits.Core.Inventory.InventorySystem.UI
 {
     public class SimpleChest : MonoBehaviour
     {

@@ -1,10 +1,10 @@
 ﻿using System;
-using BlockoutRoguelike.Core.Rune;
-using BlockoutRoguelike.Core.UI.Inventory;
+using NothingAwaits.Core.Rune;
+using NothingAwaits.Core.UI.Inventory;
 using StarterAssets;
 using UnityEngine;
 
-namespace BlockoutRoguelike.Core.Inventory
+namespace NothingAwaits.Core.Inventory
 {
     public class InventoryController: MonoBehaviour
     {

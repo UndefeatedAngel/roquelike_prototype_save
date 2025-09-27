@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BlockoutRoguelike.Core.Actor.Models.Items
+namespace NothingAwaits.Core.Actor.Models.Items
 {
     public class Health
     {

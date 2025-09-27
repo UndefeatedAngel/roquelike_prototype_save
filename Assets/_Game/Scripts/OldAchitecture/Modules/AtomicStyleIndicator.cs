@@ -3,7 +3,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace BlockoutRoguelike.Modules
+namespace NothingAwaits.Modules
 {
     public class AtomicStyleIndicator : MonoBehaviour
     {

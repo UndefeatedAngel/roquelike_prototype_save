@@ -1,9 +1,9 @@
 ﻿using System;
-using BlockoutRoguelike.Battle.Cards;
-using BlockoutRoguelike.Cards;
+using NothingAwaits.Battle.Cards;
+using NothingAwaits.Cards;
 using UnityEngine;
 
-namespace BlockoutRoguelike.Battle.Controllers
+namespace NothingAwaits.Battle.Controllers
 {
     public class InputController: MonoBehaviour
     {

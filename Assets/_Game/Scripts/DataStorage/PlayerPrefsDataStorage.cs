@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace BlockoutRoguelike.DataStorage
+namespace NothingAwaits.DataStorage
 {
     public class PlayerPrefsDataStorage : IDataStorage
     {

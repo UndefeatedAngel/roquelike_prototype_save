@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace BlockoutRoguelike.Core.Rune
+namespace NothingAwaits.Core.Rune
 {
     public class RuneUI: MonoBehaviour
     {

@@ -2,7 +2,7 @@
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace BlockoutRoguelike
+namespace NothingAwaits
 {
     public class RandomObject: MonoBehaviour
     {

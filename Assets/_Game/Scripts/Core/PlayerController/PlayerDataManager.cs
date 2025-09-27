@@ -1,7 +1,7 @@
-﻿using BlockoutRoguelike.Core.Actor.Models;
-using BlockoutRoguelike.DataStorage;
+﻿using NothingAwaits.Core.Actor.Models;
+using NothingAwaits.DataStorage;
 
-namespace BlockoutRoguelike.Core.PlayerController
+namespace NothingAwaits.Core.PlayerController
 {
     public class PlayerDataManager : IPlayerDataService
     {

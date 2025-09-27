@@ -1,4 +1,4 @@
-﻿namespace BlockoutRoguelike.Quests
+﻿namespace NothingAwaits.Quests
 {
     public class QuestPresenter
     {

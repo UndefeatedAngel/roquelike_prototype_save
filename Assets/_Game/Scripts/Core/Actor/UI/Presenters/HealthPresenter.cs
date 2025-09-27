@@ -1,7 +1,7 @@
-﻿using BlockoutRoguelike.Core.Actor.Models.Items;
-using BlockoutRoguelike.Core.Actor.UI.Views;
+﻿using NothingAwaits.Core.Actor.Models.Items;
+using NothingAwaits.Core.Actor.UI.Views;
 
-namespace BlockoutRoguelike.Core.Actor.UI.Presenters
+namespace NothingAwaits.Core.Actor.UI.Presenters
 {
     public class HealthPresenter : BasePresenter<Health, HealthView>
     {

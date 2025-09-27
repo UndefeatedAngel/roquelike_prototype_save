@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using DG.Tweening;
 
-namespace BlockoutRoguelike.Core
+namespace NothingAwaits.Core
 {
     public class DOTweenInitializer : MonoBehaviour
     {

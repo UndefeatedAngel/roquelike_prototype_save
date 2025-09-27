@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using BlockoutRoguelike.Battle.Controllers;
+using NothingAwaits.Battle.Controllers;
 
-namespace BlockoutRoguelike.Core
+namespace NothingAwaits.Core
 {
     public class PlayerStats
     {

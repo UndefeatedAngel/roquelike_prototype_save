@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
-using BlockoutRoguelike.Core.Inventory.InventorySystem;
-using BlockoutRoguelike.Enviroments;
 using Modules.SceneLoader;
+using NothingAwaits.Core.Inventory.InventorySystem;
+using NothingAwaits.Enviroments;
 using TMPro;
 using UnityEngine;
 
-namespace BlockoutRoguelike.Modules
+namespace NothingAwaits.Modules
 {
     public class RoomObject : BaseInteractObject
     {

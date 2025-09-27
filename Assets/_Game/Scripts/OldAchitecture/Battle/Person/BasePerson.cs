@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace BlockoutRoguelike.Cards.Person
+namespace NothingAwaits.Cards.Person
 {
     public class BasePerson: MonoBehaviour
     {

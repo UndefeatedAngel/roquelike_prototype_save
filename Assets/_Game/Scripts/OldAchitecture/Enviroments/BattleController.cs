@@ -1,12 +1,12 @@
 ﻿using System.Collections;
-using BlockoutRoguelike.Core.PlayerController;
 using Modules.SceneLoader;
+using NothingAwaits.Core.PlayerController;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-namespace BlockoutRoguelike
+namespace NothingAwaits
 {
     public class BattleController: MonoBehaviour
     {

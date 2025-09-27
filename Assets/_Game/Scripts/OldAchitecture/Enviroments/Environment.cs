@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using BlockoutRoguelike.Modules;
+using NothingAwaits.Modules;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace BlockoutRoguelike
+namespace NothingAwaits
 {
     public class Environment: MonoBehaviour
     {

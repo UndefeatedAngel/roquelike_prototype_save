@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace BlockoutRoguelike.Core.UI.Inventory
+namespace NothingAwaits.Core.UI.Inventory
 {
     public class CardsWindowUI: MonoBehaviour
     {

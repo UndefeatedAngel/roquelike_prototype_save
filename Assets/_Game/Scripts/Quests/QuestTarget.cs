@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace BlockoutRoguelike.Quests
+namespace NothingAwaits.Quests
 {
     public class QuestTarget : MonoBehaviour
     {

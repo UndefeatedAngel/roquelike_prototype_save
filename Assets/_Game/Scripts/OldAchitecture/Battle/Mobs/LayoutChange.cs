@@ -3,7 +3,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
-namespace BlockoutRoguelike.Cards.Mobs
+namespace NothingAwaits.Cards.Mobs
 {
     public enum TypeChange
     {

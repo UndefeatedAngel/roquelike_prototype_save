@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace BlockoutRoguelike.Core.Inventory.InventorySystem.UI
+namespace NothingAwaits.Core.Inventory.InventorySystem.UI
 {
     public class InventoryUI : MonoBehaviour
     {

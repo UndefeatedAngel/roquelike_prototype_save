@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace BlockoutRoguelike.Core.Rune
+namespace NothingAwaits.Core.Rune
 {
     [Serializable]
     public class RuneObjectSettings

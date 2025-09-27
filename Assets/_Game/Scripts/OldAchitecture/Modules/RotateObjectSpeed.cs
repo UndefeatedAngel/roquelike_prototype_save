@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace BlockoutRoguelike.Modules
+namespace NothingAwaits.Modules
 {
     public class RotateObjectSpeed: MonoBehaviour
     {

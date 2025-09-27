@@ -1,4 +1,4 @@
-﻿namespace BlockoutRoguelike.Quests
+﻿namespace NothingAwaits.Quests
 {
     [System.Serializable]
     public class QuestStep

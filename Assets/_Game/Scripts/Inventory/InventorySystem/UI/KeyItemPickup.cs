@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-namespace BlockoutRoguelike.Core.Inventory.InventorySystem.UI
+namespace NothingAwaits.Core.Inventory.InventorySystem.UI
 {
     public class KeyItemPickup : MonoBehaviour
     {

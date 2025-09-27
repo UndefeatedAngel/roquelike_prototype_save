@@ -1,7 +1,7 @@
-﻿using BlockoutRoguelike.Cards.Mobs;
+﻿using NothingAwaits.Cards.Mobs;
 using UnityEngine;
 
-namespace BlockoutRoguelike.Cards
+namespace NothingAwaits.Cards
 {
     public class Slot: MonoBehaviour
     {

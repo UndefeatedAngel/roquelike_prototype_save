@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using BlockoutRoguelike.Battle.Cards;
-using BlockoutRoguelike.Cards;
-using BlockoutRoguelike.Cards.Mobs;
-using BlockoutRoguelike.Core;
-using BlockoutRoguelike.Core.PlayerController;
 using DG.Tweening;
 using Modules.SceneLoader;
+using NothingAwaits.Battle.Cards;
+using NothingAwaits.Cards;
+using NothingAwaits.Cards.Mobs;
+using NothingAwaits.Core;
+using NothingAwaits.Core.PlayerController;
 using UnityEngine;
 using UnityEngine.UI;
 using Math = System.Math;
 
-namespace BlockoutRoguelike.Battle.Controllers
+namespace NothingAwaits.Battle.Controllers
 {
     public class BattleCardController: MonoBehaviour
     {
@@ -26,7 +26,7 @@ namespace BlockoutRoguelike.Battle.Controllers
         [SerializeField] private GameObject[] _enemyMobPrefabs;
         [SerializeField] private List<Slot> _enemySlots;
         [Header("Sacrifices")]
-        [SerializeField] private Sacrifice[] _sacrifices;
+        [SerializeField] private SacrificeBattle[] _sacrifices;
         
         [Header("UI")]
         [SerializeField] private CanvasGroup _noAmountBloodGroup;

@@ -1,14 +1,14 @@
-﻿using BlockoutRoguelike.Core.Inventory;
-using BlockoutRoguelike.Core.PlayerController;
-using BlockoutRoguelike.Modules;
-using BlockoutRoguelike.Quests;
-using Modules.SceneLoader;
+﻿using Modules.SceneLoader;
+using NothingAwaits.Core.Inventory;
+using NothingAwaits.Core.PlayerController;
+using NothingAwaits.Modules;
+using NothingAwaits.Quests;
 using StarterAssets;
 using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace BlockoutRoguelike
+namespace NothingAwaits
 {
     public class GameController: MonoBehaviour
     {

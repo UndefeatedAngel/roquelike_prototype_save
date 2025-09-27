@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace BlockoutRoguelike.Battle.Controllers
+namespace NothingAwaits.Battle.Controllers
 {
     public partial class StateMachineController: MonoBehaviour
     {

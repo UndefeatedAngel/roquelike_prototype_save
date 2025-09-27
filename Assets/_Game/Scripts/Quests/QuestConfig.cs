@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace BlockoutRoguelike.Quests
+namespace NothingAwaits.Quests
 {
     [CreateAssetMenu(fileName = "New Quest", menuName = "Roguelike/QuestConfig")]
     public class QuestConfig : ScriptableObject

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace BlockoutRoguelike.Cards.UI
+namespace NothingAwaits.Cards.UI
 {
     public class DeckUI: MonoBehaviour
     {

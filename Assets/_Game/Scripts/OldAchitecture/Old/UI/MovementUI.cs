@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace BlockoutRoguelike.Core.UI
+namespace NothingAwaits.Core.UI
 {
     public class MovementUI: MonoBehaviour
     {

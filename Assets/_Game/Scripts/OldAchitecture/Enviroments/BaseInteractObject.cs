@@ -1,7 +1,7 @@
-﻿using BlockoutRoguelike.Core;
+﻿using NothingAwaits.Core;
 using UnityEngine;
 
-namespace BlockoutRoguelike.Enviroments
+namespace NothingAwaits.Enviroments
 {
     public abstract class BaseInteractObject: MonoBehaviour
     {

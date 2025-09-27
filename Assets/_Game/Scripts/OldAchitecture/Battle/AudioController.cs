@@ -2,7 +2,7 @@
 using DG.Tweening;
 using UnityEngine;
 
-namespace BlockoutRoguelike.Cards
+namespace NothingAwaits.Cards
 {
     public class AudioController: MonoBehaviour
     {

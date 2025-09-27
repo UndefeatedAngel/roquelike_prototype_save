@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using BlockoutRoguelike.Cards;
-using BlockoutRoguelike.Cards.Mobs;
+using NothingAwaits.Cards;
+using NothingAwaits.Cards.Mobs;
 using UnityEngine;
-using Random = System.Random;
 
-namespace BlockoutRoguelike.Battle.Controllers
+namespace NothingAwaits.Battle.Controllers
 {
     public class EnemyDeckController: MonoBehaviour
     {

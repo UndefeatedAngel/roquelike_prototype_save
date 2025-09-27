@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using TMPro;
 
-namespace BlockoutRoguelike.Quests
+namespace NothingAwaits.Quests
 {
     public class QuestView : MonoBehaviour
     {

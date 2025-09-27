@@ -4,7 +4,7 @@ using DG.Tweening;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace BlockoutRoguelike.Cards.Mobs
+namespace NothingAwaits.Cards.Mobs
 {
     public class EnemyMobUI: MobUI
     {

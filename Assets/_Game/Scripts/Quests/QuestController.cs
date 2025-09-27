@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System;
 
-namespace BlockoutRoguelike.Quests
+namespace NothingAwaits.Quests
 {
     public class QuestController : MonoBehaviour
     {

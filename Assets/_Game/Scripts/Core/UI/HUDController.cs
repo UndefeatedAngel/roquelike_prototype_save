@@ -1,8 +1,8 @@
-﻿using BlockoutRoguelike.Core.Actor.Models;
-using BlockoutRoguelike.Core.Actor.UI.Views;
+﻿using NothingAwaits.Core.Actor.Models;
+using NothingAwaits.Core.Actor.UI.Views;
 using UnityEngine;
 
-namespace BlockoutRoguelike.Core.UI
+namespace NothingAwaits.Core.UI
 {
     public class HUDController : MonoBehaviour
     {

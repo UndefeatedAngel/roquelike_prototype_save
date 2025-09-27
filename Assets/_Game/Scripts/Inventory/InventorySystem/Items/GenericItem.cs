@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BlockoutRoguelike.Core.Inventory.InventorySystem
+namespace NothingAwaits.Core.Inventory.InventorySystem
 {
     [Serializable]
     public class GenericItem : BaseInventoryItem

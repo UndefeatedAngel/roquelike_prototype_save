@@ -1,9 +1,9 @@
-﻿using BlockoutRoguelike.Battle.Controllers;
+﻿using NothingAwaits.Battle.Controllers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace BlockoutRoguelike.Cards.UI
+namespace NothingAwaits.Cards.UI
 {
     public class MoveEnemyUI: MonoBehaviour
     {

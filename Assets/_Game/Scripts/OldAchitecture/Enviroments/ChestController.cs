@@ -1,9 +1,9 @@
 ﻿using _Game.Scripts.Modules;
-using BlockoutRoguelike.Core.Inventory;
-using BlockoutRoguelike.Core.Inventory.InventorySystem.UI;
-using BlockoutRoguelike.Core.PlayerController;
-using BlockoutRoguelike.Modules;
-using BlockoutRoguelike.Quests;
+using NothingAwaits.Core.Inventory;
+using NothingAwaits.Core.Inventory.InventorySystem.UI;
+using NothingAwaits.Core.PlayerController;
+using NothingAwaits.Modules;
+using NothingAwaits.Quests;
 using Modules.SceneLoader;
 using UnityEngine;
 

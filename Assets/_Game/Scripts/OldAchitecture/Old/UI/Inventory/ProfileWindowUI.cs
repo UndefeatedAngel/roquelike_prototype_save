@@ -1,9 +1,9 @@
-﻿using BlockoutRoguelike.Battle.Cards;
-using BlockoutRoguelike.Core.Rune;
+﻿using NothingAwaits.Battle.Cards;
+using NothingAwaits.Core.Rune;
 using TMPro;
 using UnityEngine;
 
-namespace BlockoutRoguelike.Core.UI.Inventory
+namespace NothingAwaits.Core.UI.Inventory
 {
     public class ProfileWindowUI: MonoBehaviour
     {

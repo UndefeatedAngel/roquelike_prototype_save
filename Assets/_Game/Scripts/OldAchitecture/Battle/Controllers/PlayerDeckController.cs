@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using BlockoutRoguelike.Battle.Cards;
-using BlockoutRoguelike.Core;
+using NothingAwaits.Battle.Cards;
+using NothingAwaits.Core;
 using UnityEngine;
 
-namespace BlockoutRoguelike.Battle.Controllers
+namespace NothingAwaits.Battle.Controllers
 {
     public enum PlayerCardType
     {

@@ -1,4 +1,4 @@
-﻿using BlockoutRoguelike.Cards.Mobs;
+﻿using NothingAwaits.Cards.Mobs;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -19,7 +19,7 @@ public class ObjectMoveAndReturnController : MonoBehaviour, IPointerDownHandler,
     private Vector2 originalPosition;
     private Vector2 originalAnchoredPosition;
     private bool isDragging = false;
-    protected Sacrifice highlightedObject;
+    protected SacrificeBattle highlightedObject;
     protected MobUI highlightedMob;
     
     void Start()
@@ -109,10 +109,10 @@ public class ObjectMoveAndReturnController : MonoBehaviour, IPointerDownHandler,
         }
     }
     
-    protected void HighlightObject(Sacrifice sacrifice)
+    protected void HighlightObject(SacrificeBattle sacrificeBattle)
     {
-        sacrifice.Highlight(true);
-        Debug.Log("Object highlighted: " + sacrifice.name);
+        sacrificeBattle.Highlight(true);
+        Debug.Log("Object highlighted: " + sacrificeBattle.name);
     }
     
     protected void HighlightObject(MobUI mob)

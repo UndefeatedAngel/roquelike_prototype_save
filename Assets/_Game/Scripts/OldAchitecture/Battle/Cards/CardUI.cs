@@ -1,13 +1,13 @@
 ﻿using System;
-using BlockoutRoguelike.Battle.Controllers;
-using BlockoutRoguelike.Core;
 using DG.Tweening;
+using NothingAwaits.Battle.Controllers;
+using NothingAwaits.Core;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace BlockoutRoguelike.Battle.Cards
+namespace NothingAwaits.Battle.Cards
 {
     public class CardUI: MonoBehaviour, IPointerDownHandler, IBeginDragHandler
     {

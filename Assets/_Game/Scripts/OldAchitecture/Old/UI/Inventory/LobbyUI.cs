@@ -1,9 +1,9 @@
 ﻿using System;
-using BlockoutRoguelike.Core.Rune;
+using NothingAwaits.Core.Rune;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace BlockoutRoguelike.Core.UI.Inventory
+namespace NothingAwaits.Core.UI.Inventory
 {
     public class LobbyUI: MonoBehaviour
     {

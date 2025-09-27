@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace BlockoutRoguelike.Core.PlayerController
+namespace NothingAwaits.Core.PlayerController
 {
     [CreateAssetMenu(fileName = "PlayerConfig", menuName = "Roguelike/Player Config")]
     public class PlayerConfig : ScriptableObject

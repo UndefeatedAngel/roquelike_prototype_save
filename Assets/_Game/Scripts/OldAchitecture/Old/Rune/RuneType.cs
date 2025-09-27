@@ -1,4 +1,4 @@
-﻿namespace BlockoutRoguelike.Core.Rune
+﻿namespace NothingAwaits.Core.Rune
 {
     public enum RuneType
     {

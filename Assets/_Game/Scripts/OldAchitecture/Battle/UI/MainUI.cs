@@ -1,10 +1,10 @@
 ﻿using System;
-using BlockoutRoguelike.Battle.Controllers;
 using DG.Tweening;
+using NothingAwaits.Battle.Controllers;
 using TMPro;
 using UnityEngine;
 
-namespace BlockoutRoguelike.Cards.UI
+namespace NothingAwaits.Cards.UI
 {
     public class MainUI: MonoBehaviour
     {

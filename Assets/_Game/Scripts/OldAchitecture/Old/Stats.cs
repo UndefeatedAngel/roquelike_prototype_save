@@ -1,8 +1,8 @@
 ﻿using System;
-using BlockoutRoguelike.Battle.Controllers;
+using NothingAwaits.Battle.Controllers;
 using UnityEngine;
 
-namespace BlockoutRoguelike.Core
+namespace NothingAwaits.Core
 {
     [Serializable]
     public class Stats

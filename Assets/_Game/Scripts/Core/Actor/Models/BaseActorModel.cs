@@ -1,7 +1,6 @@
-﻿
-using BlockoutRoguelike.Core.Actor.Models.Items;
+﻿using NothingAwaits.Core.Actor.Models.Items;
 
-namespace BlockoutRoguelike.Core.Actor.Models
+namespace NothingAwaits.Core.Actor.Models
 {
     public class BaseActorModel
     {

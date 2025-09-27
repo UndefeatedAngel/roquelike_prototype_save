@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections;
-using BlockoutRoguelike.Battle.Controllers;
-using BlockoutRoguelike.Core.Inventory.InventorySystem;
 using DG.Tweening;
+using NothingAwaits.Battle.Controllers;
+using NothingAwaits.Core.Inventory.InventorySystem;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
-namespace BlockoutRoguelike.Cards.Mobs
+namespace NothingAwaits.Cards.Mobs
 {
     public class MobUI: MonoBehaviour
     {

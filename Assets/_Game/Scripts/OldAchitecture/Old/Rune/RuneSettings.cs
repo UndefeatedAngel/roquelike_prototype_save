@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using UnityEngine;
 
-namespace BlockoutRoguelike.Core.Rune
+namespace NothingAwaits.Core.Rune
 {
     [CreateAssetMenu(fileName = "Rune Settings", menuName = "BlockoutRoguelike/Rune Settings")]
     public class RuneSettings: ScriptableObject

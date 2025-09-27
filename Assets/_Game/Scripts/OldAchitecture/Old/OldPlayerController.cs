@@ -2,7 +2,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace BlockoutRoguelike.Core
+namespace NothingAwaits.Core
 {
     public class OldPlayerController: MonoBehaviour
     {

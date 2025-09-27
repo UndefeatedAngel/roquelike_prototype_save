@@ -2,17 +2,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using BlockoutRoguelike.Cards;
-using BlockoutRoguelike.Cards.Mobs;
-using BlockoutRoguelike.Cards.Person;
-using BlockoutRoguelike.Core.PlayerController;
 using DG.Tweening;
+using NothingAwaits.Cards;
+using NothingAwaits.Cards.Mobs;
+using NothingAwaits.Cards.Person;
+using NothingAwaits.Core.PlayerController;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-namespace BlockoutRoguelike.Battle.Controllers
+namespace NothingAwaits.Battle.Controllers
 {
     public enum TeamType
     {

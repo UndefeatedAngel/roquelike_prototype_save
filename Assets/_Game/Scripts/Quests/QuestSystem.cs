@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace BlockoutRoguelike.Quests
+namespace NothingAwaits.Quests
 {
     public class QuestSystem
     {

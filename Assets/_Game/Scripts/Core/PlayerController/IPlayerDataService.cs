@@ -1,4 +1,4 @@
-﻿namespace BlockoutRoguelike.Core.PlayerController
+﻿namespace NothingAwaits.Core.PlayerController
 {
     public interface IPlayerDataService
     {

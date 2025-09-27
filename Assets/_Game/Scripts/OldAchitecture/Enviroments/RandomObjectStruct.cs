@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace BlockoutRoguelike
+namespace NothingAwaits
 {
     [Serializable]
     public class RandomObjectStruct

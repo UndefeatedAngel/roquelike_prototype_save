@@ -1,13 +1,13 @@
 ﻿using System;
-using BlockoutRoguelike.Core;
 using DG.Tweening;
+using NothingAwaits.Core;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace BlockoutRoguelike.Cards.Mobs
+namespace NothingAwaits.Cards.Mobs
 {
-    public class Sacrifice: MonoBehaviour
+    public class SacrificeBattle: MonoBehaviour
     {
         [SerializeField] private Image[] _bloodObject;
         [SerializeField] private TMP_Text _nameText;
@@ -24,6 +24,11 @@ namespace BlockoutRoguelike.Cards.Mobs
         public Action OnGetBlood;
         
         private bool _isDead;
+
+        private void Start()
+        {
+            _animator.SetTrigger("sacrifice");
+        }
 
         public void Set(PlayerStats stats)
         {

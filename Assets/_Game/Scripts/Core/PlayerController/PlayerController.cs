@@ -1,9 +1,9 @@
-﻿using BlockoutRoguelike.Core.Actor.Models;
-using UnityEngine;
-using BlockoutRoguelike.Core.UI;
-using BlockoutRoguelike.Core.Actor.Models.Items;
+﻿using UnityEngine;
+using NothingAwaits.Core.Actor.Models;
+using NothingAwaits.Core.Actor.Models.Items;
+using NothingAwaits.Core.UI;
 
-namespace BlockoutRoguelike.Core.PlayerController
+namespace NothingAwaits.Core.PlayerController
 {
     public partial class PlayerController : MonoBehaviour
     {

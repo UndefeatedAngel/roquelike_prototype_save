@@ -2,10 +2,10 @@
 using TMPro;
 using Cysharp.Threading.Tasks;
 using System.Threading;
-using BlockoutRoguelike.Core.Actor.Models.Items;
-using BlockoutRoguelike.Core.Actor.UI.Presenters;
+using NothingAwaits.Core.Actor.Models.Items;
+using NothingAwaits.Core.Actor.UI.Presenters;
 
-namespace BlockoutRoguelike.Core.Actor.UI.Views
+namespace NothingAwaits.Core.Actor.UI.Views
 {
     public class CoinsView : MonoBehaviour
     {

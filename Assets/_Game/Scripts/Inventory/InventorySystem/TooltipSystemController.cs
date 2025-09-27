@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace BlockoutRoguelike.Core.Inventory.InventorySystem
+namespace NothingAwaits.Core.Inventory.InventorySystem
 {
     public class TooltipSystemController : MonoBehaviour
     {

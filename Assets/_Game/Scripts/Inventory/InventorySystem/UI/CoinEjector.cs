@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections;
 using Random = UnityEngine.Random;
 
-namespace BlockoutRoguelike.Core.Inventory.InventorySystem.UI
+namespace NothingAwaits.Core.Inventory.InventorySystem.UI
 {
     public class CoinEjector : MonoBehaviour
     {

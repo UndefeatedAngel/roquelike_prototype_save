@@ -1,7 +1,7 @@
 ﻿using DG.Tweening;
 using UnityEngine;
 
-namespace BlockoutRoguelike.Modules
+namespace NothingAwaits.Modules
 {
     public class MoveObject: MonoBehaviour
     {

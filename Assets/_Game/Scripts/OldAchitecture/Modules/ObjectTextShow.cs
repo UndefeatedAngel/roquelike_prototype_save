@@ -1,8 +1,8 @@
-﻿using BlockoutRoguelike.Enviroments;
+﻿using NothingAwaits.Enviroments;
 using TMPro;
 using UnityEngine;
 
-namespace BlockoutRoguelike.Modules
+namespace NothingAwaits.Modules
 {
     public class ObjectTextShow: BaseInteractObject
     {

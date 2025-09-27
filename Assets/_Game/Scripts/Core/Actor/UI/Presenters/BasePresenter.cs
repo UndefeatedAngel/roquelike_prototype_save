@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BlockoutRoguelike.Core.Actor.UI.Presenters
+namespace NothingAwaits.Core.Actor.UI.Presenters
 {
     public abstract class BasePresenter<TModel, TView>
     {

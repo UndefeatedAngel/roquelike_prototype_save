@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace BlockoutRoguelike.Modules
+namespace NothingAwaits.Modules
 {
     public class ModelRotator : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {

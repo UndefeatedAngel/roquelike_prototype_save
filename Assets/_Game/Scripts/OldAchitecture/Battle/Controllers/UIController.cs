@@ -1,9 +1,9 @@
 ﻿using System;
-using BlockoutRoguelike.Cards.UI;
+using NothingAwaits.Cards.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace BlockoutRoguelike.Battle.Controllers
+namespace NothingAwaits.Battle.Controllers
 {
     public class UIController: MonoBehaviour
     {

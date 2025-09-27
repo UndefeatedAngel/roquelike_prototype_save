@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace BlockoutRoguelike.Core.PlayerController.Editor
+namespace NothingAwaits.Core.PlayerController.Editor
 {
     [CustomEditor(typeof(PlayerController))]
     public class PlayerControllerEditor : UnityEditor.Editor

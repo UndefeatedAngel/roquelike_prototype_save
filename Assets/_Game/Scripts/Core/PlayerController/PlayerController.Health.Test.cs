@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace BlockoutRoguelike.Core.PlayerController
+namespace NothingAwaits.Core.PlayerController
 {
     public partial class PlayerController
     {

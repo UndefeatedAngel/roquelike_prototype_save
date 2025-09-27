@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace BlockoutRoguelike
+namespace NothingAwaits
 {
     public class ProjectController: MonoBehaviour
     {
