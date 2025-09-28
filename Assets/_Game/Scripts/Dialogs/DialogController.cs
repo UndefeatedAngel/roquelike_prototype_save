@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using NothingAwaits.Dialogs.Data;
@@ -34,6 +35,9 @@ namespace NothingAwaits.Dialogs
         [SerializeField] private ThirdPersonController _playerController;
         [SerializeField] private StarterAssetsInputs _playerInputs;
         [SerializeField] private Animator _playerAnimator;
+        [Space]
+        [Header("Additional Objects")]
+        [SerializeField] private GameObject[] _objectsToEnableOnDialogueEnd;
         
         
         private Queue<DialogueLine> _currentLines;
@@ -87,7 +91,7 @@ namespace NothingAwaits.Dialogs
         
         private void HandleDialogueInput()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
             {
                 SkipCurrentLine();
             }
@@ -134,6 +138,26 @@ namespace NothingAwaits.Dialogs
             }
         }
         
+        private void OnAnswerMouseEnter(DialogueAnswer answer)
+        {
+            if (!_isShowingChoices) return;
+            if (_selectedChoiceIndex >= 0 && _selectedChoiceIndex < _currentChoiceAnswers.Count)
+            {
+                _currentChoiceAnswers[_selectedChoiceIndex].SetSelected(false);
+            }
+            _selectedChoiceIndex = answer.ChoiceIndex;
+            if (_selectedChoiceIndex >= 0 && _selectedChoiceIndex < _currentChoiceAnswers.Count)
+            {
+                _currentChoiceAnswers[_selectedChoiceIndex].SetSelected(true);
+            }
+        }
+        
+        private void OnAnswerMouseClick(DialogueAnswer answer)
+        {
+            if (!_isShowingChoices) return;
+            ConfirmChoice();
+        }
+        
         private void ConfirmChoice()
         {
             if (_selectedChoiceIndex < 0 || _selectedChoiceIndex >= _currentSequence.Choices.Count) return;
@@ -148,9 +172,14 @@ namespace NothingAwaits.Dialogs
 
             CloseDialogue();
         }
-        
-        
-        public void StartDialogue(string sequenceId)
+
+        public void StartNewDialog(string sequenceId)
+        {
+            DisablePlayerControl();
+            StartDialogue(sequenceId);
+        }
+
+        private void StartDialogue(string sequenceId)
         {
             if (string.IsNullOrEmpty(sequenceId))
             {
@@ -169,7 +198,6 @@ namespace NothingAwaits.Dialogs
                 _currentLines.Enqueue(line);
             }
             
-            DisablePlayerControl();
             ClearAllTextFields();
             _dialoguePanel.SetActive(true);
             _dialogVertical.SetActive(true);
@@ -178,9 +206,20 @@ namespace NothingAwaits.Dialogs
             _playerSection.SetActive(false);
             _isDialogueActive = true;
             _isShowingChoices = false;
-            _dialogueCancellationTokenSource = new CancellationTokenSource();
             
+            SetAdditionalObjectsActive(false);
+            
+            _dialogueCancellationTokenSource = new CancellationTokenSource();
             ProcessDialogueAsync(_dialogueCancellationTokenSource.Token).Forget();
+        }
+        
+        private void SetAdditionalObjectsActive(bool active)
+        {
+            foreach (var obj in _objectsToEnableOnDialogueEnd)
+            {
+                if (obj != null)
+                    obj.SetActive(active);
+            }
         }
         
         private void ClearAllTextFields()
@@ -228,11 +267,14 @@ namespace NothingAwaits.Dialogs
             else
             {
                 Cursor.lockState = _previousCursorLockMode;
+                Cursor.visible = true;
             }
+            
             if (_playerController != null)
             {
                 _playerController.enabled = _playerControllerWasEnabled;
             }
+            
             if (_playerAnimator != null)
             {
                 _playerAnimator.enabled = _playerAnimatorWasEnabled;
@@ -241,7 +283,19 @@ namespace NothingAwaits.Dialogs
             if (_playerInputs != null)
             {
                 _playerInputs.cursorInputForLook = true;
-                _playerInputs.cursorLocked = true;
+                _playerInputs.cursorLocked = _wasCursorLocked;
+                
+                _playerInputs.move = Vector2.zero;
+                _playerInputs.jump = false;
+                _playerInputs.sprint = false;
+            }
+        }
+        
+        async Task WaitForSpaceKey()
+        {
+            while (!Input.GetKeyDown(KeyCode.Space) || !Input.GetMouseButtonDown(0))
+            {
+                await Task.Yield();
             }
         }
         
@@ -251,6 +305,7 @@ namespace NothingAwaits.Dialogs
             {
                 var line = _currentLines.Dequeue();
                 await DisplayLineAsync(line, token);
+                await WaitForSpaceKey();
             }
             
             if (!token.IsCancellationRequested)
@@ -266,33 +321,44 @@ namespace NothingAwaits.Dialogs
                 _playerSection.SetActive(true);
                 _playerTitleText.text = string.IsNullOrEmpty(line.CharacterName) ? "[Player]" : line.CharacterName;
                 _playerDescriptionText.text = "";
-                await AnimateTextAsync(_playerDescriptionText, line.Text, _textSpeed, token);
+                await AnimateTextAsync(_playerDescriptionText, line.Text, line.DisplayTime, token);
             }
             else
             {
                 _npcSection.SetActive(true);
                 _npcTitleText.text = string.IsNullOrEmpty(line.CharacterName) ? "[NPC]" : line.CharacterName;
                 _npcDescriptionText.text = "";
-                await AnimateTextAsync(_npcDescriptionText, line.Text, _textSpeed, token);
+                await AnimateTextAsync(_npcDescriptionText, line.Text, line.DisplayTime, token);
             }
-            
-            var displayTime = line.DisplayTime > 0 ? line.DisplayTime : 3f;
-            await UniTask.WaitForSeconds(displayTime, cancellationToken: token);
         }
         
-        private async UniTask AnimateTextAsync(TMP_Text textComponent, string text, float speed, CancellationToken token)
+        private async UniTask AnimateTextAsync(TMP_Text textComponent, string text, float displayTime, CancellationToken token)
         {
             _targetAnimateText = text;
             _targetAnimateTmpText = textComponent;
             textComponent.text = "";
+            
+            float calculatedSpeed = CalculateTextSpeed(text, displayTime);
             
             foreach (var letter in text)
             {
                 if (token.IsCancellationRequested) return;
                 
                 textComponent.text += letter;
-                await UniTask.WaitForSeconds(speed, cancellationToken: token);
+                await UniTask.WaitForSeconds(calculatedSpeed, cancellationToken: token);
             }
+        }
+        
+        private float CalculateTextSpeed(string text, float displayTime)
+        {
+            if (string.IsNullOrEmpty(text) || displayTime <= 0)
+                return _textSpeed;
+            
+            var minTimePerChar = 0.02f;
+            var maxTimePerChar = 0.2f;
+            
+            var timePerChar = displayTime / text.Length;
+            return Mathf.Clamp(timePerChar, minTimePerChar, maxTimePerChar);
         }
         
         private void SkipCurrentLine()
@@ -332,15 +398,22 @@ namespace NothingAwaits.Dialogs
             _dialogVertical.SetActive(false);
             _choiseVertical.SetActive(true);
             ClearChoices();
+            
             for (int i = 0; i < _currentSequence.Choices.Count; i++)
             {
                 var choice = _currentSequence.Choices[i];
                 if (!choice.IsEnabled) continue;
+                
                 var answer = Instantiate(_answerPrefab, _choicesContainer);
                 if (answer != null)
                 {
+                    answer.Initialize(i);
                     answer.SetText(choice.ChoiceText);
                     answer.SetSelected(false);
+                    
+                    answer.OnMouseEnter += OnAnswerMouseEnter;
+                    answer.OnMouseClick += OnAnswerMouseClick;
+                    
                     _currentChoiceAnswers.Add(answer);
                 }
                 else
@@ -362,8 +435,14 @@ namespace NothingAwaits.Dialogs
         {
             foreach (var answer in _currentChoiceAnswers)
             {
-                if (answer != null && answer.gameObject != null)
-                    Destroy(answer.gameObject);
+                if (answer != null)
+                {
+                    answer.OnMouseEnter -= OnAnswerMouseEnter;
+                    answer.OnMouseClick -= OnAnswerMouseClick;
+                    
+                    if (answer.gameObject != null)
+                        Destroy(answer.gameObject);
+                }
             }
             _currentChoiceAnswers.Clear();
             _selectedChoiceIndex = 0;
@@ -381,6 +460,8 @@ namespace NothingAwaits.Dialogs
             
             ClearChoices();
             EnablePlayerControl();
+            
+            SetAdditionalObjectsActive(true);
             
             _dialogueCancellationTokenSource?.Cancel();
             _dialogueCancellationTokenSource?.Dispose();

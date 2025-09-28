@@ -66,7 +66,7 @@ namespace NothingAwaits.Dialogs
         {
             if (!DialogueController.Instance.IsDialogueActive() && !string.IsNullOrEmpty(_dialogueSequenceId))
             {
-                DialogueController.Instance.StartDialogue(_dialogueSequenceId);
+                DialogueController.Instance.StartNewDialog(_dialogueSequenceId);
             }
         }
         
