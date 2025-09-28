@@ -13,7 +13,6 @@ namespace _Game.Scripts.Enviroments
     {
         [SerializeField] private AtomicStyleIndicator[] _atomicStyleIndicators;
         [SerializeField] private TriggerObject _exitSceneTrigger;
-        [SerializeField] private InventoryController _inventoryController;
         [SerializeField] private SimpleChest _simpleChest;
         [SerializeField] private PlayerController _playerController;
         [SerializeField] private QuestController _questController;
@@ -22,7 +21,6 @@ namespace _Game.Scripts.Enviroments
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-            _inventoryController.Init();
             _exitSceneTrigger.OnEnter = ExitScene;
 
             _simpleChest.OnCoinEject = () =>
