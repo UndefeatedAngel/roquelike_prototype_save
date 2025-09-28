@@ -67,7 +67,7 @@ namespace NothingAwaits.Core.Actor.Views
             OnGetBlood?.Invoke();
             if (_hp < 1)
             {
-                Death();
+                DeathAnimation();
             }
         }
     }

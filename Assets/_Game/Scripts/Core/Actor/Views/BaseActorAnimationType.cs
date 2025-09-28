@@ -4,6 +4,7 @@
     {
         Idle, 
         Attack,
-        Death
+        Death,
+        Speed
     }
 }

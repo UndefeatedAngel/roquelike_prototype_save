@@ -8,10 +8,15 @@ namespace NothingAwaits.Core.Actor.Views
         
         protected bool _isDeath;
 
-        protected virtual void Death()
+        protected virtual void DeathAnimation()
         {
             _isDeath = true;
-            _animator.SetTrigger("death");
+            _animator.SetTrigger(BaseActorAnimationType.Death.ToString());
+        }
+
+        protected virtual void SpeedAnimation(float speed)
+        {
+            _animator.SetFloat(BaseActorAnimationType.Speed.ToString(), speed);
         }
     }
 }
