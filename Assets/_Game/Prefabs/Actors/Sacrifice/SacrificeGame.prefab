@@ -858,6 +858,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 882516958141836051, guid: 691a824c063406547a2692ea0515ae5e, type: 3}
+      propertyPath: _dialogueSequence
+      value: 
+      objectReference: {fileID: 11400000, guid: 995c71f3e806b304db3fdb4ef515de24, type: 2}
+    - target: {fileID: 882516958141836051, guid: 691a824c063406547a2692ea0515ae5e, type: 3}
+      propertyPath: _dialogueSequenceId
+      value: gameplay_sacrifice
+      objectReference: {fileID: 0}
+    - target: {fileID: 882516958141836051, guid: 691a824c063406547a2692ea0515ae5e, type: 3}
+      propertyPath: _triggerOnTriggerEnter
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1433822600789971718, guid: 691a824c063406547a2692ea0515ae5e, type: 3}
+      propertyPath: m_Size.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1433822600789971718, guid: 691a824c063406547a2692ea0515ae5e, type: 3}
+      propertyPath: m_Size.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1433822600789971718, guid: 691a824c063406547a2692ea0515ae5e, type: 3}
+      propertyPath: m_Size.z
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2678554682669037941, guid: 691a824c063406547a2692ea0515ae5e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -10.01
@@ -919,10 +943,10 @@ PrefabInstance:
       addedObject: {fileID: 3070503832627261893}
     - targetCorrespondingSourceObject: {fileID: 3933967722187261663, guid: 691a824c063406547a2692ea0515ae5e, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -1781016085487818492}
+      addedObject: {fileID: 8011741104873336494}
     - targetCorrespondingSourceObject: {fileID: 3933967722187261663, guid: 691a824c063406547a2692ea0515ae5e, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8011741104873336494}
+      addedObject: {fileID: -1781016085487818492}
     - targetCorrespondingSourceObject: {fileID: 3933967722187261663, guid: 691a824c063406547a2692ea0515ae5e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7409850996143800614}
@@ -958,22 +982,6 @@ MonoBehaviour:
   _followerAI: {fileID: -1781016085487818492}
   _navMeshAgent: {fileID: 7409850996143800614}
   _rotationSpeed: 5
---- !u!114 &-1781016085487818492
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7476942435847123454}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a63a358cc2f345f58e906c4e205413ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _target: {fileID: 0}
-  stoppingDistance: 3
-  agent: {fileID: 7409850996143800614}
-  _isFollowing: 1
 --- !u!136 &8011741104873336494
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -997,6 +1005,22 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &-1781016085487818492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7476942435847123454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a63a358cc2f345f58e906c4e205413ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _target: {fileID: 0}
+  stoppingDistance: 3
+  agent: {fileID: 7409850996143800614}
+  _isFollowing: 1
 --- !u!195 &7409850996143800614
 NavMeshAgent:
   m_ObjectHideFlags: 0

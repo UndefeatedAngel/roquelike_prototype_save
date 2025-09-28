@@ -6,7 +6,7 @@ namespace _Game.Scripts.OldAchitecture.Modules
 {
     public class FollowerAI: MonoBehaviour
     {
-        [Header("Следование")]
+        [Header("FollowerAI Settings")]
         [SerializeField] private Transform _target;
         [SerializeField] private float stoppingDistance = 2.0f;
         [SerializeField] private NavMeshAgent agent;

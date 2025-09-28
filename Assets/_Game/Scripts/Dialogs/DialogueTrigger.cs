@@ -5,45 +5,45 @@ namespace NothingAwaits.Dialogs
     public class DialogueTrigger : MonoBehaviour
     {
         [Header("Dialogue Settings")]
-        public string dialogueSequenceName;
-        public bool triggerOnStart = false;
-        public bool triggerOnTriggerEnter = true;
-        public bool triggerOnInteract = false;
-        public KeyCode interactKey = KeyCode.E;
-    
-        [Header("Visual Feedback")]
-        public GameObject interactionHint;
-    
-        private bool playerInRange = false;
-    
-        void Start()
-        {
-            if (triggerOnStart)
-            {
-                TriggerDialogue();
-            }
+        [SerializeField] private string _dialogueSequenceId;
+        [SerializeField] private bool _triggerOnStart;
+        [SerializeField] private bool _triggerOnTriggerEnter;
+        [SerializeField] private bool _triggerOnInteract = true;
+        [SerializeField] private KeyCode _interactKey = KeyCode.F;
         
-            if (interactionHint != null)
-                interactionHint.SetActive(false);
-        }
-    
-        void Update()
+        [Header("Visual Feedback")]
+        [SerializeField] private GameObject _interactionHint;
+        
+        private bool _playerInRange = false;
+        
+        private void Start()
         {
-            if (triggerOnInteract && playerInRange && Input.GetKeyDown(interactKey))
+            if (_triggerOnStart)
+            {
+                TriggerDialogue();
+            }
+            
+            if (_interactionHint != null)
+                _interactionHint.SetActive(false);
+        }
+        
+        private void Update()
+        {
+            if (_triggerOnInteract && _playerInRange && Input.GetKeyDown(_interactKey))
             {
                 TriggerDialogue();
             }
         }
-    
-        void OnTriggerEnter(Collider other)
+        
+        private void OnTriggerEnter(Collider other)
         {
-            if (triggerOnTriggerEnter && other.CompareTag("Player"))
+            if (_triggerOnTriggerEnter && other.CompareTag("Player"))
             {
-                if (triggerOnInteract)
+                if (_triggerOnInteract)
                 {
-                    playerInRange = true;
-                    if (interactionHint != null)
-                        interactionHint.SetActive(true);
+                    _playerInRange = true;
+                    if (_interactionHint != null)
+                        _interactionHint.SetActive(true);
                 }
                 else
                 {
@@ -51,29 +51,28 @@ namespace NothingAwaits.Dialogs
                 }
             }
         }
-    
-        void OnTriggerExit(Collider other)
+        
+        private void OnTriggerExit(Collider other)
         {
             if (other.CompareTag("Player"))
             {
-                playerInRange = false;
-                if (interactionHint != null)
-                    interactionHint.SetActive(false);
+                _playerInRange = false;
+                if (_interactionHint != null)
+                    _interactionHint.SetActive(false);
             }
         }
-    
+        
         public void TriggerDialogue()
         {
-            if (!DialogueManager.Instance.IsDialogueActive())
+            if (!DialogueController.Instance.IsDialogueActive() && !string.IsNullOrEmpty(_dialogueSequenceId))
             {
-                DialogueManager.Instance.StartDialogue(dialogueSequenceName);
+                DialogueController.Instance.StartDialogue(_dialogueSequenceId);
             }
         }
-    
-        // Для вызова через события Unity
-        public void TriggerDialogue(string sequenceName)
+        
+        public void TriggerDialogue(string sequenceId)
         {
-            dialogueSequenceName = sequenceName;
+            _dialogueSequenceId = sequenceId;
             TriggerDialogue();
         }
     }
