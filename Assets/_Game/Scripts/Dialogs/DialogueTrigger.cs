@@ -1,4 +1,5 @@
-﻿using NothingAwaits.Core;
+﻿using System;
+using NothingAwaits.Core;
 using NothingAwaits.Core.Actor.Views;
 using UnityEngine;
 
@@ -44,9 +45,9 @@ namespace NothingAwaits.Dialogs
         {
             if (_triggerOnTriggerEnter && other.CompareTag("Player"))
             {
-                playerView = other.GetComponent<PlayerView>();
                 if (_triggerOnInteract)
                 {
+                    playerView = other.GetComponent<PlayerView>();
                     _playerInRange = true;
                     if (_interactionHint != null)
                         _interactionHint.SetActive(true);
@@ -75,21 +76,33 @@ namespace NothingAwaits.Dialogs
             {
                 DialogueController.Instance.StartNewDialog(_dialogueSequenceId);
                 if (playerView == null) return;
-                DialogueController.Instance.OnChoiceConfirm = (sequenceId) =>
-                {
-                    playerView.Attach(sequenceId, this);
-                };
-                DialogueController.Instance.OnCloseDialog = () =>
-                {
-                    playerView.ApplyAttach();
-                };
+                DialogueController.Instance.OnChoiceConfirm += OnChoiceConfirm;
+                DialogueController.Instance.OnCloseDialog += OnCloseDialog;
             }
+        }
+
+
+        private void OnChoiceConfirm(string sequenceId)
+        {
+            playerView?.Attach(sequenceId, this);
+        }
+
+        private void OnCloseDialog()
+        {
+            playerView?.ApplyAttach();
         }
         
         public void TriggerDialogue(string sequenceId)
         {
             _dialogueSequenceId = sequenceId;
             TriggerDialogue();
+        }
+        
+        
+        private void OnDestroy()
+        {
+            DialogueController.Instance.OnChoiceConfirm -= OnChoiceConfirm;
+            DialogueController.Instance.OnCloseDialog -= OnCloseDialog;
         }
     }
 }

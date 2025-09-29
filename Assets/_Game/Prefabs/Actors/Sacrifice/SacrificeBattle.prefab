@@ -33798,6 +33798,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: SacrificeBattle
       objectReference: {fileID: 0}
+    - target: {fileID: 5368068048432965105, guid: 691a824c063406547a2692ea0515ae5e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5368068048432965105, guid: 691a824c063406547a2692ea0515ae5e, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5368068048432965105, guid: 691a824c063406547a2692ea0515ae5e, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5368068048432965105, guid: 691a824c063406547a2692ea0515ae5e, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5368068048432965105, guid: 691a824c063406547a2692ea0515ae5e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5368068048432965105, guid: 691a824c063406547a2692ea0515ae5e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8599236677019191036, guid: 691a824c063406547a2692ea0515ae5e, type: 3}
       propertyPath: m_Avatar
       value: 
@@ -33809,6 +33833,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 7246657254360163064, guid: 691a824c063406547a2692ea0515ae5e, type: 3}
+    - {fileID: 5062663783845331514, guid: 691a824c063406547a2692ea0515ae5e, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 2678554682669037941, guid: 691a824c063406547a2692ea0515ae5e, type: 3}
       insertIndex: -1

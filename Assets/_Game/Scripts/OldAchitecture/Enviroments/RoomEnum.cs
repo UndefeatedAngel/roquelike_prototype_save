@@ -7,7 +7,8 @@
         EliteEnemy,
         Chest,
         Trade,
-        Boss
+        Boss,
+        Upgradable
     }
 
     public enum EnvironmenttEnum

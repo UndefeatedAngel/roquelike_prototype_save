@@ -9,4 +9,5 @@ public enum SceneType
     Battle = 2,
     CardsBattle = 3,
     Chest = 4,
+    Upgradable = 5,
 }

@@ -88,27 +88,22 @@ namespace NothingAwaits.Modules
             BattleController.Type = roomEnum;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-
-            if (roomEnum == RoomEnum.Enemy || roomEnum == RoomEnum.EliteEnemy)
+            
+            switch (roomEnum)
             {
-                SceneLoader.Instance.LoadSceneAsync(SceneType.CardsBattle, () =>
-                {
-                    
-                });
-            }
-            else if (roomEnum == RoomEnum.Chest)
-            {
-                SceneLoader.Instance.LoadSceneAsync(SceneType.Chest, () =>
-                {
-                    
-                });
-            }
-            else
-            {
-                SceneLoader.Instance.LoadSceneAsync(SceneType.Battle, () =>
-                {
-                    
-                });
+                case RoomEnum.Enemy:
+                case RoomEnum.EliteEnemy:
+                    SceneLoader.Instance.LoadSceneAsync(SceneType.CardsBattle);
+                    break;
+                case RoomEnum.Chest:
+                    SceneLoader.Instance.LoadSceneAsync(SceneType.Chest);
+                    break;
+                case RoomEnum.Upgradable:
+                    SceneLoader.Instance.LoadSceneAsync(SceneType.Upgradable);
+                    break;
+                default:
+                    SceneLoader.Instance.LoadSceneAsync(SceneType.Battle);
+                    break;
             }
         }
 

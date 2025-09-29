@@ -1,5 +1,4 @@
 ﻿using _Game.Scripts.Modules;
-using NothingAwaits.Core.Inventory;
 using NothingAwaits.Core.Inventory.InventorySystem.UI;
 using NothingAwaits.Core.Player;
 using NothingAwaits.Modules;

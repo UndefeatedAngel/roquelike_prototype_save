@@ -75,6 +75,7 @@ namespace Modules.SceneLoader
         {
             _canvasGroup.gameObject.SetActive(true);
             _canvasGroup.alpha = 0f;
+            _spaceCanvas.alpha = 0f;
         
             while (_canvasGroup.alpha < 1f)
             {

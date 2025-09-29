@@ -12,41 +12,39 @@ namespace NothingAwaits
         [SerializeField] private GameObject _bottlePrefab;
         [SerializeField] private Transform[] _bottlePoints;
         [SerializeField] private RoomObject[] _roomEnds;
-        public void Setup(bool isStart, RoomEnum testRoom, bool isEnd, int maxBottles, Action<GameObject[]> OnBottles)
+        public void Setup(bool isStart, RoomEnum[] testRooms, bool isEnd, int maxBottles, Action<GameObject[]> OnBottles)
         {
             gameObject.SetActive(true);
-            var bottles = GenerateBottle(maxBottles);
-            OnBottles?.Invoke(bottles.ToArray());
-            
-            if (isStart)
+            foreach (var room in _roomEnds)
             {
-                foreach (var room in _roomEnds)
+                RoomEnum type;
+                var bottleCount = maxBottles;
+                if (isStart)
                 {
-                    room.Setup(RoomEnum.Enemy, maxBottles);
+                    type = RoomEnum.Enemy;
+                    bottleCount = 1;
                 }
-            }
-            else if (GameController.Step == 1 && testRoom != RoomEnum.Unknown)
-            {
-                foreach (var room in _roomEnds)
+                else if (isEnd)
                 {
-                    room.Setup(testRoom, maxBottles);
+                    type = RoomEnum.Boss;
+                    bottleCount = 3;
                 }
-            }
-            else if (isEnd)
-            {
-                foreach (var room in _roomEnds)
-                {
-                    room.Setup(RoomEnum.Boss, maxBottles);
-                }
-            }
-            else
-            {
-                foreach (var room in _roomEnds)
+                else
                 {
                     var maxCount = Enum.GetValues(typeof(RoomEnum)).Length - 1;
-                    var type = Random.Range(0, maxCount);
-                    room.Setup((RoomEnum)type, maxBottles);
+                    type = (RoomEnum)Random.Range(0, maxCount);
                 }
+                
+                //TEST
+                if (GameController.Step<testRooms.Length)
+                {
+                    type = testRooms[GameController.Step];
+                    bottleCount = 1;
+                }
+                
+                var bottles = GenerateBottle(bottleCount);
+                OnBottles?.Invoke(bottles.ToArray());
+                room.Setup(type, bottleCount);
             }
         }
 

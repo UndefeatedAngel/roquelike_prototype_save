@@ -12,7 +12,7 @@ namespace NothingAwaits
 {
     public class GameController: MonoBehaviour
     {
-        [SerializeField] private RoomEnum _testRoom = RoomEnum.Unknown;
+        [SerializeField] private RoomEnum[] _testRooms;
         [SerializeField] private TMP_Text _targetText;
         [SerializeField] private Environment[] _enviroments;
         [SerializeField] private Transform _enviromentsContainer;
@@ -116,7 +116,7 @@ namespace NothingAwaits
         private void CreateEnvironment(int number, bool isStart, bool isEnd, int maxBottles)
         {
             var env = Instantiate(_enviroments[number], _enviromentsContainer, true);
-            env.Setup(isStart, _testRoom, isEnd, maxBottles, objects =>
+            env.Setup(isStart, _testRooms, isEnd, maxBottles, objects =>
             {
                 Debug.Log($"Bottles {objects.Length}");
             });
