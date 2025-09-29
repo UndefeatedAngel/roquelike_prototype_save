@@ -1,7 +1,10 @@
-﻿using UnityEngine;
+﻿using NothingAwaits.Core;
+using NothingAwaits.Core.Actor.Views;
+using UnityEngine;
 
 namespace NothingAwaits.Dialogs
 {
+    //TODO: рефакторить, отвязать от контроллеров
     public class DialogueTrigger : MonoBehaviour
     {
         [Header("Dialogue Settings")]
@@ -15,6 +18,8 @@ namespace NothingAwaits.Dialogs
         [SerializeField] private GameObject _interactionHint;
         
         private bool _playerInRange = false;
+        
+        private PlayerView playerView;
         
         private void Start()
         {
@@ -39,6 +44,7 @@ namespace NothingAwaits.Dialogs
         {
             if (_triggerOnTriggerEnter && other.CompareTag("Player"))
             {
+                playerView = other.GetComponent<PlayerView>();
                 if (_triggerOnInteract)
                 {
                     _playerInRange = true;
@@ -56,6 +62,7 @@ namespace NothingAwaits.Dialogs
         {
             if (other.CompareTag("Player"))
             {
+                playerView = null;
                 _playerInRange = false;
                 if (_interactionHint != null)
                     _interactionHint.SetActive(false);
@@ -67,6 +74,15 @@ namespace NothingAwaits.Dialogs
             if (!DialogueController.Instance.IsDialogueActive() && !string.IsNullOrEmpty(_dialogueSequenceId))
             {
                 DialogueController.Instance.StartNewDialog(_dialogueSequenceId);
+                if (playerView == null) return;
+                DialogueController.Instance.OnChoiceConfirm = (sequenceId) =>
+                {
+                    playerView.Attach(sequenceId, this);
+                };
+                DialogueController.Instance.OnCloseDialog = () =>
+                {
+                    playerView.ApplyAttach();
+                };
             }
         }
         

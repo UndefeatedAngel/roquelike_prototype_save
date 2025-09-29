@@ -55,7 +55,8 @@ namespace NothingAwaits.Dialogs
         private bool _playerControllerWasEnabled = true;
         private bool _playerAnimatorWasEnabled = true;
         
-        public Action<DialogueChoice> OnChoiceSelected;
+        public Action<string> OnChoiceConfirm;
+        public Action OnCloseDialog;
         
         private void Awake()
         {
@@ -163,13 +164,13 @@ namespace NothingAwaits.Dialogs
             if (_selectedChoiceIndex < 0 || _selectedChoiceIndex >= _currentSequence.Choices.Count) return;
             
             var selectedChoice = _currentSequence.Choices[_selectedChoiceIndex];
-            OnChoiceSelected?.Invoke(selectedChoice);
             if (!string.IsNullOrEmpty(selectedChoice.NextSequence))
             {
+                OnChoiceConfirm?.Invoke(selectedChoice.NextSequence);
                 StartDialogue(selectedChoice.NextSequence);
                 return;
             }
-
+            
             CloseDialogue();
         }
 
@@ -466,6 +467,7 @@ namespace NothingAwaits.Dialogs
             _dialogueCancellationTokenSource?.Cancel();
             _dialogueCancellationTokenSource?.Dispose();
             _dialogueCancellationTokenSource = null;
+            OnCloseDialog?.Invoke();
         }
         
         public bool IsDialogueActive()

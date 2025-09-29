@@ -17,6 +17,7 @@ namespace NothingAwaits.Core.Actor.Views
         protected virtual void SpeedAnimation(float speed)
         {
             _animator.SetFloat(BaseActorAnimationType.Speed.ToString(), speed);
+            Debug.Log($"{name} [BaseActor] Speed: {speed}");
         }
     }
 }

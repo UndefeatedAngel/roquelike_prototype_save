@@ -7,7 +7,7 @@ namespace NothingAwaits.Enviroments
     {
         private void OnTriggerEnter(Collider other)
         {
-            var pc = other.GetComponent<OldPlayerController>();
+            var pc = other.GetComponent<PlayerView>();
             if (pc == null) return;
             
             TriggerEnter();
@@ -16,7 +16,7 @@ namespace NothingAwaits.Enviroments
 
         private void OnTriggerExit(Collider other)
         {
-            var pc = other.GetComponent<OldPlayerController>();
+            var pc = other.GetComponent<PlayerView>();
             if (pc == null) return;
             
             ClearInteract();

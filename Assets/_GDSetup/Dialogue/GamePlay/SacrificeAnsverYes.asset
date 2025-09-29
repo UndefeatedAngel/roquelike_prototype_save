@@ -22,7 +22,7 @@ MonoBehaviour:
     IsPlayerLine: 0
   - CharacterName: "\u0418\u0433\u0440\u043E\u043A"
     Text: "\u041F\u043E\u0448\u043B\u0438..."
-    DisplayTime: 1
+    DisplayTime: 0.5
     IsPlayerLine: 1
   Choices: []
   NextSequenceId: 
