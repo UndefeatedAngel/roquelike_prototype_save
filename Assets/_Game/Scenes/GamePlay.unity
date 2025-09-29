@@ -3121,14 +3121,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f99f0f97d5f54fb8aebcb469bd616248, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _testRooms: 0100000003000000060000000400000000000000
+  _testRooms: 01000000030000000600000004000000000000000700000005000000
   _targetText: {fileID: 1328917466}
   _enviroments:
   - {fileID: 9140714305091640918, guid: b8bbb371a452cca4f8411771eb95f7fc, type: 3}
   - {fileID: 4103807398068371023, guid: 1c06d639900b9b44a8a972a60d386fc5, type: 3}
   - {fileID: 3239968167289640472, guid: b135b191121739a4885bf939b9bc8f1a, type: 3}
   _enviromentsContainer: {fileID: 1930753199}
-  _maxSteps: 9
+  _maxSteps: 7
   _atomicStyleIndicators:
   - {fileID: 435730706252368186}
   - {fileID: 6033028666383877225}

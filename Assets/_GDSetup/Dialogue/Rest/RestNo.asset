@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2f3d750c0c54ffda11a1f4996c28701, type: 3}
+  m_Name: RestNo
+  m_EditorClassIdentifier: 
+  SequenceID: rest_no
+  Lines:
+  - CharacterName: "\u0421\u043C\u043E\u0442\u0440\u044F\u0449\u0438\u0439"
+    Text: "\u0418\u0434\u0438 \u043E\u0442\u0441\u044E\u0434\u0430, \u043F\u043E\u043A\u0430
+      \u043C\u044B \u043D\u0435 \u0441\u044A\u0435\u043B\u0438 \u0442\u0435\u0431\u044F!"
+    DisplayTime: 1
+    IsPlayerLine: 0
+  - CharacterName: "\u0418\u0433\u0440\u043E\u043A"
+    Text: "\u041F\u043E\u0440\u0430 \u0443\u043D\u043E\u0441\u0438\u0442\u044C \u043D\u043E\u0433\u0438..."
+    DisplayTime: 1
+    IsPlayerLine: 1
+  Choices: []
+  NextSequenceId: 

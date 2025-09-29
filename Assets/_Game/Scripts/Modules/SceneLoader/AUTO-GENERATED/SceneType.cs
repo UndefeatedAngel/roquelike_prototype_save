@@ -11,4 +11,6 @@ public enum SceneType
     Chest = 4,
     Upgradable = 5,
     Trade = 6,
+    Unknown = 7,
+    Rest = 8,
 }
