@@ -200,6 +200,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Upgradable
       objectReference: {fileID: 0}
+    - target: {fileID: 6739372605797156466, guid: f4a347b1faba5fa49ba54c88ac0dbc7e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6739372605797156466, guid: f4a347b1faba5fa49ba54c88ac0dbc7e, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6739372605797156466, guid: f4a347b1faba5fa49ba54c88ac0dbc7e, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6739372605797156466, guid: f4a347b1faba5fa49ba54c88ac0dbc7e, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6739372605797156466, guid: f4a347b1faba5fa49ba54c88ac0dbc7e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6739372605797156466, guid: f4a347b1faba5fa49ba54c88ac0dbc7e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7612669437119976035, guid: f4a347b1faba5fa49ba54c88ac0dbc7e, type: 3}
       propertyPath: _dialogueSequenceId
       value: upgradable_master
@@ -235,6 +259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 985c3fe88955472fb3d9bb8da8f61b8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _doorExit: {fileID: 0}
   _questTarget: {fileID: 5093092707247646568}
   _animator: {fileID: 8062868117955642031}
 --- !u!114 &5093092707247646568

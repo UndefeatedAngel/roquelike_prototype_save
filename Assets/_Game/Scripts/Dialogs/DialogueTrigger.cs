@@ -1,5 +1,7 @@
 ﻿using NothingAwaits.Core;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 namespace NothingAwaits.Dialogs
 {
@@ -15,20 +17,23 @@ namespace NothingAwaits.Dialogs
         
         [Header("Visual Feedback")]
         [SerializeField] private GameObject _interactionHint;
+        [SerializeField] private float _hintOffsetY = 2f;
+        [SerializeField] private float _hintDistance = 1.5f;
         
         private bool _playerInRange = false;
-        
+        private Camera _mainCamera;
         private PlayerView playerView;
         
         private void Start()
         {
+            _mainCamera = Camera.main;
+            
             if (_triggerOnStart)
             {
                 TriggerDialogue();
             }
             
-            if (_interactionHint != null)
-                _interactionHint.SetActive(false);
+            SetInteractionHintActive(false);
         }
         
         private void Update()
@@ -36,6 +41,53 @@ namespace NothingAwaits.Dialogs
             if (_triggerOnInteract && _playerInRange && Input.GetKeyDown(_interactKey))
             {
                 TriggerDialogue();
+            }
+            
+            // Поворачиваем подсказку к камере каждый кадр
+            UpdateHintRotation();
+        }
+        
+        private void LateUpdate()
+        {
+            // Обновляем позицию подсказки в LateUpdate чтобы быть после всех движений
+            UpdateHintPosition();
+        }
+        
+        private void UpdateHintPosition()
+        {
+            if (_interactionHint == null || !_interactionHint.activeInHierarchy) return;
+            
+            Vector3 npcPosition = transform.position;
+            if (_mainCamera != null)
+            {
+                Vector3 directionToCamera = (_mainCamera.transform.position - npcPosition).normalized;
+                directionToCamera.y = 0;
+                
+                Vector3 hintPosition = npcPosition + (directionToCamera * _hintDistance);
+                hintPosition.y += _hintOffsetY;
+                
+                _interactionHint.transform.position = hintPosition;
+            }
+            else
+            {
+                _interactionHint.transform.position = npcPosition + Vector3.up * _hintOffsetY;
+            }
+        }
+        
+        private void UpdateHintRotation()
+        {
+            if (_interactionHint == null || !_interactionHint.activeInHierarchy || _mainCamera == null) return;
+            
+            // Поворачиваем подсказку чтобы она всегда смотрела на камеру
+            _interactionHint.transform.LookAt(_interactionHint.transform.position + _mainCamera.transform.rotation * Vector3.forward,
+                                            _mainCamera.transform.rotation * Vector3.up);
+        }
+        
+        private void SetInteractionHintActive(bool active)
+        {
+            if (_interactionHint != null)
+            {
+                _interactionHint.SetActive(active);
             }
         }
         
@@ -47,8 +99,7 @@ namespace NothingAwaits.Dialogs
                 {
                     playerView = other.GetComponent<PlayerView>();
                     _playerInRange = true;
-                    if (_interactionHint != null)
-                        _interactionHint.SetActive(true);
+                    SetInteractionHintActive(true);
                 }
                 else
                 {
@@ -63,8 +114,7 @@ namespace NothingAwaits.Dialogs
             {
                 playerView = null;
                 _playerInRange = false;
-                if (_interactionHint != null)
-                    _interactionHint.SetActive(false);
+                SetInteractionHintActive(false);
             }
         }
         
@@ -76,9 +126,11 @@ namespace NothingAwaits.Dialogs
                 if (playerView == null) return;
                 DialogueController.Instance.OnChoiceConfirm += OnChoiceConfirm;
                 DialogueController.Instance.OnCloseDialog += OnCloseDialog;
+                
+                // Скрываем подсказку при старте диалога
+                SetInteractionHintActive(false);
             }
         }
-
 
         private void OnChoiceConfirm(string sequenceId)
         {
@@ -88,6 +140,12 @@ namespace NothingAwaits.Dialogs
         private void OnCloseDialog()
         {
             playerView?.ApplyAttach();
+            
+            // Показываем подсказку снова после диалога, если игрок все еще в зоне
+            if (_playerInRange)
+            {
+                SetInteractionHintActive(true);
+            }
         }
         
         public void SetTriggerDialogue(string sequenceId)
@@ -95,11 +153,24 @@ namespace NothingAwaits.Dialogs
             _dialogueSequenceId = sequenceId;
         }
         
-        
         private void OnDestroy()
         {
-            DialogueController.Instance.OnChoiceConfirm -= OnChoiceConfirm;
-            DialogueController.Instance.OnCloseDialog -= OnCloseDialog;
+            if (DialogueController.Instance != null)
+            {
+                DialogueController.Instance.OnChoiceConfirm -= OnChoiceConfirm;
+                DialogueController.Instance.OnCloseDialog -= OnCloseDialog;
+            }
+        }
+        
+        private void OnDrawGizmosSelected()
+        {
+            if (_interactionHint != null)
+            {
+                Gizmos.color = Color.yellow;
+                Vector3 hintPosition = transform.position + Vector3.up * _hintOffsetY;
+                Gizmos.DrawWireSphere(hintPosition, 0.3f);
+                Gizmos.DrawLine(transform.position, hintPosition);
+            }
         }
     }
 }
