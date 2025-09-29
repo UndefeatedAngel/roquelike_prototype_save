@@ -8,6 +8,11 @@ namespace NothingAwaits.Quests
         
         public string TargetId => _targetId;
 
+        public void SetTargetId(string targetId)
+        {
+            _targetId = targetId;
+        }
+
         public void Collect()
         {
             QuestController.Instance.Collect(_targetId);

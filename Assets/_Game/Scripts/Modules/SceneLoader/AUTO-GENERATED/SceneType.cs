@@ -10,4 +10,5 @@ public enum SceneType
     CardsBattle = 3,
     Chest = 4,
     Upgradable = 5,
+    Trade = 6,
 }

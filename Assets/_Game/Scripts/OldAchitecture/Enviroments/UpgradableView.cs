@@ -12,7 +12,6 @@ namespace _Game.Scripts.OldAchitecture.Enviroments
         [SerializeField] private Animator _animator;
         private void Start()
         {
-            _animator.SetTrigger("sit");
             DialogueController.Instance.OnCloseDialog += OnCloseDialog;
         }
 

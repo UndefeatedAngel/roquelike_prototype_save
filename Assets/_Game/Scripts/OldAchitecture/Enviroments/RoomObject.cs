@@ -101,6 +101,9 @@ namespace NothingAwaits.Modules
                 case RoomEnum.Upgradable:
                     SceneLoader.Instance.LoadSceneAsync(SceneType.Upgradable);
                     break;
+                case RoomEnum.Trade:
+                    SceneLoader.Instance.LoadSceneAsync(SceneType.Trade);
+                    break;
                 default:
                     SceneLoader.Instance.LoadSceneAsync(SceneType.Battle);
                     break;

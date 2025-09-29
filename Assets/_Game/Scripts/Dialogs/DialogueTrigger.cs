@@ -1,6 +1,4 @@
-﻿using System;
-using NothingAwaits.Core;
-using NothingAwaits.Core.Actor.Views;
+﻿using NothingAwaits.Core;
 using UnityEngine;
 
 namespace NothingAwaits.Dialogs
@@ -92,10 +90,9 @@ namespace NothingAwaits.Dialogs
             playerView?.ApplyAttach();
         }
         
-        public void TriggerDialogue(string sequenceId)
+        public void SetTriggerDialogue(string sequenceId)
         {
             _dialogueSequenceId = sequenceId;
-            TriggerDialogue();
         }
         
         
