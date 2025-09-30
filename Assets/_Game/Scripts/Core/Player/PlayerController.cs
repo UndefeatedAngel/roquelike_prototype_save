@@ -22,9 +22,9 @@ namespace NothingAwaits.Core.Player
         
         #if UNITY_EDITOR
         [SerializeField] private bool _showTests = false;
-        public PlayerModel PlayerModel => _playerModel;
         #endif
 
+        public PlayerModel PlayerModel => _playerModel;
         private PlayerModel _playerModel;
         private PlayerDataManager _dataManager;
 

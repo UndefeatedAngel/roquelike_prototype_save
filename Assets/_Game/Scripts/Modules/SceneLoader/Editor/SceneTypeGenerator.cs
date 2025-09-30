@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
-using UnityEditor;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Reflection;
+
+#if UNITY_EDITOR
+using UnityEditor;
 
 namespace Modules.SceneLoader.Editor
 {
@@ -101,7 +102,6 @@ namespace Modules.SceneLoader.Editor
 
         private static string GetCurrentScriptPath()
         {
-            Assembly.GetExecutingAssembly();
             var scriptType = typeof(SceneTypeGenerator);
             
             var guids = AssetDatabase.FindAssets($"t:Script {scriptType.Name}");
@@ -150,3 +150,4 @@ namespace Modules.SceneLoader.Editor
         }
     }
 }
+#endif
