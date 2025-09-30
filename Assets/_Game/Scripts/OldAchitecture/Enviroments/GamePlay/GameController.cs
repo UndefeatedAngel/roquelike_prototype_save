@@ -119,14 +119,15 @@ namespace NothingAwaits
             env.Setup(isStart, _testRooms, isEnd, maxBottles, objects =>
             {
                 Debug.Log($"Bottles {objects.Length}");
+                
+                var post = objects.Length switch
+                {
+                    1  => "ку",
+                    2 or 3 or 4 => "ки",
+                    _ => "ок"
+                };
+                _targetText.text = $"Найди {objects.Length} бутыл{post} чтобы пройти дальше!";
             });
-            var post = maxBottles switch
-            {
-                1  => "ку",
-                2 or 3 or 4 => "ки",
-                _ => "ок"
-            };
-            _targetText.text = $"Найди {maxBottles} бутыл{post} чтобы пройти дальше!";
         }
 
         private void OnCurrentQuestTargets(QuestGoal goal, Transform[] objects)

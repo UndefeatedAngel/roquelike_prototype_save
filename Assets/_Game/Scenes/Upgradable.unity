@@ -4762,6 +4762,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hudController: {fileID: 1925874126}
   _playerConfig: {fileID: 11400000, guid: 16b3eb805f9c6ff4689dddbb7d3120ff, type: 2}
+  _cardsContainer: {fileID: 11400000, guid: ea9ed07e2ec425e4c981f2820df9e3f7, type: 2}
   _playOnStart: 1
   _skipInitialHealthAnimation: 1
   _autoSave: 1
@@ -13098,17 +13099,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1624829475}
   m_CullTransparentMesh: 1
---- !u!114 &1629111091 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4667721020765708934, guid: 7fcaf8b2ab1516649a91adf2a9704482, type: 3}
-  m_PrefabInstance: {fileID: 1420571607}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3eb80521e84446448755ead57003fe85, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1644210941
 GameObject:
   m_ObjectHideFlags: 0
@@ -13480,17 +13470,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1715965360}
   m_CullTransparentMesh: 1
---- !u!114 &1716000409 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5269995463352311834, guid: 7fcaf8b2ab1516649a91adf2a9704482, type: 3}
-  m_PrefabInstance: {fileID: 1420571607}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1f249a6ee104530a2b4054e4cf93903, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1720982685
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14578,10 +14557,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _healthViews:
   - {fileID: 1177521830}
-  - {fileID: 1716000409}
   _coinsViews:
   - {fileID: 902650927}
-  - {fileID: 1629111091}
 --- !u!4 &1925874127
 Transform:
   m_ObjectHideFlags: 0

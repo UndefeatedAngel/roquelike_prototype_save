@@ -15,19 +15,19 @@ namespace NothingAwaits
         public void Setup(bool isStart, RoomEnum[] testRooms, bool isEnd, int maxBottles, Action<GameObject[]> OnBottles)
         {
             gameObject.SetActive(true);
+            var currentBottles = maxBottles;
             foreach (var room in _roomEnds)
             {
                 RoomEnum type;
-                var bottleCount = maxBottles;
                 if (isStart)
                 {
                     type = RoomEnum.Enemy;
-                    bottleCount = 1;
+                    currentBottles = 1;
                 }
                 else if (isEnd)
                 {
                     type = RoomEnum.Boss;
-                    bottleCount = 3;
+                    currentBottles = 3;
                 }
                 else
                 {
@@ -39,12 +39,12 @@ namespace NothingAwaits
                 if (GameController.Step<testRooms.Length)
                 {
                     type = testRooms[GameController.Step];
-                    bottleCount = 1;
+                    currentBottles = 1;
                 }
                 
-                var bottles = GenerateBottle(bottleCount);
+                var bottles = GenerateBottle(currentBottles);
                 OnBottles?.Invoke(bottles.ToArray());
-                room.Setup(type, bottleCount);
+                room.Setup(type, currentBottles);
             }
         }
 

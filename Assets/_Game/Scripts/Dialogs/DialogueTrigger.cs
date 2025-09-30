@@ -34,6 +34,8 @@ namespace NothingAwaits.Dialogs
             }
             
             SetInteractionHintActive(false);
+            DialogueController.Instance.OnChoiceConfirm += OnChoiceConfirm;
+            DialogueController.Instance.OnCloseDialog += OnCloseDialog;
         }
         
         private void Update()
@@ -43,13 +45,11 @@ namespace NothingAwaits.Dialogs
                 TriggerDialogue();
             }
             
-            // Поворачиваем подсказку к камере каждый кадр
             UpdateHintRotation();
         }
         
         private void LateUpdate()
         {
-            // Обновляем позицию подсказки в LateUpdate чтобы быть после всех движений
             UpdateHintPosition();
         }
         
@@ -124,10 +124,6 @@ namespace NothingAwaits.Dialogs
             {
                 DialogueController.Instance.StartNewDialog(_dialogueSequenceId);
                 if (playerView == null) return;
-                DialogueController.Instance.OnChoiceConfirm += OnChoiceConfirm;
-                DialogueController.Instance.OnCloseDialog += OnCloseDialog;
-                
-                // Скрываем подсказку при старте диалога
                 SetInteractionHintActive(false);
             }
         }
@@ -140,8 +136,6 @@ namespace NothingAwaits.Dialogs
         private void OnCloseDialog()
         {
             playerView?.ApplyAttach();
-            
-            // Показываем подсказку снова после диалога, если игрок все еще в зоне
             if (_playerInRange)
             {
                 SetInteractionHintActive(true);

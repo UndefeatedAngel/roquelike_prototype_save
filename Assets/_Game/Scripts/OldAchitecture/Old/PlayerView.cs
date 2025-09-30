@@ -13,6 +13,8 @@ namespace NothingAwaits.Core
 
         private Transform _lastAttached;
         private FollowerAI _follower;
+        
+        private bool _isAttached = false;
 
         private void Start()
         {
@@ -42,6 +44,8 @@ namespace NothingAwaits.Core
 
         public void Attach(string sequenceId, DialogueTrigger dialogueTrigger)
         {
+            if (_isAttached) return;
+            
             if (sequenceId == "gameplay_sacrifice_yes")
             {
                 _follower = dialogueTrigger.GetComponentInParent<FollowerAI>();
@@ -51,11 +55,13 @@ namespace NothingAwaits.Core
 
         public void ApplyAttach()
         {
+            if(_isAttached) return;
             if (_follower == null) return;
             
             _follower.SetTarget(_lastAttached);
             _follower.SetFollowing(true);
             _lastAttached = _follower.transform;
+            _isAttached = true;
         }
     }
 }
