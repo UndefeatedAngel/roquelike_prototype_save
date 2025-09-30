@@ -1,6 +1,8 @@
 ﻿using System;
 using DG.Tweening;
 using NothingAwaits.Battle.Controllers;
+using NothingAwaits.Core.Cards;
+using NothingAwaits.Core.Cards.Data;
 using TMPro;
 using UnityEngine;
 
@@ -20,7 +22,7 @@ namespace NothingAwaits.Cards.UI
             _coinsText.text = count.ToString();
         }
         
-        public void UpdateStat(PlayerCardType type, int count, int maxCount)
+        public void UpdateStat(CardType type, int count, int maxCount)
         {
             var number = (int)type - 1;
             _statsText[number].text = $"{count}/{maxCount}";

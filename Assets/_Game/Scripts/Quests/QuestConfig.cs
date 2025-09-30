@@ -2,7 +2,7 @@
 
 namespace NothingAwaits.Quests
 {
-    [CreateAssetMenu(fileName = "New Quest", menuName = "Roguelike/QuestConfig")]
+    [CreateAssetMenu(fileName = "New QuestConfig", menuName = "NothingAwaits/QuestConfig")]
     public class QuestConfig : ScriptableObject
     {
         public string Id;

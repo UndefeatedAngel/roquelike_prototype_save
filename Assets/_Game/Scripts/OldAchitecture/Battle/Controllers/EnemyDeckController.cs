@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using NothingAwaits.Cards;
 using NothingAwaits.Cards.Mobs;
+using NothingAwaits.Core.Cards;
+using NothingAwaits.Core.Cards.Data;
 using UnityEngine;
 
 namespace NothingAwaits.Battle.Controllers
@@ -21,7 +23,7 @@ namespace NothingAwaits.Battle.Controllers
         
         private Stack<CardData> _deckStack = new();
 
-        public Action<PlayerCardType> OnDeath;
+        public Action<CardType> OnDeath;
         public Action<RectTransform> OnDropCoin;
 
 
@@ -58,7 +60,7 @@ namespace NothingAwaits.Battle.Controllers
             mobUI.OnCoinDrop = rectTransform => OnDropCoin?.Invoke(rectTransform);
         }
 
-        public int GetMaxStat(PlayerCardType type)
+        public int GetMaxStat(CardType type)
         {
             return _deck.Count(x=>x.CardType == type);
         }
@@ -115,9 +117,9 @@ namespace NothingAwaits.Battle.Controllers
             return _deckStack.Count < 1 ? "" : _deckStack.Peek().GetName();
         }
 
-        public PlayerCardType GetNextEnemyType()
+        public CardType GetNextEnemyType()
         {
-            return _deckStack.Count < 1 ? PlayerCardType.Empty : _deckStack.Peek().CardType;
+            return _deckStack.Count < 1 ? CardType.Empty : _deckStack.Peek().CardType;
         }
         
         public CardData GetNextEnemyData()

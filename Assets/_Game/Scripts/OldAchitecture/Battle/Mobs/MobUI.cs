@@ -2,6 +2,8 @@
 using System.Collections;
 using DG.Tweening;
 using NothingAwaits.Battle.Controllers;
+using NothingAwaits.Core.Cards;
+using NothingAwaits.Core.Cards.Data;
 using NothingAwaits.Core.Inventory.InventorySystem;
 using TMPro;
 using UnityEngine;
@@ -37,7 +39,7 @@ namespace NothingAwaits.Cards.Mobs
         [SerializeField] private ParticleSystem[] _hpEffects;
         [SerializeField] private ParticleSystem[] _shieldEffects;
         
-        public PlayerCardType MobType { get; private set; }
+        public CardType MobType { get; private set; }
 
         private int _baseAttack;
         private int _additionalAttack;
@@ -55,7 +57,7 @@ namespace NothingAwaits.Cards.Mobs
 
         private CardData _cardData;
 
-        public Action<PlayerCardType> OnDeath;
+        public Action<CardType> OnDeath;
         public Action<int> OnGetBlood;
 
         private int countCreate;
@@ -106,13 +108,13 @@ namespace NothingAwaits.Cards.Mobs
                 _protectionGroup.alpha = 1;
             }
 
-            if (cardData.CardType == PlayerCardType.Protection || cardData.CardType == PlayerCardType.Health)
+            if (cardData.CardType == CardType.Protection || cardData.CardType == CardType.Health)
             {
                 _baseAbilityCount = 2;
                 UpdateAbilityText();
             }
 
-            if (cardData.CardType != PlayerCardType.Empty && cardData.CardType!= PlayerCardType.Attack)
+            if (cardData.CardType != CardType.Empty && cardData.CardType!= CardType.Attack)
             {
                 var vA = (int)cardData.CardType - 2;
                 for (var i = 0; i < _abilityIcons.Length; i++)
@@ -431,11 +433,11 @@ namespace NothingAwaits.Cards.Mobs
             {
                 _additionalAbilityCount++;
                 UpdateAbilityText();
-                if (MobType == PlayerCardType.Health)
+                if (MobType == CardType.Health)
                 {
                     AnimateChange(TypeChange.Hp, 1);
                 }
-                else if (MobType == PlayerCardType.Protection)
+                else if (MobType == CardType.Protection)
                 {
                     AnimateChange(TypeChange.Protection, 1);
                 }
@@ -460,11 +462,11 @@ namespace NothingAwaits.Cards.Mobs
                 }
                 else
                 {
-                    if (MobType == PlayerCardType.Health)
+                    if (MobType == CardType.Health)
                     {
                         AnimateChange(TypeChange.Hp, -1);
                     }
-                    else if (MobType == PlayerCardType.Protection)
+                    else if (MobType == CardType.Protection)
                     {
                         AnimateChange(TypeChange.Protection, -1);
                     }

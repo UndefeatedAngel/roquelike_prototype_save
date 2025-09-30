@@ -2,6 +2,8 @@
 using DG.Tweening;
 using NothingAwaits.Battle.Controllers;
 using NothingAwaits.Core;
+using NothingAwaits.Core.Cards;
+using NothingAwaits.Core.Cards.Data;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;

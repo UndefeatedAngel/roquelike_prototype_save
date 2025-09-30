@@ -1,6 +1,6 @@
 ﻿using Modules.SceneLoader;
-using NothingAwaits.Core.Inventory;
 using NothingAwaits.Core.Player;
+using NothingAwaits.Core.UI.Lobby;
 using NothingAwaits.Modules;
 using NothingAwaits.Quests;
 using StarterAssets;
@@ -20,7 +20,7 @@ namespace NothingAwaits
         [SerializeField] private AtomicStyleIndicator[] _atomicStyleIndicators;
         [Header("Controllers")]
         [SerializeField] private SkinController _skinController;
-        [SerializeField] private InventoryController _inventoryController;
+        [SerializeField] private LobbyController lobbyController;
         [SerializeField] private ThirdPersonController _thirdPersonController;
         [SerializeField] private PlayerController _playerController;
         [SerializeField] private QuestController _questController;
@@ -39,7 +39,7 @@ namespace NothingAwaits
             Restart();
             SetupSkin();
             GenerateRoomsRandom();
-            _inventoryController.Init();
+            lobbyController.Init();
             _questController.Setup();
             _questController.OnCurrentQuestTargets += OnCurrentQuestTargets;
             _questController.StartQuest();

@@ -1,5 +1,7 @@
 ﻿using System;
 using NothingAwaits.Battle.Controllers;
+using NothingAwaits.Core.Cards;
+using NothingAwaits.Core.Cards.Data;
 using UnityEngine;
 
 namespace NothingAwaits.Core
@@ -65,14 +67,14 @@ namespace NothingAwaits.Core
             SaveStats();
         }
 
-        public void MobEnemyDeath(PlayerCardType type)
+        public void MobEnemyDeath(CardType type)
         {
             _ = type switch
             {
-                PlayerCardType.Attack => MobAttackDeath++,
-                PlayerCardType.Protection => MobProtectionDeath++,
-                PlayerCardType.Health => MobHealthDeath++,
-                PlayerCardType.Mage => MobMageDeath++,
+                CardType.Attack => MobAttackDeath++,
+                CardType.Protection => MobProtectionDeath++,
+                CardType.Health => MobHealthDeath++,
+                CardType.Mage => MobMageDeath++,
                 _ => throw new ArgumentException($"Unknown card type: {type}")
             };
 

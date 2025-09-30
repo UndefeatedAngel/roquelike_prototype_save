@@ -5,14 +5,14 @@ namespace NothingAwaits.Modules
 {
     public class ModelRotator : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
-        [Header("References")] public Transform modelToRotate; // Ссылка на вашу 3D модель
+        [Header("References")] public Transform modelToRotate;
 
         [Header("Rotation Settings")] public float rotationSpeed = 2f;
         public float maxRotationSpeed = 10f;
         public float inertiaDamping = 0.95f;
         public float stopThreshold = 0.1f;
 
-        [Header("UI Settings")] public RectTransform dragArea; // Ваш Rect2D UI элемент
+        [Header("UI Settings")] public RectTransform dragArea;
 
         private bool isDragging = false;
         private Vector2 lastMousePosition;

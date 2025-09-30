@@ -1,5 +1,7 @@
 ﻿using System;
 using NothingAwaits.Cards.UI;
+using NothingAwaits.Core.Cards;
+using NothingAwaits.Core.Cards.Data;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,7 +17,7 @@ namespace NothingAwaits.Battle.Controllers
         [SerializeField] private MoveEnemyUI _moveEnemyUI;
 
         #region MainUI
-        public void UpdateStat(PlayerCardType type, int getStat, int getMaxStat)
+        public void UpdateStat(CardType type, int getStat, int getMaxStat)
         {
             _mainUI.UpdateStat(type, getStat, getMaxStat);
         }

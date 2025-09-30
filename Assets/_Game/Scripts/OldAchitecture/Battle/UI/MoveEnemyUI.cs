@@ -1,4 +1,6 @@
 ﻿using NothingAwaits.Battle.Controllers;
+using NothingAwaits.Core.Cards;
+using NothingAwaits.Core.Cards.Data;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,7 +27,7 @@ namespace NothingAwaits.Cards.UI
                     var colorIndex = (int)data.CardType - 1;
                     _mobImages[i].color = _colorsMob[colorIndex];
                     _iconImages[i].sprite = _iconSprites[colorIndex];
-                    _textIcons[i].text = data.CardType == PlayerCardType.Attack ? $"{data.Attack}" : "2";
+                    _textIcons[i].text = data.CardType == CardType.Attack ? $"{data.Attack}" : "2";
                 }
             }
         }

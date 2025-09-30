@@ -6,6 +6,8 @@ using DG.Tweening;
 using NothingAwaits.Cards;
 using NothingAwaits.Cards.Mobs;
 using NothingAwaits.Cards.Person;
+using NothingAwaits.Core.Cards;
+using NothingAwaits.Core.Cards.Data;
 using NothingAwaits.Core.Player;
 using TMPro;
 using UnityEngine;
@@ -140,7 +142,7 @@ namespace NothingAwaits.Battle.Controllers
         {
             var friendSlots = isPlayer?  _playerSlots : _enemySlots;
             var enemySlots = isPlayer ? _enemySlots : _playerSlots;
-            var mageMobs = GetTypeMobs(friendSlots, PlayerCardType.Mage);
+            var mageMobs = GetTypeMobs(friendSlots, CardType.Mage);
             
             var bufMobs = GetTypeMobsForMage(friendSlots);
             var deBufMobs = GetTypeMobsForMage(enemySlots);
@@ -179,7 +181,7 @@ namespace NothingAwaits.Battle.Controllers
             var protectionSlots = isPlayer?  _playerSlots : _enemySlots;
             var attackSlots = isPlayer ? _enemySlots : _playerSlots;
             
-            var protectionMobs = GetTypeMobs(protectionSlots, PlayerCardType.Protection);
+            var protectionMobs = GetTypeMobs(protectionSlots, CardType.Protection);
 
             foreach (var protectionMob in protectionMobs)
             {
@@ -209,7 +211,7 @@ namespace NothingAwaits.Battle.Controllers
             var healthSlots = isPlayer? _playerSlots : _enemySlots;
             var attackSlots = isPlayer ?  _enemySlots : _playerSlots;
             
-            var healthMobs = GetTypeMobs(healthSlots, PlayerCardType.Health);
+            var healthMobs = GetTypeMobs(healthSlots, CardType.Health);
 
             foreach (var healthMob in healthMobs)
             {
@@ -241,10 +243,10 @@ namespace NothingAwaits.Battle.Controllers
             }
         }
 
-        private List<MobUI> GetTypeMobs(List<Slot> slots, PlayerCardType playerCardType)
+        private List<MobUI> GetTypeMobs(List<Slot> slots, CardType cardType)
         {
             return slots.Select(slot => slot.ActiveMob)
-                .Where(activeMob => activeMob != null && activeMob.MobType == playerCardType)
+                .Where(activeMob => activeMob != null && activeMob.MobType == cardType)
                 .ToList();
         }
         
@@ -252,7 +254,7 @@ namespace NothingAwaits.Battle.Controllers
         {
             return slots.Select(slot => slot.ActiveMob)
                 .Where(activeMob => activeMob != null 
-                                    && activeMob.MobType !=PlayerCardType.Mage)
+                                    && activeMob.MobType !=CardType.Mage)
                 .ToList();
         }
         

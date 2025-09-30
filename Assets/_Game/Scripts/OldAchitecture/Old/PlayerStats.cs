@@ -1,17 +1,18 @@
 ﻿using System.Collections.Generic;
-using NothingAwaits.Battle.Controllers;
+using NothingAwaits.Core.Cards;
+using NothingAwaits.Core.Cards.Data;
 
 namespace NothingAwaits.Core
 {
     public class PlayerStats
     {
-        private Dictionary<PlayerCardType, int> _stats = new();
+        private Dictionary<CardType, int> _stats = new();
         private int _bloodCurrent = 3;
         private int _bloodMax = 3;
         public int BloodCurrent => _bloodCurrent;
         public int BloodMax => _bloodMax;
 
-        public void AddStat(PlayerCardType type, int count)
+        public void AddStat(CardType type, int count)
         {
             if (!_stats.TryAdd(type, count))
             {
@@ -19,7 +20,7 @@ namespace NothingAwaits.Core
             }
         }
 
-        public int GetStat(PlayerCardType type)
+        public int GetStat(CardType type)
         {
             return _stats.GetValueOrDefault(type, 0);
         }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace NothingAwaits.Core.Rune
 {
-    [CreateAssetMenu(fileName = "Rune Settings", menuName = "BlockoutRoguelike/Rune Settings")]
+    [CreateAssetMenu(fileName = "New RuneSettings", menuName = "NothingAwaits/Rune Settings")]
     public class RuneSettings: ScriptableObject
     {
         [SerializeField] private RuneObjectSettings[] _runeObjects;

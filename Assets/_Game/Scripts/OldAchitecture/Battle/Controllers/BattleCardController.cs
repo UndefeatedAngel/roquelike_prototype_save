@@ -8,6 +8,8 @@ using NothingAwaits.Cards;
 using NothingAwaits.Cards.Mobs;
 using NothingAwaits.Core;
 using NothingAwaits.Core.Actor.Views;
+using NothingAwaits.Core.Cards;
+using NothingAwaits.Core.Cards.Data;
 using NothingAwaits.Core.Player;
 using UnityEngine;
 using UnityEngine.UI;
@@ -129,7 +131,7 @@ namespace NothingAwaits.Battle.Controllers
         {
             var nextSlot = _enemyDeckController.GetNextSlot()+1;
             var nextEnemy = _enemyDeckController.GetNextEnemyData();
-            if (nextEnemy.CardType != PlayerCardType.Empty)
+            if (nextEnemy.CardType != CardType.Empty)
             {
                 _uiController.ShowMoveEnemy(nextSlot-1, nextEnemy);
             }
@@ -227,7 +229,7 @@ namespace NothingAwaits.Battle.Controllers
         {
             var stats = new[]
             {
-                PlayerCardType.Attack, PlayerCardType.Protection, PlayerCardType.Health, PlayerCardType.Mage
+                CardType.Attack, CardType.Protection, CardType.Health, CardType.Mage
             };
             foreach (var stat in stats)
             {

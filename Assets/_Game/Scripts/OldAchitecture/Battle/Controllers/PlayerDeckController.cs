@@ -3,45 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using NothingAwaits.Battle.Cards;
 using NothingAwaits.Core;
+using NothingAwaits.Core.Cards;
+using NothingAwaits.Core.Cards.Data;
 using UnityEngine;
 
 namespace NothingAwaits.Battle.Controllers
 {
-    public enum PlayerCardType
-    {
-        Empty,
-        Attack,
-        Protection, 
-        Health,
-        Mage
-    }
-
-    [Serializable]
-    public class CardData
-    {
-        public PlayerCardType CardType;
-        public int Attack;
-        public int Protection;
-        public int Health;
-        public int Blood;
-
-        public string GetName()
-        {
-            return CardType switch
-            {
-                PlayerCardType.Attack => "Attacker",
-                PlayerCardType.Protection => "Defender",
-                PlayerCardType.Health => "Hiller",
-                PlayerCardType.Mage => "Mage",
-                _ => ""
-            };
-        }
-    }
-    
     [Serializable]
     public class PrefabData
     {
-        public PlayerCardType CardType;
+        public CardType CardType;
         public GameObject CardPrefab;
     }
     

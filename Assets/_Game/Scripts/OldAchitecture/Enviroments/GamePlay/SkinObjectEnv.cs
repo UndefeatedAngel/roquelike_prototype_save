@@ -2,7 +2,7 @@
 
 namespace NothingAwaits
 {
-    [CreateAssetMenu(fileName = "SkinObject", menuName = "BlockoutRoguelike/SkinObject")]
+    [CreateAssetMenu(fileName = "New SkinObject", menuName = "NothingAwaits/SkinObject")]
     public class SkinObjectEnv: ScriptableObject
     {
         private int _id;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace NothingAwaits.Dialogs.Data
 {
-    [CreateAssetMenu(fileName = "New Dialogue Sequence", menuName = "Nothing Awaits/Dialogue Sequence")]
+    [CreateAssetMenu(fileName = "New DialogueSequence", menuName = "NothingAwaits/DialogueSequence")]
     public class DialogueSequenceConfig : ScriptableObject
     {
         public string SequenceID;
