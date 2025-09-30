@@ -12,39 +12,16 @@ namespace NothingAwaits
         [SerializeField] private GameObject _bottlePrefab;
         [SerializeField] private Transform[] _bottlePoints;
         [SerializeField] private RoomObject[] _roomEnds;
-        public void Setup(bool isStart, RoomEnum[] testRooms, bool isEnd, int maxBottles, Action<GameObject[]> OnBottles)
+        public void Setup(RoomEnum typeRoom, int maxBottles, Action<GameObject[]> OnBottles)
         {
             gameObject.SetActive(true);
-            var currentBottles = maxBottles;
             foreach (var room in _roomEnds)
             {
-                RoomEnum type;
-                if (isStart)
-                {
-                    type = RoomEnum.Enemy;
-                    currentBottles = 1;
-                }
-                else if (isEnd)
-                {
-                    type = RoomEnum.Boss;
-                    currentBottles = 3;
-                }
-                else
-                {
-                    var maxCount = Enum.GetValues(typeof(RoomEnum)).Length - 1;
-                    type = (RoomEnum)Random.Range(0, maxCount);
-                }
-                
-                //TEST
-                if (GameController.Step<testRooms.Length)
-                {
-                    type = testRooms[GameController.Step];
-                    currentBottles = 1;
-                }
-                
-                var bottles = GenerateBottle(currentBottles);
+                var maxCount = Enum.GetValues(typeof(RoomEnum)).Length - 1;
+                var type = typeRoom == RoomEnum.Empty ? (RoomEnum)Random.Range(0, maxCount) : typeRoom;
+                var bottles = GenerateBottle(maxBottles);
                 OnBottles?.Invoke(bottles.ToArray());
-                room.Setup(type, currentBottles);
+                room.Setup(type, maxBottles);
             }
         }
 

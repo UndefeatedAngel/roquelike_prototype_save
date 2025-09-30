@@ -2,6 +2,7 @@
 {
     public enum RoomEnum
     {
+        Empty,
         Unknown,
         Enemy,
         EliteEnemy,

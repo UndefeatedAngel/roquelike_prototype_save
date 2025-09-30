@@ -25,6 +25,7 @@ namespace _Game.Scripts.OldAchitecture.Enviroments
             if (dialog == "rest_yes")
             {
                 _isBuff = true;
+                _questTarget.Collect();
             }
         }
 

@@ -89,14 +89,10 @@ namespace NothingAwaits
         private void GenerateRoomsRandom()
         {
             var maxBottles = Random.Range(1, 4);
-            
-            if (Step == 0)
+            if (Step < _testRooms.Length)
             {
-                CreateEnvironment(0,true, false, 1);
-            }
-            else if (Step == _maxSteps-1)
-            {
-                CreateEnvironment(0,false, true, 3);
+                var type = _testRooms[Step];
+                CreateEnvironment(0, 1, type);
             }
             else
             {
@@ -105,18 +101,18 @@ namespace NothingAwaits
                 {
                     if (i == countRooms)
                     {
-                        CreateEnvironment(i,false, false, maxBottles);
+                        CreateEnvironment(i, maxBottles, RoomEnum.Empty);
                     } 
                 }
             }
-
+            
             Step++;
         }
 
-        private void CreateEnvironment(int number, bool isStart, bool isEnd, int maxBottles)
+        private void CreateEnvironment(int number, int maxBottles, RoomEnum type)
         {
             var env = Instantiate(_enviroments[number], _enviromentsContainer, true);
-            env.Setup(isStart, _testRooms, isEnd, maxBottles, objects =>
+            env.Setup(type, maxBottles, objects =>
             {
                 Debug.Log($"Bottles {objects.Length}");
                 

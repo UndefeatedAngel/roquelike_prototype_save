@@ -3147,14 +3147,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79860f5ddb204eaf9aa2820af73c6553, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _testCoinAddAmount: 50
-  _testCoinSpendAmount: 30
   _hudController: {fileID: 2122419431}
   _playerConfig: {fileID: 11400000, guid: 16b3eb805f9c6ff4689dddbb7d3120ff, type: 2}
+  _cardsContainer: {fileID: 11400000, guid: ea9ed07e2ec425e4c981f2820df9e3f7, type: 2}
   _playOnStart: 1
   _skipInitialHealthAnimation: 1
   _autoSave: 1
   _showTests: 0
+  _testCoinAddAmount: 50
+  _testCoinSpendAmount: 30
   _testDamageAmount: 10
   _testHealAmount: 5
 --- !u!1 &964056784
