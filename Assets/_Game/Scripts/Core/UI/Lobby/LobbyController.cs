@@ -19,9 +19,20 @@ namespace NothingAwaits.Core.UI.Lobby
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.L) && !IsInventoryShow())
+            if (!IsInventoryShow())
             {
-                ShowUI();
+                if (Input.GetKeyDown(KeyCode.L))
+                {
+                    ShowUI();
+                }
+                else if (Input.GetKeyDown(KeyCode.I))
+                {
+                    ShowUI(WindowType.Inventory);
+                }
+                else if (Input.GetKeyDown(KeyCode.R))
+                {
+                    ShowUI(WindowType.Runes);
+                }
             }
 
             if (Input.GetKeyDown(KeyCode.Escape) && IsInventoryShow())
@@ -35,10 +46,10 @@ namespace NothingAwaits.Core.UI.Lobby
             return _isShow;
         }
 
-        private void ShowUI()
+        private void ShowUI(WindowType type = WindowType.Profile)
         {
             _isShow = true;
-            _lobbyUI.Show();
+            _lobbyUI.Show(type);
             
             if (_playerInput != null)
             {

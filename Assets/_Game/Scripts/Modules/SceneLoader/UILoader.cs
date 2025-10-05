@@ -27,7 +27,7 @@ namespace Modules.SceneLoader
 
         private void Update()
         {
-            if (_isActiveSpace && Input.GetKeyDown(KeyCode.Space))
+            if (_isActiveSpace && (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)))
             {
                 _isActiveSpace = false;
                 _isSpaceClick = true;
@@ -64,6 +64,7 @@ namespace Modules.SceneLoader
             _startProgress = _targetProgress;
             UpdateUIElements();
             yield return new WaitForEndOfFrame();
+            _slider.gameObject.SetActive(false);
         }
     
         private void UpdateUIElements()
@@ -78,7 +79,8 @@ namespace Modules.SceneLoader
             _spaceCanvas.alpha = 0f;
             _isActiveSpace = false;
             _isSpaceClick = false;
-        
+            _slider.gameObject.SetActive(true);
+            
             while (_canvasGroup.alpha < 1f)
             {
                 _canvasGroup.alpha += fadeSpeed * Time.deltaTime;

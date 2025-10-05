@@ -38,7 +38,7 @@ namespace Modules.SceneLoader
             _uiLoader = Instantiate(_uiLoader, transform);
         }
 
-        public void LoadSceneAsync(SceneType sceneType, Action onComplete = null)
+        public void LoadSceneAsync(SceneType sceneType, Action onComplete = null, bool skipClick = false)
         {
             if (_isLoading)
             {
@@ -46,7 +46,7 @@ namespace Modules.SceneLoader
                 return;
             }
 
-            StartCoroutine(LoadSceneAsyncCoroutine(sceneType, onComplete));
+            StartCoroutine(LoadSceneAsyncCoroutine(sceneType, onComplete, skipClick));
         }
 
         public void LoadScene(SceneType sceneType)
@@ -54,7 +54,7 @@ namespace Modules.SceneLoader
             SceneManager.LoadScene(sceneType.ToString());
         }
 
-        private IEnumerator LoadSceneAsyncCoroutine(SceneType sceneType, Action onComplete)
+        private IEnumerator LoadSceneAsyncCoroutine(SceneType sceneType, Action onComplete, bool skipClick = false)
         {
             _isLoading = true;
 
@@ -79,8 +79,11 @@ namespace Modules.SceneLoader
 
             yield return StartCoroutine(_uiLoader.UpdateSlider(1f));
             yield return StartCoroutine(_uiLoader.FullSlider());
-            _uiLoader.ActivateSpace();
-            yield return StartCoroutine(_uiLoader.SpaceCondition());
+            if (!skipClick)
+            {
+                _uiLoader.ActivateSpace();
+                yield return StartCoroutine(_uiLoader.SpaceCondition());
+            }
 
             loadOperation.allowSceneActivation = true;
 

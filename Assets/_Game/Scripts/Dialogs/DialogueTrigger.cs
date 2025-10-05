@@ -1,7 +1,6 @@
-﻿using NothingAwaits.Core;
+﻿using System;
+using NothingAwaits.Core;
 using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
 
 namespace NothingAwaits.Dialogs
 {
@@ -17,12 +16,16 @@ namespace NothingAwaits.Dialogs
         
         [Header("Visual Feedback")]
         [SerializeField] private GameObject _interactionHint;
-        [SerializeField] private float _hintOffsetY = 2f;
+        [SerializeField] private Transform _hintParent; // Родитель для позиционирования
+        [SerializeField] private Vector3 _hintLocalOffset = new Vector3(0f, 2f, 0f); // Локальный offset относительно родителя
         [SerializeField] private float _hintDistance = 1.5f;
         
         private bool _playerInRange = false;
         private Camera _mainCamera;
         private PlayerView playerView;
+        
+        // Свойство для автоматического выбора родителя
+        private Transform HintParent => _hintParent != null ? _hintParent : transform;
         
         private void Start()
         {
@@ -57,20 +60,28 @@ namespace NothingAwaits.Dialogs
         {
             if (_interactionHint == null || !_interactionHint.activeInHierarchy) return;
             
-            Vector3 npcPosition = transform.position;
+            // Используем родителя для позиционирования
+            Vector3 parentPosition = HintParent.position;
+            Vector3 parentForward = HintParent.forward;
+            
             if (_mainCamera != null)
             {
-                Vector3 directionToCamera = (_mainCamera.transform.position - npcPosition).normalized;
+                Vector3 directionToCamera = (_mainCamera.transform.position - parentPosition).normalized;
                 directionToCamera.y = 0;
                 
-                Vector3 hintPosition = npcPosition + (directionToCamera * _hintDistance);
-                hintPosition.y += _hintOffsetY;
+                // Применяем локальный offset и мировое смещение
+                Vector3 localOffset = HintParent.TransformDirection(_hintLocalOffset);
+                Vector3 worldOffset = directionToCamera * _hintDistance;
+                
+                Vector3 hintPosition = parentPosition + localOffset + worldOffset;
                 
                 _interactionHint.transform.position = hintPosition;
             }
             else
             {
-                _interactionHint.transform.position = npcPosition + Vector3.up * _hintOffsetY;
+                // Без камеры используем только локальный offset
+                Vector3 localOffset = HintParent.TransformDirection(_hintLocalOffset);
+                _interactionHint.transform.position = parentPosition + localOffset;
             }
         }
         
@@ -146,7 +157,15 @@ namespace NothingAwaits.Dialogs
         {
             _dialogueSequenceId = sequenceId;
         }
-        
+
+        private void OnDisable()
+        {
+            if (DialogueController.Instance != null)
+            {
+                DialogueController.Instance.OnChoiceConfirm -= OnChoiceConfirm;
+            }
+        }
+
         private void OnDestroy()
         {
             if (DialogueController.Instance != null)
@@ -161,10 +180,28 @@ namespace NothingAwaits.Dialogs
             if (_interactionHint != null)
             {
                 Gizmos.color = Color.yellow;
-                Vector3 hintPosition = transform.position + Vector3.up * _hintOffsetY;
+                Transform parent = HintParent;
+                Vector3 localOffset = parent.TransformDirection(_hintLocalOffset);
+                Vector3 hintPosition = parent.position + localOffset;
+                
                 Gizmos.DrawWireSphere(hintPosition, 0.3f);
-                Gizmos.DrawLine(transform.position, hintPosition);
+                Gizmos.DrawLine(parent.position, hintPosition);
+                
+                // Дополнительно показываем направление вперед от родителя
+                Gizmos.color = Color.blue;
+                Gizmos.DrawRay(parent.position, parent.forward * 1f);
             }
+        }
+        
+        // Методы для настройки в runtime (опционально)
+        public void SetHintParent(Transform newParent)
+        {
+            _hintParent = newParent;
+        }
+        
+        public void SetHintLocalOffset(Vector3 newOffset)
+        {
+            _hintLocalOffset = newOffset;
         }
     }
 }

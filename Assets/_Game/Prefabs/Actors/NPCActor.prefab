@@ -50,9 +50,10 @@ MonoBehaviour:
   _triggerOnStart: 0
   _triggerOnTriggerEnter: 1
   _triggerOnInteract: 1
-  _interactKey: 102
+  _interactKey: 101
   _interactionHint: {fileID: 3345720737820999368}
-  _hintOffsetY: 1.25
+  _hintParent: {fileID: 993308828909915222}
+  _hintLocalOffset: {x: 0, y: 2, z: 0}
   _hintDistance: 0.75
 --- !u!65 &8538544469061692022
 BoxCollider:
@@ -525,7 +526,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: F
+  m_text: E
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ac7c31b4f4140ea4885ad18f5723532a, type: 2}
   m_sharedMaterial: {fileID: -7539498499008276058, guid: ac7c31b4f4140ea4885ad18f5723532a, type: 2}
@@ -894,6 +895,11 @@ PrefabInstance:
       addedObject: {fileID: 5172118915455390416}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7d4538c0867de34b982e471ceba92b6, type: 3}
+--- !u!4 &993308828909915222 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3390036141794209404, guid: c7d4538c0867de34b982e471ceba92b6, type: 3}
+  m_PrefabInstance: {fileID: 2504884253881164330}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4663149421678903301 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7094848660792615471, guid: c7d4538c0867de34b982e471ceba92b6, type: 3}

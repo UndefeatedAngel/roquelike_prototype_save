@@ -47,5 +47,10 @@ namespace _Game.Scripts.OldAchitecture.Modules
         {
             _target = newTarget;
         }
+
+        public void SetStoppingDistance(int distance)
+        {
+            agent.stoppingDistance = distance;
+        }
     }
 }

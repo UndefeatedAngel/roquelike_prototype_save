@@ -25,7 +25,7 @@ namespace NothingAwaits.Core.Actor.Views
         {
             if (_animator != null && _navMeshAgent!=null)
             {
-                var speed = _navMeshAgent.velocity.magnitude / _navMeshAgent.speed;
+                var speed = _navMeshAgent.velocity.magnitude;
                 SpeedAnimation(speed);
             }
         }

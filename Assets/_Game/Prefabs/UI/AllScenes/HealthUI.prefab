@@ -384,7 +384,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _healthFillImage: {fileID: 6285021049967583335}
   _healthText: {fileID: 2704822473676001073}
-  _fillAnimationSpeed: 2
+  _animationTime: 1
+  _useAnimation: 1
 --- !u!1 &9097797594589510074
 GameObject:
   m_ObjectHideFlags: 0

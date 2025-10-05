@@ -192,6 +192,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4700478284890648794, guid: f4a347b1faba5fa49ba54c88ac0dbc7e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 4700478284890648794, guid: f4a347b1faba5fa49ba54c88ac0dbc7e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 4700478284890648794, guid: f4a347b1faba5fa49ba54c88ac0dbc7e, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.02
+      objectReference: {fileID: 0}
     - target: {fileID: 5172118915455390416, guid: f4a347b1faba5fa49ba54c88ac0dbc7e, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 3
@@ -225,8 +237,32 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7612669437119976035, guid: f4a347b1faba5fa49ba54c88ac0dbc7e, type: 3}
+      propertyPath: _hintLocalOffset.y
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7612669437119976035, guid: f4a347b1faba5fa49ba54c88ac0dbc7e, type: 3}
+      propertyPath: _hintLocalOffset.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7612669437119976035, guid: f4a347b1faba5fa49ba54c88ac0dbc7e, type: 3}
       propertyPath: _dialogueSequenceId
       value: upgradable_master
+      objectReference: {fileID: 0}
+    - target: {fileID: 8538544469061692022, guid: f4a347b1faba5fa49ba54c88ac0dbc7e, type: 3}
+      propertyPath: m_Size.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8538544469061692022, guid: f4a347b1faba5fa49ba54c88ac0dbc7e, type: 3}
+      propertyPath: m_Size.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8538544469061692022, guid: f4a347b1faba5fa49ba54c88ac0dbc7e, type: 3}
+      propertyPath: m_Size.z
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8538544469061692022, guid: f4a347b1faba5fa49ba54c88ac0dbc7e, type: 3}
+      propertyPath: m_Center.z
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -19,9 +19,9 @@ namespace NothingAwaits.Modules
         private RoomEnum roomEnum;
 
         private int _maxBottle;
-
-        private Action<SceneType> _sceneLoadAction;
         private Dictionary<string, int> foundKeyCounts = new();
+        
+        public Action<SceneType> onSceneLoadAction;
         protected override void TriggerEnter()
         {
             base.TriggerEnter();
@@ -93,25 +93,32 @@ namespace NothingAwaits.Modules
             {
                 case RoomEnum.Enemy:
                 case RoomEnum.EliteEnemy:
-                    SceneLoader.Instance.LoadSceneAsync(SceneType.CardsBattle);
+                    onSceneLoadAction?.Invoke(SceneType.CardsBattle);
+                    //SceneLoader.Instance.LoadSceneAsync(SceneType.CardsBattle);
                     break;
                 case RoomEnum.Chest:
-                    SceneLoader.Instance.LoadSceneAsync(SceneType.Chest);
+                    onSceneLoadAction?.Invoke(SceneType.Chest);
+                    //SceneLoader.Instance.LoadSceneAsync(SceneType.Chest);
                     break;
                 case RoomEnum.Upgradable:
-                    SceneLoader.Instance.LoadSceneAsync(SceneType.Upgradable);
+                    onSceneLoadAction?.Invoke(SceneType.Upgradable);
+                    //SceneLoader.Instance.LoadSceneAsync(SceneType.Upgradable);
                     break;
                 case RoomEnum.Trade:
-                    SceneLoader.Instance.LoadSceneAsync(SceneType.Trade);
+                    onSceneLoadAction?.Invoke(SceneType.Trade);
+                    //SceneLoader.Instance.LoadSceneAsync(SceneType.Trade);
                     break;
                 case RoomEnum.Unknown:
-                    SceneLoader.Instance.LoadSceneAsync(SceneType.Unknown);
+                    onSceneLoadAction?.Invoke(SceneType.Unknown);
+                    //SceneLoader.Instance.LoadSceneAsync(SceneType.Unknown);
                     break;
                 case RoomEnum.Rest:
-                    SceneLoader.Instance.LoadSceneAsync(SceneType.Rest);
+                    onSceneLoadAction?.Invoke(SceneType.Rest);
+                    //SceneLoader.Instance.LoadSceneAsync(SceneType.Rest);
                     break;
                 default:
-                    SceneLoader.Instance.LoadSceneAsync(SceneType.Battle);
+                    onSceneLoadAction?.Invoke(SceneType.Battle);
+                    //SceneLoader.Instance.LoadSceneAsync(SceneType.Battle);
                     break;
             }
         }

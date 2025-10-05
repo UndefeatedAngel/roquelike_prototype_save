@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using _Game.Scripts.Modules;
 using NothingAwaits.Modules;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -70,6 +71,9 @@ namespace NothingAwaits.Core.Inventory.InventorySystem.UI
             {
                 tooltipInstance = Instantiate(tooltipPrefab, transform.position + tooltipOffset, Quaternion.identity);
                 tooltipInstance.transform.SetParent(transform);
+                tooltipInstance.transform.localScale = new Vector3(0.001f, 0.001f, 0.001f);
+                var item = tooltipInstance.GetComponent<ItemTooltip>();
+                item.SetOffset(tooltipOffset);
                 tooltipInstance.SetActive(false);
             }
         }
@@ -91,7 +95,7 @@ namespace NothingAwaits.Core.Inventory.InventorySystem.UI
                         if (IsReadyToOpen())
                         {
                             tooltip.SetItemInfo("Сундук", $"Здесь вы получите сокровища!");
-                            tooltip.SetInteractMessage("Нажмите F чтобы открыть");
+                            tooltip.SetInteractMessage("Нажмите E чтобы открыть");
                         }
                         else
                         {
@@ -151,7 +155,7 @@ namespace NothingAwaits.Core.Inventory.InventorySystem.UI
         
         private void Update()
         {
-            if (playerInRange && Input.GetKeyDown(KeyCode.F) && !isOpen)
+            if (playerInRange && Input.GetKeyDown(KeyCode.E) && !isOpen)
             {
                 TryOpenChest();
             }

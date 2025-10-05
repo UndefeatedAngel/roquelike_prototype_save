@@ -9,7 +9,6 @@ namespace NothingAwaits.Dialogs.Data
         public string CharacterName;
         [TextArea(3, 10)]
         public string Text;
-        public float DisplayTime = 3f;
         public bool IsPlayerLine;
     }
 }

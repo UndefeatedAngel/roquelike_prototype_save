@@ -11,7 +11,7 @@ namespace NothingAwaits.Core.Coins
         [SerializeField] private TMP_Text _coinsText;
         
         [Header("Animation")]
-        [SerializeField] private float _animationSpeed = 2f;
+        [SerializeField] private float _animationTime = 2f;
         [SerializeField] private bool _useAnimation = true;
         
         private CoinsPresenter _presenter;
@@ -36,7 +36,7 @@ namespace NothingAwaits.Core.Coins
             _animationCts?.Dispose();
             _animationCts = new CancellationTokenSource();
 
-            if (!_useAnimation || _animationSpeed <= 0)
+            if (!_useAnimation || _animationTime <= 0)
             {
                 ApplyDisplay(amount);
             }
@@ -61,7 +61,7 @@ namespace NothingAwaits.Core.Coins
         private async UniTaskVoid AnimateToValueAsync(int targetAmount, CancellationToken token)
         {
             var startAmount = _currentDisplayCoins;
-            var duration = Mathf.Abs(targetAmount - startAmount) / _animationSpeed;
+            var duration = _animationTime;
             var elapsed = 0f;
 
             while (elapsed < duration)

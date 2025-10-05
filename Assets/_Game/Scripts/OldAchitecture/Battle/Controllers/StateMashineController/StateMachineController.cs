@@ -6,7 +6,6 @@ using DG.Tweening;
 using NothingAwaits.Cards;
 using NothingAwaits.Cards.Mobs;
 using NothingAwaits.Cards.Person;
-using NothingAwaits.Core.Cards;
 using NothingAwaits.Core.Cards.Data;
 using NothingAwaits.Core.Player;
 using TMPro;
@@ -91,9 +90,10 @@ namespace NothingAwaits.Battle.Controllers
         private IEnumerator MoveWithType()
         {
             var isPlayer = IsPlayerMove();
-
+            
             if (isPlayer)
             {
+                _movesButton.gameObject.SetActive(false);
                 _blockUI.gameObject.SetActive(true);
                 _movesButtonText.text = "Ход игрока...";
             }
@@ -129,9 +129,10 @@ namespace NothingAwaits.Battle.Controllers
             }
 
             _currentMoveType = isPlayer ? TeamType.Enemy : TeamType.Player;
-            _movesButtonText.text = isPlayer? "Ход противника...": "В бой!";
+            _movesButtonText.text = isPlayer? "Ход противника...": "Ход игрока";
             if (!isPlayer)
             {
+                _movesButton.gameObject.SetActive(true);
                 _blockUI.gameObject.SetActive(false);
             }
             _nextMoveAction?.Invoke(_currentMoveType);

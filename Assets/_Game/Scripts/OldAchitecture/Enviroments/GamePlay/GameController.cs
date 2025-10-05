@@ -24,6 +24,7 @@ namespace NothingAwaits
         [SerializeField] private ThirdPersonController _thirdPersonController;
         [SerializeField] private PlayerController _playerController;
         [SerializeField] private QuestController _questController;
+        [SerializeField] private PlayerInput _playerInput;
         
         public static int Step = 0;
 
@@ -123,6 +124,10 @@ namespace NothingAwaits
                     _ => "ок"
                 };
                 _targetText.text = $"Найди {objects.Length} бутыл{post} чтобы пройти дальше!";
+            }, sceneType =>
+            {
+                _playerInput.DisablePlayerControl();
+                SceneLoader.Instance.LoadSceneAsync(sceneType);
             });
         }
 

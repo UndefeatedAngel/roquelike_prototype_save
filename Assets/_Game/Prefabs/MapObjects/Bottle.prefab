@@ -4634,7 +4634,7 @@ MonoBehaviour:
     KeyId: 2
     DoorId: 2
   tooltipPrefab: {fileID: 5818493271682088745, guid: d726640ea11645244a5bba85d275cdb5, type: 3}
-  tooltipOffset: {x: 0, y: 2, z: 0}
+  tooltipOffset: {x: 0, y: 0.5, z: 0}
   OnPickup:
     m_PersistentCalls:
       m_Calls:

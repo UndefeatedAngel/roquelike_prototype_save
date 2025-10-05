@@ -502,10 +502,10 @@ RectTransform:
   - {fileID: 204889298}
   m_Father: {fileID: 245724632}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 775, y: -150}
+  m_SizeDelta: {x: 250, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &76401818
 MonoBehaviour:
@@ -1102,6 +1102,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 204889297}
   m_CullTransparentMesh: 1
+--- !u!1 &220332378
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 220332380}
+  - component: {fileID: 220332379}
+  m_Layer: 0
+  m_Name: PlayerInput
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &220332379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 220332378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59545f051a1f4c39911e920bb595d9ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerController: {fileID: 1375851626}
+  _playerAnimator: {fileID: 1375851627}
+  _playerInputs: {fileID: 1375851625}
+--- !u!4 &220332380
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 220332378}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1602171388}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &245724631
 GameObject:
   m_ObjectHideFlags: 0
@@ -1121,7 +1168,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &245724632
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1989,10 +2036,10 @@ RectTransform:
   - {fileID: 1575395750}
   m_Father: {fileID: 245724632}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 175, y: -150}
+  m_SizeDelta: {x: 250, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &332082891
 MonoBehaviour:
@@ -4872,10 +4919,10 @@ RectTransform:
   - {fileID: 769164570}
   m_Father: {fileID: 245724632}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 475, y: -150}
+  m_SizeDelta: {x: 250, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &929387231
 MonoBehaviour:
@@ -7344,6 +7391,10 @@ PrefabInstance:
     - target: {fileID: 3229864020524220669, guid: 024864ed9c2b84840ab6c821e6287942, type: 3}
       propertyPath: m_Size.z
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3677305947604613352, guid: 024864ed9c2b84840ab6c821e6287942, type: 3}
+      propertyPath: _hintLocalOffset.y
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 6901095026709963602, guid: 024864ed9c2b84840ab6c821e6287942, type: 3}
       propertyPath: m_LocalPosition.z
@@ -12908,6 +12959,7 @@ Transform:
   - {fileID: 718978426}
   - {fileID: 1925874127}
   - {fileID: 888408263}
+  - {fileID: 220332380}
   - {fileID: 1347778419}
   - {fileID: 292409238}
   m_Father: {fileID: 0}
@@ -12930,6 +12982,7 @@ MonoBehaviour:
   - {fileID: 1375851622}
   _exitSceneTrigger: {fileID: 428907894}
   _playerController: {fileID: 888408264}
+  _playerInput: {fileID: 220332379}
   _questController: {fileID: 1347778420}
 --- !u!1 &1602968686
 GameObject:

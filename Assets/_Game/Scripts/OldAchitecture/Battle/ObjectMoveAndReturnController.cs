@@ -22,7 +22,7 @@ public class ObjectMoveAndReturnController : MonoBehaviour, IPointerDownHandler,
     protected SacrificeBattle highlightedObject;
     protected MobUI highlightedMob;
     
-    void Start()
+    protected virtual void Start()
     {
         rectTransform = GetComponent<RectTransform>();
         originalPosition = rectTransform.position;

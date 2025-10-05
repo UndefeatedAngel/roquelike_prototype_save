@@ -13,6 +13,7 @@ namespace _Game.Scripts.OldAchitecture.Enviroments
         [SerializeField] private AtomicStyleIndicator[] _atomicStyleIndicators;
         [SerializeField] private TriggerObject _exitSceneTrigger;
         [SerializeField] private PlayerController _playerController;
+        [SerializeField] private PlayerInput _playerInput;
         [SerializeField] private QuestController _questController;
         
         private void Start()
@@ -65,6 +66,7 @@ namespace _Game.Scripts.OldAchitecture.Enviroments
         {
             SceneLoader.Instance.LoadSceneAsync(SceneType.GamePlay, () =>
             {
+                _playerInput.DisablePlayerControl();
                 _playerController.SaveData();
                 Debug.Log("Загружен!");
             });

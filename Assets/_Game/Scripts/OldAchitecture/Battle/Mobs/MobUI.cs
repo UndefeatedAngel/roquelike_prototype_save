@@ -2,7 +2,6 @@
 using System.Collections;
 using DG.Tweening;
 using NothingAwaits.Battle.Controllers;
-using NothingAwaits.Core.Cards;
 using NothingAwaits.Core.Cards.Data;
 using NothingAwaits.Core.Inventory.InventorySystem;
 using TMPro;
@@ -292,7 +291,7 @@ namespace NothingAwaits.Cards.Mobs
             _navMeshAgent.SetDestination(_benchPoint.position);
             isBench = true;
             _uiObj.SetActive(false);
-            InventorySystemController.Instance.AddItem(new GenericImageItem(_icon, Hp));
+            BenchController.Instance.Bench(_icon, Hp, this);
             GetComponentInParent<Slot>().ActiveMob = null;
 
             AudioController.Instance.PlayLeaveSound();
@@ -316,7 +315,7 @@ namespace NothingAwaits.Cards.Mobs
             if (_animator != null && _navMeshAgent!=null)
             {
                 // Скорость для анимации движения
-                float speed = _navMeshAgent.velocity.magnitude / _navMeshAgent.speed;
+                float speed = _navMeshAgent.velocity.magnitude;
                 _animator.SetFloat("Speed", speed);
             }
         }

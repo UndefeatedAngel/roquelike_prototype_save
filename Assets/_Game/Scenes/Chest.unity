@@ -1018,10 +1018,10 @@ RectTransform:
   - {fileID: 204889298}
   m_Father: {fileID: 245724632}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 775, y: -150}
+  m_SizeDelta: {x: 250, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &76401818
 MonoBehaviour:
@@ -3168,7 +3168,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &245724632
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4744,10 +4744,10 @@ RectTransform:
   - {fileID: 1575395750}
   m_Father: {fileID: 245724632}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 175, y: -150}
+  m_SizeDelta: {x: 250, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &332082891
 MonoBehaviour:
@@ -12369,7 +12369,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hudController: {fileID: 1925874126}
   _playerConfig: {fileID: 11400000, guid: 16b3eb805f9c6ff4689dddbb7d3120ff, type: 2}
-  _cardsContainer: {fileID: 0}
+  _cardsContainer: {fileID: 11400000, guid: ea9ed07e2ec425e4c981f2820df9e3f7, type: 2}
   _playOnStart: 1
   _skipInitialHealthAnimation: 1
   _autoSave: 1
@@ -13138,10 +13138,10 @@ RectTransform:
   - {fileID: 769164570}
   m_Father: {fileID: 245724632}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 475, y: -150}
+  m_SizeDelta: {x: 250, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &929387231
 MonoBehaviour:
@@ -14810,6 +14810,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1016243101}
   m_CullTransparentMesh: 1
+--- !u!1 &1018741257
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1018741259}
+  - component: {fileID: 1018741258}
+  m_Layer: 0
+  m_Name: PlayerInput
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1018741258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018741257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59545f051a1f4c39911e920bb595d9ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerController: {fileID: 1375851626}
+  _playerAnimator: {fileID: 1375851627}
+  _playerInputs: {fileID: 1375851625}
+--- !u!4 &1018741259
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1018741257}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1602171388}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1032484028
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19893,6 +19940,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f4b06e0ed0847fbaaec17824f4a11e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1375851625 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6857672237412140758, guid: 9603e26701baf394595b35bde75f46e2, type: 3}
+  m_PrefabInstance: {fileID: 1375851621}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e087ecce43ebbff45a1b360637807d93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1375851626 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2257281695015596624, guid: 9603e26701baf394595b35bde75f46e2, type: 3}
+  m_PrefabInstance: {fileID: 1375851621}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26e54e5a728a9234ab24fcf1460ed8a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &1375851627 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4721621489957100611, guid: 9603e26701baf394595b35bde75f46e2, type: 3}
+  m_PrefabInstance: {fileID: 1375851621}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1377395356
 GameObject:
   m_ObjectHideFlags: 0
@@ -27823,6 +27897,7 @@ Transform:
   - {fileID: 718978426}
   - {fileID: 1925874127}
   - {fileID: 888408263}
+  - {fileID: 1018741259}
   - {fileID: 1347778419}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -27846,6 +27921,7 @@ MonoBehaviour:
   _simpleChest: {fileID: 2247650556194409954}
   _playerController: {fileID: 888408264}
   _questController: {fileID: 1347778420}
+  _playerInput: {fileID: 1018741258}
 --- !u!1 &1602968686
 GameObject:
   m_ObjectHideFlags: 0
@@ -35884,7 +35960,7 @@ MonoBehaviour:
   openAngle: 90
   openSpeed: 2
   tooltipPrefab: {fileID: 5818493271682088745, guid: d8c8798722912be45a637982641f337c, type: 3}
-  tooltipOffset: {x: 0, y: 1.5, z: 0}
+  tooltipOffset: {x: 0, y: 1, z: 0}
   _coinEjector: {fileID: 1123513275}
   _disableObjects:
   - {fileID: 1035616849}
@@ -36632,6 +36708,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1607263274462450847, guid: 8f21cfbb60337634c8293dd16e998833, type: 3}
+      propertyPath: tooltipOffset.y
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 1695415298241510511, guid: 8f21cfbb60337634c8293dd16e998833, type: 3}
       propertyPath: m_Name
       value: KeyChest

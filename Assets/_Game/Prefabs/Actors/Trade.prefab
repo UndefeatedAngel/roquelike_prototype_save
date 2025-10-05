@@ -95,6 +95,30 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 3451379684686142593, guid: f4a347b1faba5fa49ba54c88ac0dbc7e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3451379684686142593, guid: f4a347b1faba5fa49ba54c88ac0dbc7e, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3451379684686142593, guid: f4a347b1faba5fa49ba54c88ac0dbc7e, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3451379684686142593, guid: f4a347b1faba5fa49ba54c88ac0dbc7e, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3451379684686142593, guid: f4a347b1faba5fa49ba54c88ac0dbc7e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3451379684686142593, guid: f4a347b1faba5fa49ba54c88ac0dbc7e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4296182418275569572, guid: f4a347b1faba5fa49ba54c88ac0dbc7e, type: 3}
       propertyPath: m_text
       value: "\u0422\u043E\u0440\u0433\u043E\u0432\u0435\u0446"
@@ -139,9 +163,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4700478284890648794, guid: f4a347b1faba5fa49ba54c88ac0dbc7e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 4700478284890648794, guid: f4a347b1faba5fa49ba54c88ac0dbc7e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 4700478284890648794, guid: f4a347b1faba5fa49ba54c88ac0dbc7e, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.02
+      objectReference: {fileID: 0}
     - target: {fileID: 5981541404501622703, guid: f4a347b1faba5fa49ba54c88ac0dbc7e, type: 3}
       propertyPath: m_Name
       value: Trade
+      objectReference: {fileID: 0}
+    - target: {fileID: 7612669437119976035, guid: f4a347b1faba5fa49ba54c88ac0dbc7e, type: 3}
+      propertyPath: _hintLocalOffset.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7612669437119976035, guid: f4a347b1faba5fa49ba54c88ac0dbc7e, type: 3}
+      propertyPath: _hintLocalOffset.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7612669437119976035, guid: f4a347b1faba5fa49ba54c88ac0dbc7e, type: 3}
       propertyPath: _dialogueSequenceId

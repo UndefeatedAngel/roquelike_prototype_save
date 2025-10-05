@@ -5,6 +5,15 @@ namespace NothingAwaits.Cards
 {
     public class BenchController: ObjectMoveAndReturnController
     {
+        private static BenchController _instance;
+        public static BenchController Instance => _instance;
+
+        protected override void Start()
+        {
+            base.Start();
+            _instance = this;
+        }
+        
         protected override void TakeMob()
         {
             base.TakeMob();
@@ -21,6 +30,11 @@ namespace NothingAwaits.Cards
                 highlightedMob = mob;
                 HighlightObject(mob);
             }
+        }
+
+        public void Bench(Sprite icon, int hp, MobUI mob)
+        {
+            
         }
     }
 }

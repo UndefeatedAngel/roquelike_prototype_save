@@ -57,7 +57,6 @@ namespace NothingAwaits.Core.Player
             _storage.SaveInt($"{SaveKey}_{HealthKey}", data.health);
             _storage.SaveInt($"{SaveKey}_{MaxHealthKey}", data.maxHealth);
             _storage.SaveInt($"{SaveKey}_{CoinsKey}", data.coins);
-            SaveCards(data.cardIds);
         }
 
         public void Save()

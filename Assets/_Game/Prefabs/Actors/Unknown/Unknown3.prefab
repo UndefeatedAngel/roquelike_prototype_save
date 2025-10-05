@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 577647323917164215, guid: e30a8bfd9de31d34d9875ca461355d81, type: 3}
+      propertyPath: _hintLocalOffset.y
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1534228739622938383, guid: e30a8bfd9de31d34d9875ca461355d81, type: 3}
       propertyPath: _animator
       value: 

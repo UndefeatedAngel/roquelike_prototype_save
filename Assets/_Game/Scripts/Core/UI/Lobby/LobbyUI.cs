@@ -29,10 +29,10 @@ namespace NothingAwaits.Core.UI.Lobby
             HideAllWindows();
         }
 
-        public void Show()
+        public void Show(WindowType type = WindowType.Profile)
         {
             gameObject.SetActive(true);
-            ShowWindow(WindowType.Profile);
+            ShowWindow(type);
         }
 
         public void Hide()

@@ -22,8 +22,14 @@ namespace NothingAwaits.Core.Inventory.InventorySystem.UI
             CreateTooltip();
         }
         
+        [ContextMenu("Create tooltip")]
         private void CreateTooltip()
         {
+            if (tooltipInstance != null)
+            {
+                DestroyImmediate(tooltipInstance);
+            }
+            
             if (tooltipPrefab != null && item != null)
             {
                 tooltipInstance = Instantiate(tooltipPrefab, transform.position + tooltipOffset, Quaternion.identity);
@@ -35,6 +41,7 @@ namespace NothingAwaits.Core.Inventory.InventorySystem.UI
                 if (tooltip != null)
                 {
                     tooltip.SetItemInfo(item.Name, item.Description);
+                    tooltip.SetOffset(tooltipOffset);
                 }
             }
         }
@@ -59,7 +66,7 @@ namespace NothingAwaits.Core.Inventory.InventorySystem.UI
         
         private void Update()
         {
-            if (playerInRange && Input.GetKeyDown(KeyCode.F))
+            if (playerInRange && Input.GetKeyDown(KeyCode.E))
             {
                 TryPickupItem();
             }

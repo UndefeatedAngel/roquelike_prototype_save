@@ -13,7 +13,7 @@ namespace NothingAwaits.Core.Health
         [SerializeField] private TMP_Text _healthText;
         
         [Header("Animation")]
-        [SerializeField] private float _animationSpeed = 2f;
+        [SerializeField] private float _animationTime = 2f;
         [SerializeField] private bool _useAnimation = true;
         
         private HealthPresenter _presenter;
@@ -39,7 +39,7 @@ namespace NothingAwaits.Core.Health
             _animationCts?.Dispose();
             _animationCts = new CancellationTokenSource();
 
-            if (!_useAnimation || _animationSpeed <= 0)
+            if (!_useAnimation || _animationTime <= 0)
             {
                 ApplyDisplay(current, max);
             }
@@ -76,7 +76,7 @@ namespace NothingAwaits.Core.Health
             var startFill = _healthFillImage != null ? _healthFillImage.fillAmount : 0f;
             var targetFill = targetMax > 0 ? (float)targetCurrent / targetMax : 0f;
             
-            var duration = Mathf.Abs(targetFill - startFill) / _animationSpeed;
+            var duration = Mathf.Abs(targetFill - startFill) / _animationTime;
             var elapsed = 0f;
 
             while (elapsed < duration)

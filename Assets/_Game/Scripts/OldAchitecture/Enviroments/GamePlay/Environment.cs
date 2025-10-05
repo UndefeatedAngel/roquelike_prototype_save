@@ -12,7 +12,7 @@ namespace NothingAwaits
         [SerializeField] private GameObject _bottlePrefab;
         [SerializeField] private Transform[] _bottlePoints;
         [SerializeField] private RoomObject[] _roomEnds;
-        public void Setup(RoomEnum typeRoom, int maxBottles, Action<GameObject[]> OnBottles)
+        public void Setup(RoomEnum typeRoom, int maxBottles, Action<GameObject[]> OnBottles, Action<SceneType> onSceneLoaded)
         {
             gameObject.SetActive(true);
             foreach (var room in _roomEnds)
@@ -22,6 +22,7 @@ namespace NothingAwaits
                 var bottles = GenerateBottle(maxBottles);
                 OnBottles?.Invoke(bottles.ToArray());
                 room.Setup(type, maxBottles);
+                room.onSceneLoadAction = onSceneLoaded;
             }
         }
 

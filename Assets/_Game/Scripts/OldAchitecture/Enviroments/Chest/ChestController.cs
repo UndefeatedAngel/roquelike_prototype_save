@@ -15,6 +15,7 @@ namespace _Game.Scripts.Enviroments
         [SerializeField] private SimpleChest _simpleChest;
         [SerializeField] private PlayerController _playerController;
         [SerializeField] private QuestController _questController;
+        [SerializeField] private PlayerInput _playerInput;
         
         private void Start()
         {
@@ -36,6 +37,7 @@ namespace _Game.Scripts.Enviroments
         {
             SceneLoader.Instance.LoadSceneAsync(SceneType.GamePlay, () =>
             {
+                _playerInput.DisablePlayerControl();
                 _playerController.SaveData();
                 Debug.Log("Загружен!");
             });

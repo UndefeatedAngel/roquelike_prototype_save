@@ -16,7 +16,7 @@ namespace NothingAwaits.Dialogs
         public static DialogueController Instance { get; private set; }
         [Header("Settings")]
         [SerializeField] private DialogueSequenceConfig[] _dialogSequences;
-        [SerializeField] private float _textSpeed = 0.05f;
+        [SerializeField] private float _textSpeed = 0.03f;
         [Space]
         [Header("UI References")]
         [SerializeField] private GameObject _dialoguePanel;
@@ -322,44 +322,30 @@ namespace NothingAwaits.Dialogs
                 _playerSection.SetActive(true);
                 _playerTitleText.text = string.IsNullOrEmpty(line.CharacterName) ? "[Player]" : line.CharacterName;
                 _playerDescriptionText.text = "";
-                await AnimateTextAsync(_playerDescriptionText, line.Text, line.DisplayTime, token);
+                await AnimateTextAsync(_playerDescriptionText, line.Text, _textSpeed, token);
             }
             else
             {
                 _npcSection.SetActive(true);
                 _npcTitleText.text = string.IsNullOrEmpty(line.CharacterName) ? "[NPC]" : line.CharacterName;
                 _npcDescriptionText.text = "";
-                await AnimateTextAsync(_npcDescriptionText, line.Text, line.DisplayTime, token);
+                await AnimateTextAsync(_npcDescriptionText, line.Text, _textSpeed, token);
             }
         }
         
-        private async UniTask AnimateTextAsync(TMP_Text textComponent, string text, float displayTime, CancellationToken token)
+        private async UniTask AnimateTextAsync(TMP_Text textComponent, string text, float speedTime, CancellationToken token)
         {
             _targetAnimateText = text;
             _targetAnimateTmpText = textComponent;
             textComponent.text = "";
-            
-            float calculatedSpeed = CalculateTextSpeed(text, displayTime);
-            
+    
             foreach (var letter in text)
             {
                 if (token.IsCancellationRequested) return;
-                
-                textComponent.text += letter;
-                await UniTask.WaitForSeconds(calculatedSpeed, cancellationToken: token);
-            }
-        }
         
-        private float CalculateTextSpeed(string text, float displayTime)
-        {
-            if (string.IsNullOrEmpty(text) || displayTime <= 0)
-                return _textSpeed;
-            
-            var minTimePerChar = 0.02f;
-            var maxTimePerChar = 0.2f;
-            
-            var timePerChar = displayTime / text.Length;
-            return Mathf.Clamp(timePerChar, minTimePerChar, maxTimePerChar);
+                textComponent.text += letter;
+                await UniTask.Delay(TimeSpan.FromSeconds(speedTime), cancellationToken: token);
+            }
         }
         
         private void SkipCurrentLine()

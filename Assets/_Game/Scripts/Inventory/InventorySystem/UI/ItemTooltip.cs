@@ -13,7 +13,7 @@ namespace NothingAwaits.Core.Inventory.InventorySystem.UI
         [SerializeField] private Image backgroundImage;
         
         [Header("Settings")]
-        [SerializeField] private string interactMessage = "Нажмите F чтобы подобрать";
+        [SerializeField] private string interactMessage = "Нажмите E чтобы подобрать";
         [SerializeField] private float followSpeed = 10f;
         
         private Transform target;

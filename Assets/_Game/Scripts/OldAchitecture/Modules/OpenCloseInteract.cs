@@ -1,5 +1,4 @@
-﻿using System;
-using NothingAwaits.Enviroments;
+﻿using NothingAwaits.Enviroments;
 using DG.Tweening;
 using UnityEngine;
 
@@ -11,13 +10,13 @@ namespace _Game.Scripts.Modules
         [SerializeField] private Vector3 _angleRotate;
         [SerializeField] private float _timeRotation;
 
-        private Quaternion _startAngle;
+        private Vector3 _startAngle;
 
         private Tween _animationTween;
 
         private void Start()
         {
-            _startAngle = Quaternion.Euler(_target.eulerAngles);
+            _startAngle = _target.localEulerAngles;
         }
 
         protected override void Interact()
@@ -30,7 +29,7 @@ namespace _Game.Scripts.Modules
         {
             base.ClearInteract();
             _animationTween?.Kill();
-            _animationTween = _target.DOLocalRotateQuaternion(_startAngle, _timeRotation);
+            _animationTween = _target.DOLocalRotateQuaternion(Quaternion.Euler(_startAngle), _timeRotation);
         }
     }
 }
