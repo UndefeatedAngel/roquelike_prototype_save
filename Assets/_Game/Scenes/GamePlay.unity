@@ -1279,26 +1279,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7409850996143800614, guid: e41696def247975479a582b9d13c739b, type: 3}
-      propertyPath: m_Speed
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 7409850996143800614, guid: e41696def247975479a582b9d13c739b, type: 3}
-      propertyPath: m_Height
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7409850996143800614, guid: e41696def247975479a582b9d13c739b, type: 3}
-      propertyPath: m_Radius
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7409850996143800614, guid: e41696def247975479a582b9d13c739b, type: 3}
-      propertyPath: m_StoppingDistance
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7409850996143800614, guid: e41696def247975479a582b9d13c739b, type: 3}
-      propertyPath: m_ObstacleAvoidanceType
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 7476942435847123454, guid: e41696def247975479a582b9d13c739b, type: 3}
       propertyPath: m_Name
       value: SacrificeGame (2)
@@ -1991,26 +1971,6 @@ PrefabInstance:
     - target: {fileID: 7232742527943106528, guid: e41696def247975479a582b9d13c739b, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7409850996143800614, guid: e41696def247975479a582b9d13c739b, type: 3}
-      propertyPath: m_Speed
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 7409850996143800614, guid: e41696def247975479a582b9d13c739b, type: 3}
-      propertyPath: m_Height
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7409850996143800614, guid: e41696def247975479a582b9d13c739b, type: 3}
-      propertyPath: m_Radius
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7409850996143800614, guid: e41696def247975479a582b9d13c739b, type: 3}
-      propertyPath: m_StoppingDistance
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7409850996143800614, guid: e41696def247975479a582b9d13c739b, type: 3}
-      propertyPath: m_ObstacleAvoidanceType
-      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7476942435847123454, guid: e41696def247975479a582b9d13c739b, type: 3}
       propertyPath: m_Name
@@ -7970,10 +7930,10 @@ RectTransform:
   - {fileID: 169464984}
   m_Father: {fileID: 1649523691}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 775, y: -150}
+  m_SizeDelta: {x: 250, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1455367376
 MonoBehaviour:
@@ -9196,10 +9156,10 @@ RectTransform:
   - {fileID: 1436431616}
   m_Father: {fileID: 1649523691}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 175, y: -150}
+  m_SizeDelta: {x: 250, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1601527636
 MonoBehaviour:
@@ -11076,26 +11036,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7409850996143800614, guid: e41696def247975479a582b9d13c739b, type: 3}
-      propertyPath: m_Speed
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 7409850996143800614, guid: e41696def247975479a582b9d13c739b, type: 3}
-      propertyPath: m_Height
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7409850996143800614, guid: e41696def247975479a582b9d13c739b, type: 3}
-      propertyPath: m_Radius
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7409850996143800614, guid: e41696def247975479a582b9d13c739b, type: 3}
-      propertyPath: m_StoppingDistance
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7409850996143800614, guid: e41696def247975479a582b9d13c739b, type: 3}
-      propertyPath: m_ObstacleAvoidanceType
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 7476942435847123454, guid: e41696def247975479a582b9d13c739b, type: 3}
       propertyPath: m_Name
       value: SacrificeGame (1)
@@ -11179,10 +11119,10 @@ RectTransform:
   - {fileID: 387669192}
   m_Father: {fileID: 1649523691}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 475, y: -150}
+  m_SizeDelta: {x: 250, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2057889330
 MonoBehaviour:
