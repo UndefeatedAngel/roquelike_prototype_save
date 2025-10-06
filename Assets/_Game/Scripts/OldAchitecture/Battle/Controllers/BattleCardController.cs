@@ -20,7 +20,6 @@ namespace NothingAwaits.Battle.Controllers
     public class BattleCardController: MonoBehaviour
     {
         [SerializeField] private PlayerController _playerController;
-        [SerializeField] private Transform _pointStartMob;
         [SerializeField] private HorizontalLayoutGroup _cardPlayerHorizontalLayoutGroup;
         [Header("Player")]
         [SerializeField] private GameObject[] _playerMobPrefabs;
@@ -35,6 +34,7 @@ namespace NothingAwaits.Battle.Controllers
         [SerializeField] private CanvasGroup _noAmountBloodGroup;
         
         [Header("Controllers")]
+        [SerializeField] private BenchController _benchController;
         [SerializeField] private PlayerDeckController _playerDeckController;
         [SerializeField] private EnemyDeckController _enemyDeckController;
         [SerializeField] private InputController _inputController;
@@ -64,6 +64,7 @@ namespace NothingAwaits.Battle.Controllers
             InitBloods();
             _playerDeckController.Init(_playerStats);
             _enemyDeckController.Init();
+            _benchController.Init();
             _enemyDeckController.OnDeath = type =>
             {
                 _stats.MobEnemyDeath(type);
@@ -191,7 +192,7 @@ namespace NothingAwaits.Battle.Controllers
             var prefabMob = _playerMobPrefabs[cardUI.NumberCard];
             var mob = Instantiate(prefabMob, slot.transform);
             var mobUI = mob.GetComponent<MobUI>();
-            mobUI.SetMob(TeamType.Player,$"PU: {cardUI.CardData.GetName()}", cardUI.CardData, _pointStartMob, cardUI.GetCardImage());
+            mobUI.SetMob(TeamType.Player,$"PU: {cardUI.CardData.GetName()}", cardUI.CardData, cardUI.GetCardImage());
             mobUI.OnGetBlood = AddBlood;
             slot.ActiveMob = mobUI;
             _cardsInDeck.RemoveAll(x=>x.Guid == cardUI.Guid);

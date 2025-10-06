@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace NothingAwaits.Cards
 {
-    public class Slot: MonoBehaviour
+    public class Slot: MonoBehaviour, IDragAndReturnSelector
     {
         [SerializeField] private Color _slotColor;
         [SerializeField] private ParticleSystem _circlePartile;
@@ -50,6 +50,16 @@ namespace NothingAwaits.Cards
             var color = state ? Color.yellow : _slotColor;
             color.a = 0.17f;
             _glowParticle.startColor = color;
+        }
+
+        public void Highlight()
+        {
+            Highlight(true);
+        }
+
+        public void Clear()
+        {
+            Highlight(false);
         }
     }
 }

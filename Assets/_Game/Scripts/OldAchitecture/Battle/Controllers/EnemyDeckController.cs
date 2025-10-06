@@ -11,7 +11,6 @@ namespace NothingAwaits.Battle.Controllers
 {
     public class EnemyDeckController: MonoBehaviour
     {
-        [SerializeField] private Transform _benchPoint;
         [Header("Setup")] 
         [SerializeField] private List<CardData> _deck;
         [SerializeField] private List<Slot> _playerSlots;
@@ -55,7 +54,7 @@ namespace NothingAwaits.Battle.Controllers
             var mob = Instantiate(prefab.CardPrefab, enemySlot.transform);
             var mobUI = mob.GetComponent<EnemyMobUI>();
             enemySlot.ActiveMob = mobUI;
-            mobUI.SetMob(TeamType.Enemy,$"EU: {mobData.GetName()}", mobData, _benchPoint, null);
+            mobUI.SetMob(TeamType.Enemy,$"EU: {mobData.GetName()}", mobData, null);
             mobUI.OnDeath = type => OnDeath?.Invoke(type);
             mobUI.OnCoinDrop = rectTransform => OnDropCoin?.Invoke(rectTransform);
         }

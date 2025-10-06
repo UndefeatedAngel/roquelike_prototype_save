@@ -1,10 +1,11 @@
 ﻿using System;
 using DG.Tweening;
+using NothingAwaits.Cards;
 using UnityEngine;
 
 namespace NothingAwaits.Core.Actor.Views
 {
-    public class SacrificeBattle: BaseSacrifice
+    public class SacrificeBattle: BaseSacrifice, IDragAndReturnSelector
     {
         [SerializeField] private Transform[] _knifes;
         [SerializeField] private ParticleSystem[] _bloodParticles;
@@ -69,6 +70,16 @@ namespace NothingAwaits.Core.Actor.Views
             {
                 DeathAnimation();
             }
+        }
+
+        public void Highlight()
+        {
+            Highlight(true);
+        }
+
+        public void Clear()
+        {
+            Highlight(false);
         }
     }
 }

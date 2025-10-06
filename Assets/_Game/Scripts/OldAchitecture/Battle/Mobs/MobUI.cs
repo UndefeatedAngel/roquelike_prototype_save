@@ -3,7 +3,6 @@ using System.Collections;
 using DG.Tweening;
 using NothingAwaits.Battle.Controllers;
 using NothingAwaits.Core.Cards.Data;
-using NothingAwaits.Core.Inventory.InventorySystem;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
@@ -11,7 +10,7 @@ using Random = UnityEngine.Random;
 
 namespace NothingAwaits.Cards.Mobs
 {
-    public class MobUI: MonoBehaviour
+    public class MobUI: MonoBehaviour, IDragAndReturnSelector
     {
         [SerializeField] private Transform _mobTransform;
         [SerializeField] private Transform _attackPoint;
@@ -60,8 +59,6 @@ namespace NothingAwaits.Cards.Mobs
         public Action<int> OnGetBlood;
 
         private int countCreate;
-
-        [SerializeField] private Transform _benchPoint;
         private float _rotationSpeed = 5f;
         private bool isBench;
 
@@ -74,8 +71,6 @@ namespace NothingAwaits.Cards.Mobs
 
         private void Update()
         {
-            if (!isBench) return;
-            
             UpdateAnimation();
             SmoothRotation();
         }
@@ -85,11 +80,10 @@ namespace NothingAwaits.Cards.Mobs
             return _mobTransform;
         }
         
-        public void SetMob(TeamType team, string nameText, CardData cardData, Transform benchPoint, Sprite icon)
+        public void SetMob(TeamType team, string nameText, CardData cardData, Sprite icon)
         {
             _team = team;
             _icon = icon;
-            _benchPoint = benchPoint;
             _cardData = cardData;
 
             MobType = cardData.CardType;
@@ -266,33 +260,83 @@ namespace NothingAwaits.Cards.Mobs
         
         public void Highlight(bool state)
         {
-            _highlight.SetActive(state);
+            if (_highlight != null)
+            {
+                _highlight.SetActive(state);
+            }
         }
 
         public void Blood()
         {
+            if (_team == TeamType.Enemy) return;
+            if (isBench) return;
+            
             GiveDamage(Protection+Hp);
             RemoveMob();
             OnGetBlood?.Invoke(_cardData.Blood);
         }
 
-        public void Bench()
+        private IEnumerator WaitForDestination(Vector3 destination)
         {
-            StartCoroutine(WaitBench());
+            while (Vector3.Distance(transform.position, destination) > 0.1f)
+            {
+                yield return null;
+            }
+    
+            //_navMeshAgent.isStopped = true;
+        }
+        
+        public void ReturnSlot(Slot slot, Transform returnPoint)
+        {
+            if(!isBench) return;
+            if (_team == TeamType.Enemy) return;
+            StopAllCoroutines();
+            StartCoroutine(WaitReturnSlot(slot, returnPoint));
+        }
+        private IEnumerator WaitReturnSlot(Slot slot, Transform returnPoint)
+        {
+            _navMeshAgent.isStopped = false;
+            _navMeshAgent.speed = 5f;
+            _navMeshAgent.SetDestination(returnPoint.position);
+            transform.parent = slot.transform;
+            slot.ActiveMob = this;
+            AudioController.Instance.PlayReturnSound();
+            yield return new WaitForSeconds(1f);
+            var tempTexts = new[]
+            {
+                "Буду ломать тебя полностью!",
+                "Буду защищать из последних сил.",
+                "Возможно я могу еще кого-то исцелить!",
+                "Превращу тебя в пыль!"
+            };
+            var number = (int)_cardData.CardType - 1;
+            var tempText = tempTexts[number];
+            _animatedTextTooltip.ShowText(tempText);
+            yield return StartCoroutine(WaitForDestination(returnPoint.position));
+            _uiObj.SetActive(true);
+            isBench = false;
+            yield return new WaitForSeconds(5f);
+            AudioController.Instance.HideReturnSound();
         }
 
-        private IEnumerator WaitBench()
+        public void Bench(Transform benchPoint)
         {
-            if (!InventorySystemController.Instance.HasSpace())
-            {
-                //TODO: Hint no space
-                yield break;
-            }
-            _navMeshAgent.SetDestination(_benchPoint.position);
+            if(isBench) return;
+            if (_team == TeamType.Enemy) return;
+            StopAllCoroutines();
+            StartCoroutine(WaitBench(benchPoint));
+        }
+
+        private IEnumerator WaitBench(Transform benchPoint)
+        {
+            _navMeshAgent.isStopped = false;
+            _navMeshAgent.speed = 1.5f;
+            _navMeshAgent.SetDestination(benchPoint.position);
+            StartCoroutine(WaitForDestination(benchPoint.position));
             isBench = true;
             _uiObj.SetActive(false);
-            BenchController.Instance.Bench(_icon, Hp, this);
             GetComponentInParent<Slot>().ActiveMob = null;
+            transform.parent = benchPoint;
 
             AudioController.Instance.PlayLeaveSound();
             yield return new WaitForSeconds(1f);
@@ -312,21 +356,25 @@ namespace NothingAwaits.Cards.Mobs
         
         void UpdateAnimation()
         {
-            if (_animator != null && _navMeshAgent!=null)
-            {
-                // Скорость для анимации движения
-                float speed = _navMeshAgent.velocity.magnitude;
-                _animator.SetFloat("Speed", speed);
-            }
+            if (_animator == null || _navMeshAgent == null) return;
+            
+            var speed = _navMeshAgent.isStopped? 0f : _navMeshAgent.velocity.magnitude;
+            _animator.SetFloat("Speed", speed);
         }
         
         void SmoothRotation()
         {
+            if (_animator == null || _navMeshAgent == null) return;
+            
             if (_navMeshAgent.velocity.magnitude > 0.1f)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(_navMeshAgent.velocity.normalized);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 
                     _rotationSpeed * Time.deltaTime);
+            }
+            else
+            {
+                transform.eulerAngles = Vector3.zero;
             }
         }
 
@@ -486,6 +534,28 @@ namespace NothingAwaits.Cards.Mobs
                 }
             }
             
+        }
+
+        public void Highlight()
+        {
+            if (isBench) return;
+            
+            Highlight(true);
+        }
+
+        public void Clear()
+        {
+            Highlight(false);
+        }
+
+        public Sprite GetIcon()
+        {
+            return _icon;
+        }
+
+        public bool IsBenchMob()
+        {
+            return isBench;
         }
     }
 }
