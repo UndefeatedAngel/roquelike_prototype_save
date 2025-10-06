@@ -166,7 +166,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4607837975689664213}
   m_Father: {fileID: 7797033890154329230}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -870,6 +871,81 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!1 &3553875889417418740
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4607837975689664213}
+  - component: {fileID: 386286307812587857}
+  - component: {fileID: 268776907853722288}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4607837975689664213
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3553875889417418740}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 43489124085725732}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -200, y: -200}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &386286307812587857
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3553875889417418740}
+  m_CullTransparentMesh: 1
+--- !u!114 &268776907853722288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3553875889417418740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &3865104211591347406
 GameObject:
   m_ObjectHideFlags: 0
@@ -2582,6 +2658,7 @@ MonoBehaviour:
   titleTextUI: {fileID: 1075375427356073990}
   descriptionTextUI: {fileID: 7172539403710705499}
   canvasGroup: {fileID: 2962557537659815872}
+  _tipImage: {fileID: 268776907853722288}
   tipsList:
   - "\u041D\u0435 \u043F\u0440\u043E\u0445\u043E\u0434\u0438 \u043C\u0438\u043C\u043E
     \u043A\u043E\u0441\u0442\u0440\u0430. \u041F\u043B\u0430\u043C\u044F \u043D\u0435
@@ -2597,7 +2674,7 @@ MonoBehaviour:
     \u0442\u0430\u0438\u043D\u0441\u0442\u0432\u0435\u043D\u043D\u044B\u0435 \u043A\u043E\u043C\u043D\u0430\u0442\u044B
     - \u043E\u043D\u0438 \u043C\u043E\u0433\u0443\u0442 \u0434\u0430\u0442\u044C
     \u0448\u0430\u043D\u0441 \u043D\u0430 \u0432\u043E\u0441\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u0435."
-  - "'Unknow' \u043C\u043E\u0436\u0435\u0442 \u0441\u043A\u0440\u044B\u0432\u0430\u0442\u044C
+  - "'Unknown' \u043C\u043E\u0436\u0435\u0442 \u0441\u043A\u0440\u044B\u0432\u0430\u0442\u044C
     \u0447\u0442\u043E \u0443\u0433\u043E\u0434\u043D\u043E. \u0418\u0434\u0438 \u0442\u0443\u0434\u0430,
     \u0442\u043E\u043B\u044C\u043A\u043E \u0435\u0441\u043B\u0438 \u0433\u043E\u0442\u043E\u0432
     \u043A \u0445\u0443\u0434\u0448\u0435\u043C\u0443. \u0418\u043D\u043E\u0433\u0434\u0430
@@ -2651,6 +2728,17 @@ MonoBehaviour:
     \u0412\u043E\u0441\u0441\u0442\u0430\u043D\u043E\u0432\u0438 \u0441\u0438\u043B\u044B
     \u0438 \u0438\u0434\u0438 \u043D\u0430 \u0440\u0435\u0448\u0430\u044E\u0449\u0443\u044E
     \u0431\u0438\u0442\u0432\u0443 \u043E\u0431\u043D\u043E\u0432\u043B\u0435\u043D\u043D\u044B\u043C."
+  tipsListSprites:
+  - {fileID: 21300000, guid: eac0dfe4d3b83fc4bbf25c8439d3cc94, type: 3}
+  - {fileID: 21300000, guid: f59d1a937fa83df44894d2e521b333ab, type: 3}
+  - {fileID: 21300000, guid: cecd59d6c08f4c04cb5e7251e538adf0, type: 3}
+  - {fileID: 21300000, guid: 80c4986cf10d06249ae0b8369ec02fa2, type: 3}
+  - {fileID: 21300000, guid: 7d4d329efc6d7da4eb50e1c66abb8286, type: 3}
+  - {fileID: 21300000, guid: 36a992c05f750b842bab17cb657ef896, type: 3}
+  - {fileID: 21300000, guid: 26990e221527476429ac35a844e2001a, type: 3}
+  - {fileID: 21300000, guid: 5c95e3d7b932b8c4787f712ad97b0204, type: 3}
+  - {fileID: 21300000, guid: ac71647c4755ace4fb23e0101f00ae39, type: 3}
+  - {fileID: 21300000, guid: b50d95ff6cbf6c5499cb6ed72d933dc3, type: 3}
   fixedTitle: "\u0421\u043E\u0432\u0435\u0442 \u041F\u043E\u0442\u0435\u0440\u044F\u043D\u043D\u043E\u0439
     \u0414\u0443\u0448\u0438:"
   tipChangeInterval: 4

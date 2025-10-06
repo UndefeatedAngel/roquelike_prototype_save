@@ -3,6 +3,7 @@ using UnityEngine;
 using TMPro;
 using Cysharp.Threading.Tasks;
 using System.Threading;
+using UnityEngine.UI;
 
 namespace Modules.SceneLoader
 {
@@ -12,8 +13,10 @@ namespace Modules.SceneLoader
         [SerializeField] private TextMeshProUGUI titleTextUI;
         [SerializeField] private TextMeshProUGUI descriptionTextUI;
         [SerializeField] private CanvasGroup canvasGroup;
+        [SerializeField] private Image _tipImage;
         [Header("Tips Data")] 
         [SerializeField] private List<string> tipsList;
+        [SerializeField] private List<Sprite> tipsListSprites;
         [SerializeField] private string fixedTitle = "Совет Боевого Алхимика";
         [Header("Animation Settings")] 
         [SerializeField] private float tipChangeInterval = 4f;
@@ -88,6 +91,7 @@ namespace Modules.SceneLoader
 
             currentTipIndex = newTipIndex;
             descriptionTextUI.text = tipsList[currentTipIndex];
+            _tipImage.sprite = tipsListSprites[currentTipIndex];
         }
 
         private async UniTask FadeTip(float targetAlpha, CancellationToken token)
@@ -100,12 +104,14 @@ namespace Modules.SceneLoader
                 time += Time.deltaTime;
                 float t = Mathf.SmoothStep(0f, 1f, time / fadeDuration);
                 canvasGroup.alpha = Mathf.Lerp(startAlpha, targetAlpha, t);
+                _tipImage.color = new Color(1f, 1f, 1f, Mathf.SmoothStep(0f, 1f, t));
                 await UniTask.Yield(token);
             }
 
             if (!token.IsCancellationRequested)
             {
                 canvasGroup.alpha = targetAlpha;
+                _tipImage.color = new Color(1f, 1f, 1f, 1f);
             }
         }
 
