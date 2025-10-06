@@ -45,11 +45,6 @@ namespace NothingAwaits.Core.Player
 
         public void EnablePlayerControl(bool immediateCursorLock = false)
         {
-            if (immediateCursorLock)
-            {
-                _wasCursorLocked = true;
-            }
-
             if (_wasCursorLocked)
             {
                 Cursor.lockState = CursorLockMode.Locked;
@@ -74,7 +69,7 @@ namespace NothingAwaits.Core.Player
             if (_playerInputs != null)
             {
                 _playerInputs.cursorInputForLook = true;
-                _playerInputs.cursorLocked = _wasCursorLocked;
+                _playerInputs.cursorLocked = true;
                 
                 _playerInputs.move = Vector2.zero;
                 _playerInputs.jump = false;
