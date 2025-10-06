@@ -102,16 +102,17 @@ namespace Modules.SceneLoader
             while (time < fadeDuration && !token.IsCancellationRequested)
             {
                 time += Time.deltaTime;
-                float t = Mathf.SmoothStep(0f, 1f, time / fadeDuration);
-                canvasGroup.alpha = Mathf.Lerp(startAlpha, targetAlpha, t);
-                _tipImage.color = new Color(1f, 1f, 1f, Mathf.SmoothStep(0f, 1f, t));
+                var t = Mathf.SmoothStep(0f, 1f, time / fadeDuration);
+                var alpha = Mathf.Lerp(startAlpha, targetAlpha, t);
+                canvasGroup.alpha = alpha;
+                _tipImage.color = new Color(1f, 1f, 1f, alpha);
                 await UniTask.Yield(token);
             }
 
             if (!token.IsCancellationRequested)
             {
                 canvasGroup.alpha = targetAlpha;
-                _tipImage.color = new Color(1f, 1f, 1f, 1f);
+                _tipImage.color = new Color(1f, 1f, 1f, targetAlpha);
             }
         }
 
@@ -126,6 +127,7 @@ namespace Modules.SceneLoader
             _tipsCts = new CancellationTokenSource();
             var token = _tipsCts.Token;
             canvasGroup.alpha = 0f;
+            _tipImage.color = new Color(1f, 1f, 1f, 0f);
             SetRandomTip();
             await FadeTip(1f, token);
             await FadeTip(0f, token);
