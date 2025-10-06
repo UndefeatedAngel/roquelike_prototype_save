@@ -43,8 +43,13 @@ namespace NothingAwaits.Core.Player
             }
         }
 
-        public void EnablePlayerControl()
+        public void EnablePlayerControl(bool immediateCursorLock = false)
         {
+            if (immediateCursorLock)
+            {
+                _wasCursorLocked = true;
+            }
+
             if (_wasCursorLocked)
             {
                 Cursor.lockState = CursorLockMode.Locked;

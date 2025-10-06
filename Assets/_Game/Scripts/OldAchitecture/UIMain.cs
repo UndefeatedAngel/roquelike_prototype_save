@@ -1,4 +1,5 @@
 ﻿using Modules.SceneLoader;
+using NothingAwaits.Core.UI.EscMenu;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,11 @@ namespace NothingAwaits
 
         private void Start()
         {
+            if (EscController.Instance != null)
+            {
+                DestroyImmediate(EscController.Instance.gameObject);
+            }
+            
             _startButton.onClick.AddListener(() =>
             {
                 SceneLoader.Instance.LoadSceneAsync(SceneType.GamePlay);

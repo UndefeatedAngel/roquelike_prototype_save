@@ -1,7 +1,7 @@
-﻿using System;
-using Modules.SceneLoader;
+﻿using Modules.SceneLoader;
 using NothingAwaits.Core.Player;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace NothingAwaits.Core.UI.EscMenu
 {
@@ -14,6 +14,9 @@ namespace NothingAwaits.Core.UI.EscMenu
     }
     public class EscController: MonoBehaviour
     {
+        private static EscController _instance;
+        public static EscController Instance => _instance;
+        
         [SerializeField] private EscUI _escUI;
         
         private PlayerInput _playerInput;
@@ -22,13 +25,23 @@ namespace NothingAwaits.Core.UI.EscMenu
 
         private void Awake()
         {
-            _escUI = Instantiate(_escUI, transform);
-            _escUI.Init();
-            _escUI.Hide();
-            _escUI.onExitMenuClicked = ExitMenuClicked;
+            if (_instance == null)
+            {
+                _instance = this;
+                _escUI = Instantiate(_escUI, transform);
+                _escUI.Init();
+                _escUI.Hide();
+                _escUI.onExitMenuClicked = ExitMenuClicked;
+                SceneManager.sceneLoaded += OnSceneLoaded;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
 
-        private void Start()
+        void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             _playerInput = FindObjectOfType<PlayerInput>();
         }

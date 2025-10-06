@@ -44,6 +44,8 @@ namespace NothingAwaits
             _questController.Setup();
             _questController.OnCurrentQuestTargets += OnCurrentQuestTargets;
             _questController.StartQuest();
+            
+            _playerInput.EnablePlayerControl(true);
         }
 
         private void OnDestroy()
